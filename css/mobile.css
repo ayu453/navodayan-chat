@@ -1,1 +1,323 @@
 
+    /* Custom refined scrollbar for dark UI */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(3, 11, 23, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #153966;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #00F0FF;
+    }
+  
+
+
+    .border-glow-cyan {
+      border: 1px solid rgba(0, 240, 255, 0.5);
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+    }
+    .text-glow-cyan {
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+    }
+    .banner-gold-border {
+      border: 1px solid rgba(229, 169, 60, 0.4);
+      background: linear-gradient(90deg, rgba(229, 169, 60, 0.08) 0%, rgba(13, 116, 206, 0.12) 100%);
+    }
+  
+
+
+          html,body{min-height:100%;} body{padding-bottom:78px!important;}
+          header{width:100%;gap:10px;box-sizing:border-box;} header>div:last-child{margin-left:auto;display:flex;align-items:center;gap:12px;}
+          #userHeaderAvatar{margin-left:auto;outline-offset:3px;} #userHeaderAvatar:focus-visible{outline:2px solid #22d3ee;}
+          #nvBottomNav button{min-width:0;line-height:1.15;} #nvBottomNav button[aria-current="page"]{background:rgba(8,145,178,.15);box-shadow:inset 0 0 0 1px rgba(34,211,238,.35);}
+          #nvTabView[hidden],#nvMemoriesPanel[hidden],#nvCreativityPanel[hidden]{display:none!important;}
+          @media(max-width:640px){header{padding-left:12px!important;padding-right:12px!important;} header h1{font-size:13px!important;} header .text-\[10px\]{font-size:9px!important;} #nvTabView{padding-left:12px;padding-right:12px;} }
+        
+
+
+/* Reserve a dedicated viewport area for chat, ending above bottom tabs. */
+main { padding-bottom: calc(3.25rem + env(safe-area-inset-bottom, 0px)) !important; }
+section:has(#chatForm) {
+  height: calc(100dvh - 9rem - env(safe-area-inset-bottom, 0px)) !important;
+  max-height: calc(100dvh - 9rem - env(safe-area-inset-bottom, 0px)) !important;
+  min-height: 0 !important;
+}
+#chatForm { padding-bottom: max(2px, env(safe-area-inset-bottom, 0px)); }
+#nvBottomNav { padding-bottom: max(8px, env(safe-area-inset-bottom, 0px)); }
+@media (min-width: 1024px) {
+  section:has(#chatForm) {
+    height: calc(100dvh - 9rem) !important;
+    max-height: calc(100dvh - 9rem) !important;
+  }
+}
+
+
+
+/* Requested layout-only changes. Existing send/message handlers remain untouched. */
+#nvChannelTitleBar { display: none !important; }
+[data-purpose="main-chat-viewport"] { min-height: 0; }
+[data-purpose="chat-scroll-area"], #chatMessageStream { flex: 1 1 0%; min-height: 0; overflow-y: auto !important; overscroll-behavior: contain; }
+[data-purpose="chat-input-area"] { border: 0 !important; border-top: 0 !important; border-top-width: 0 !important; box-shadow: none !important; margin-top: auto !important; padding-top: 6px !important; padding-bottom: 6px !important; }
+#chatMessageStream + div { border-top: 0 !important; border-top-width: 0 !important; }
+#chatForm { margin-top: auto !important; flex-shrink: 0; }
+@media (max-width: 767px) {
+  [data-purpose="main-chat-viewport"] { min-height: 0 !important; }
+  #chatMessageStream { flex: 1 1 0%; min-height: 0; }
+}
+
+
+
+
+/* Final layout fix: hide the Global Chat/Online header and attach composer to message area. */
+#chatMessageStream { flex: 1 1 0% !important; min-height: 0 !important; overflow-y: auto !important; padding-bottom: 0 !important; margin-bottom: 0 !important; }
+#chatForm { margin-top: 0 !important; padding-top: 0 !important; flex-shrink: 0 !important; }
+#chatForm > div { margin-top: 0 !important; }
+
+
+
+
+/* Small width reduction only: keep all existing features and handlers unchanged. */
+header { width: calc(100% - 12px) !important; margin-left: auto !important; margin-right: auto !important; }
+#nvBottomNav { left: 0 !important; right: 0 !important; width: 100% !important; border-radius: 0 !important; box-sizing: border-box !important; }
+
+
+
+/* Remove the thick divider above the message composer and hide visible side scrollbars. */
+[data-purpose="chat-scroll-area"] { border-bottom: 0 !important; box-shadow: none !important; }
+[data-purpose="chat-input-area"] { border: 0 !important; border-top: 0 !important; background: #070e1c !important; box-shadow: none !important; }
+[data-purpose="main-chat-viewport"] > [data-purpose="chat-input-area"],
+[data-purpose="chat-scroll-area"] + [data-purpose="chat-input-area"] { border-top: 0 !important; box-shadow: none !important; outline: 0 !important; }
+html, body, *, *::before, *::after { scrollbar-width: none !important; }
+::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
+
+
+
+/* Remove only the unwanted divider above the composer; keep the composer border intact. */
+#chatMessageStream { border-bottom: 0 !important; box-shadow: none !important; }
+#chatForm { border: 0 !important; border-top: 0 !important; box-shadow: none !important; outline: 0 !important; background: transparent !important; }
+#chatForm::before, #chatForm::after { content: none !important; display: none !important; }
+[data-purpose="chat-scroll-area"] { border-bottom: 0 !important; box-shadow: none !important; }
+[data-purpose="chat-input-area"] { border: 0 !important; border-top: 0 !important; box-shadow: none !important; outline: 0 !important; }
+[data-purpose="main-chat-viewport"] > [data-purpose="chat-input-area"],
+[data-purpose="chat-scroll-area"] + [data-purpose="chat-input-area"] { border-top: 0 !important; box-shadow: none !important; outline: 0 !important; }
+
+
+
+.nv-memory-hero{isolation:isolate;background:#06182e;min-height:230px}.nv-memory-hero-bg{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(3,15,31,.98) 0%,rgba(4,20,39,.9) 48%,rgba(4,20,39,.12) 100%),url('https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1600&q=85') center/cover}.nv-memory-book{width:52px;height:58px;display:grid;place-items:center;border:2px solid #fbbf24;border-radius:10px;color:#fbbf24;font-size:42px;line-height:1;flex:0 0 auto}.nv-memory-card{color:#eaf4ff}.nv-memory-avatar{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;border:2px solid #38bdf8;background:linear-gradient(145deg,#164e63,#0f172a);font-size:12px;font-weight:900;color:#e0f2fe;flex:0 0 auto}.nv-avatar-green{border-color:#4ade80;background:linear-gradient(145deg,#14532d,#0f172a)}.nv-memory-photo-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:8px;height:clamp(150px,27vw,250px)}.nv-memory-photo-stack{display:grid;grid-template-rows:1fr 1fr;gap:8px;min-height:0}.nv-memory-photo-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;min-height:0}.nv-memory-photo{min-width:0;min-height:0;border-radius:9px;background-color:#102b45;background-position:center;background-size:cover;border:1px solid rgba(34,211,238,.18)}.nv-photo-corridor{background-image:url('https://images.unsplash.com/photo-1519457431-44ccd64a579b?auto=format&fit=crop&w=1000&q=80')}.nv-photo-friends{background-image:url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=80')}.nv-photo-sunset{background-image:url('https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=600&q=80')}.nv-photo-hostel{background-image:url('https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=700&q=80')}.nv-memory-house-grid{height:clamp(140px,24vw,220px);grid-template-columns:1.15fr 1fr}.nv-photo-house{background-image:url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1000&q=80')}.nv-photo-greenhouse{background-image:url('https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=900&q=80')}.nv-memory-react{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(34,211,238,.25);background:#0a2341;border-radius:999px;padding:9px 13px;color:#dbeafe;font-size:13px;font-weight:700;transition:all .16s}.nv-memory-react:hover{border-color:#fb7185;background:#18213d}.nv-memory-react[aria-pressed="true"]{border-color:#fb7185;background:#3b1025;color:#fff}.nv-react-heart{color:#fb7185;font-size:19px;line-height:1}.nv-memory-count{font-variant-numeric:tabular-nums;color:#93c5fd}.nv-memory-compose{position:fixed;inset:0;z-index:100000;background:rgba(0,4,14,.82);backdrop-filter:blur(7px);display:flex;align-items:center;justify-content:center;padding:16px}.nv-memory-compose[hidden]{display:none!important}.nv-memory-compose-card{position:relative;width:min(100%,520px);max-height:90vh;overflow:auto;background:#061427;border:1px solid rgba(34,211,238,.42);border-radius:20px;padding:22px;color:#e7f3ff;box-shadow:0 24px 80px #0009}.nv-memory-close{position:absolute;right:14px;top:12px;border:1px solid #164e63;background:#0a1e35;color:#d8f7ff;border-radius:10px;width:32px;height:32px;font-size:22px;cursor:pointer}.nv-memory-form textarea{resize:vertical}.nv-memory-form input[type=file]::file-selector-button{border:1px solid #155e75;background:#0a2840;color:#a5f3fc;border-radius:8px;padding:7px 9px;margin-right:8px}@media(max-width:520px){.nv-memory-hero-bg{background-position:60% center;opacity:.9}.nv-memory-hero-bg{background-image:linear-gradient(90deg,rgba(3,15,31,.96),rgba(4,20,39,.72)),url('https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=900&q=80')}.nv-memory-photo-grid{grid-template-columns:1fr;height:190px}.nv-memory-photo-stack{grid-template-rows:1fr 1fr}.nv-memory-house-grid{height:160px;grid-template-columns:1fr 1fr}.nv-memory-compose-card{padding:18px}}
+
+
+
+/* Web-only layout for Memories and Creativity: independent, reliable scrolling. */
+#nvTabView[style*="display: block"] {
+  position:fixed!important; inset:72px 0 84px 0!important;
+  width:auto!important; max-width:none!important; height:auto!important;
+  min-height:0!important; margin:0!important; flex:none!important;
+  overflow-x:hidden!important; overflow-y:auto!important;
+  overscroll-behavior-y:contain; -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin; scrollbar-color:rgba(34,211,238,.35) transparent;
+  padding:24px clamp(18px,3.5vw,56px) 36px!important;
+  background:radial-gradient(ellipse at 50% 0%,rgba(8,145,178,.08),transparent 42%),#030813;
+  z-index:30; scroll-behavior:auto;
+}
+#nvMemoriesPanel[style*="display: block"], #nvCreativityPanel[style*="display: block"] {
+  display:block!important; width:100%; max-width:1280px; margin:0 auto!important;
+  min-width:0; overflow:visible!important;
+}
+#nvMemoriesPanel .nv-memory-hero, #nvCreativityPanel .nv-corner-board {
+  max-width:100%; will-change:max-height,opacity,transform;
+}
+#nvMemoriesPanel .nv-memory-hero { min-height:220px; }
+#nvMemoriesPanel .nv-memory-card { max-width:100%; min-width:0; }
+#nvMemoriesPanel > *:not(.nv-memory-hero) { min-width:0; }
+#nvCreativityPanel #nvcFeed { grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }
+#nvCreativityPanel .nvc-card { min-width:0; height:100%; }
+#nvCreativityPanel #nvcFilters { position:sticky; top:0; z-index:15; padding:10px 0; background:linear-gradient(#030813 78%,transparent); }
+#nvMemoriesPanel .nv-memory-hero, #nvCreativityPanel .nv-corner-board { transform-origin:top center; }
+#nvTabView::-webkit-scrollbar { width:7px; }
+#nvTabView::-webkit-scrollbar-thumb { background:rgba(34,211,238,.3); border-radius:10px; }
+@media(min-width:1200px) {
+  #nvCreativityPanel #nvcFeed { grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+  #nvMemoriesPanel .nv-memory-hero { min-height:250px; }
+}
+@media(max-width:767.98px) {
+  #nvTabView[style*="display: block"] { inset:62px 0 76px 0!important; padding:14px 12px 26px!important; }
+  #nvMemoriesPanel .nv-memory-hero { min-height:0; }
+  #nvCreativityPanel #nvcFeed { grid-template-columns:minmax(0,1fr); }
+  #nvCreativityPanel #nvcFilters { top:0; overflow-x:auto; flex-wrap:nowrap; }
+  #nvCreativityPanel .nvc-filter { flex:0 0 auto; }
+}
+@media(prefers-reduced-motion:reduce) {
+  #nvMemoriesPanel .nv-memory-hero, #nvCreativityPanel .nv-corner-board { transition:none!important; }
+}
+
+
+
+/* Actual desktop web layout for the Memories and Creativity workspaces. */
+@media (min-width:768px) {
+  #nvTabView[style*="display: block"] {
+    inset:72px 0 78px 0!important;
+    padding:26px clamp(24px,4vw,64px) 42px!important;
+  }
+  #nvMemoriesPanel[style*="display: block"] {
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    align-items:stretch;
+    gap:22px;
+    max-width:1440px!important;
+  }
+  #nvMemoriesPanel > .nv-memory-hero,
+  #nvMemoriesPanel > .flex.items-center.justify-between { grid-column:1 / -1; }
+  #nvMemoriesPanel > .nv-memory-hero { min-height:250px!important; }
+  #nvMemoriesPanel > .nv-memory-hero .max-w-3xl { max-width:760px!important; }
+  #nvMemoriesPanel > .nv-memory-card { height:100%; display:flex; flex-direction:column; }
+  #nvMemoriesPanel > .nv-memory-card > .nv-memory-photo-grid,
+  #nvMemoriesPanel > .nv-memory-card > .nv-memory-house-grid { flex-shrink:0; }
+  #nvMemoriesPanel > .nv-memory-compose { grid-column:1 / -1; }
+  #nvCreativityPanel[style*="display: block"] { max-width:1440px!important; }
+  #nvCreativityPanel > section:first-of-type { padding:clamp(24px,3vw,42px)!important; }
+  #nvCreativityPanel #nvcFeed { grid-template-columns:repeat(2,minmax(0,1fr))!important; gap:22px!important; }
+  #nvCreativityPanel .nvc-card { min-width:0; display:flex; flex-direction:column; }
+  #nvCreativityPanel .nvc-card > .p-5 { flex:1; }
+}
+@media (min-width:1280px) {
+  #nvCreativityPanel #nvcFeed { grid-template-columns:repeat(3,minmax(0,1fr))!important; gap:24px!important; }
+}
+@media (max-width:767.98px) {
+  #nvTabView[style*="display: block"] { inset:62px 0 76px 0!important; padding:14px 12px 28px!important; }
+  #nvMemoriesPanel[style*="display: block"] { display:flex!important; flex-direction:column; gap:16px!important; }
+  #nvMemoriesPanel > .nv-memory-card { width:100%; }
+  #nvMemoriesPanel > .nv-memory-hero { min-height:0!important; }
+  #nvMemoriesPanel > .flex.items-center.justify-between { align-items:flex-start; flex-wrap:wrap; }
+  #nvCreativityPanel #nvcFeed { grid-template-columns:minmax(0,1fr)!important; gap:14px!important; }
+  #nvCreativityPanel > section:first-of-type { padding:18px!important; }
+}
+
+
+
+/* WhatsApp-like message alignment and gestures; preserve the existing palette and bubble styling. */
+#chatMessageStream article[data-chat-id], [data-purpose="chat-scroll-area"] article[data-chat-id] { position:relative; transition:transform .16s ease, background-color .16s ease; touch-action:pan-y; }
+#chatMessageStream article.nv-own-message, [data-purpose="chat-scroll-area"] article.nv-own-message { flex-direction:row-reverse !important; }
+#chatMessageStream article.nv-own-message > div:last-child, [data-purpose="chat-scroll-area"] article.nv-own-message > div:last-child { text-align:right; }
+#chatMessageStream article.nv-own-message .nv-msg-actions, [data-purpose="chat-scroll-area"] article.nv-own-message .nv-msg-actions { justify-content:flex-end; }
+.nv-msg-actions { display:none; }
+article.nv-actions-open .nv-msg-actions { display:flex; }
+article.nv-actions-open { background:rgba(34,211,238,.045); border-radius:12px; }
+.nv-swipe-hint { position:absolute; left:4px; top:50%; transform:translateY(-50%); color:#67e8f9; font-size:18px; opacity:0; pointer-events:none; }
+article.nv-swipe-active .nv-swipe-hint { opacity:1; }
+@media (hover:hover) { article[data-chat-id]:hover .nv-msg-actions { display:flex; } }
+
+
+
+/* Keep the centre chat visible when a desktop window is narrowed or shortened. */
+@media (min-width:768px) {
+  body { min-width:0!important; }
+  body > main.flex-1[data-purpose], body > main {
+    min-width:0!important;
+    min-height:220px!important;
+    height:max(220px, calc(100dvh - 136px))!important;
+    max-height:none!important;
+    box-sizing:border-box!important;
+  }
+  [data-purpose="left-navigation-panel"],
+  [data-purpose="main-chat-viewport"],
+  [data-purpose="right-widgets-column"] { min-width:0!important; }
+  [data-purpose="main-chat-viewport"] {
+    display:flex!important; flex-direction:column!important;
+    flex:1 1 auto!important; width:auto!important;
+    min-width:260px!important; height:100%!important; max-height:100%!important;
+  }
+  [data-purpose="chat-scroll-area"] { min-width:0!important; min-height:0!important; flex:1 1 auto!important; }
+}
+@media (min-width:768px) and (max-width:1099.98px) {
+  body > main.flex-1[data-purpose], body > main {
+    display:grid!important;
+    grid-template-columns:minmax(128px,.72fr) minmax(260px,1.55fr) minmax(145px,.82fr)!important;
+    gap:10px!important; padding:10px!important;
+  }
+  [data-purpose="left-navigation-panel"], [data-purpose="right-widgets-column"] {
+    width:auto!important; min-width:0!important; max-width:none!important;
+    flex:none!important; overflow-x:hidden!important;
+  }
+  [data-purpose="main-chat-viewport"] { grid-column:auto!important; min-width:260px!important; }
+  [data-purpose="left-navigation-panel"] > div:first-child { padding:8px!important; }
+  [data-purpose="left-navigation-panel"] button { min-width:0!important; overflow-wrap:anywhere; }
+  [data-purpose="right-widgets-column"] { padding-right:0!important; }
+}
+@media (min-width:768px) and (max-height:560px) {
+  body > main.flex-1[data-purpose], body > main {
+    height:max(220px,calc(100dvh - 118px))!important;
+    padding-top:8px!important; padding-bottom:8px!important;
+  }
+  [data-purpose="left-navigation-panel"], [data-purpose="right-widgets-column"] { overflow-y:auto!important; }
+}
+/* WhatsApp-style own messages: bubble aligned to the right edge, independent of avatar/template markup. */
+[data-purpose="chat-scroll-area"] article.nv-own-message,
+#chatMessageStream article.nv-own-message {
+  display:flex!important; width:100%!important; min-width:0!important;
+  flex-direction:row!important; justify-content:flex-end!important;
+  box-sizing:border-box!important;
+}
+[data-purpose="chat-scroll-area"] article.nv-own-message > div:first-child,
+#chatMessageStream article.nv-own-message > div:first-child { display:none!important; }
+[data-purpose="chat-scroll-area"] article.nv-own-message > div:last-child,
+#chatMessageStream article.nv-own-message > div:last-child {
+  flex:0 1 auto!important; width:auto!important; max-width:min(82%, 38rem)!important;
+  min-width:0!important; margin-left:auto!important; text-align:right!important;
+}
+[data-purpose="chat-scroll-area"] article.nv-own-message .nv-msg-actions,
+#chatMessageStream article.nv-own-message .nv-msg-actions { justify-content:flex-end!important; }
+@media (max-width:767.98px) {
+  [data-purpose="chat-scroll-area"] article.nv-own-message > div:last-child,
+  #chatMessageStream article.nv-own-message > div:last-child { max-width:88%!important; }
+}
+
+
+
+#nvCreativityPanel .nvc-filter{border:1px solid rgba(34,211,238,.22);background:#07162a;color:#b9c9df;border-radius:999px;padding:8px 14px;font-size:12px;font-weight:700;white-space:nowrap}
+#nvCreativityPanel .nvc-filter[aria-pressed="true"]{background:#fbbf24;color:#07162a;border-color:#fbbf24}
+#nvCreativityPanel .nvc-card{background:linear-gradient(145deg,#0b2340,#07162a);border:1px solid rgba(34,211,238,.18);border-radius:18px;overflow:hidden;min-width:0}
+#nvCreativityPanel .nvc-react{border:1px solid rgba(34,211,238,.25);border-radius:999px;padding:7px 12px;color:#cbd5e1;font-size:12px;font-weight:700}
+#nvCreativityPanel .nvc-react[aria-pressed="true"]{background:rgba(251,191,36,.14);border-color:#fbbf24;color:#fbbf24}
+#nvCreativityPanel .nvc-modal[hidden]{display:none!important}
+#nvCreativityPanel .nvc-modal{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;padding:18px}
+#nvCreativityPanel .nvc-modal-card{width:min(100%,560px);max-height:90vh;overflow:auto;background:#07162a;border:1px solid rgba(34,211,238,.35);border-radius:22px;padding:22px;box-shadow:0 25px 80px #0009}
+#nvCreativityPanel .nvc-input{width:100%;background:#030d1b;border:1px solid #164e63;border-radius:12px;padding:11px 12px;color:#f8fafc;outline:none}
+#nvCreativityPanel .nvc-input:focus{border-color:#22d3ee}
+
+
+
+/* Only resize the chat panel to the current visible viewport; do not alter chat features. */
+html, body { min-height: 0; }
+section:has(#chatForm) {
+  height: calc(var(--nv-visual-height, 100dvh) - 9rem - env(safe-area-inset-bottom, 0px)) !important;
+  max-height: calc(var(--nv-visual-height, 100dvh) - 9rem - env(safe-area-inset-bottom, 0px)) !important;
+  min-height: 0 !important;
+}
+@media (min-width: 1024px) {
+  section:has(#chatForm) {
+    height: calc(var(--nv-visual-height, 100dvh) - 9rem) !important;
+    max-height: calc(var(--nv-visual-height, 100dvh) - 9rem) !important;
+  }
+}
+
+
+
+.nv-inline-card-panel{display:none;width:100%;box-sizing:border-box;margin:0 0 12px;padding:12px;border:1px solid rgba(34,211,238,.35);border-radius:16px;background:#071326;color:#e7f3ff;min-width:0}
+.nv-inline-card-panel.is-open{display:block}
+.nv-inline-card-panel .nv-overlay{position:static!important;inset:auto!important;z-index:auto!important;display:block!important;padding:0!important;background:transparent!important;backdrop-filter:none!important}
+.nv-inline-card-panel .nv-overlay[hidden]{display:none!important}
+.nv-inline-card-panel .nv-dialog{width:100%!important;max-width:none!important;max-height:none!important;overflow:visible!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+.nv-inline-card-panel .nv-dialog>.nv-close{float:right;margin-left:8px}
+.nv-inline-card-panel .nv-dialog h2{font-size:16px;margin-bottom:12px}
+.nv-inline-card-panel .nv-grid{grid-template-columns:1fr 1fr}
+.nv-inline-card-panel .nv-field input,.nv-inline-card-panel .nv-field textarea{box-sizing:border-box}
+@media(max-width:520px){.nv-inline-card-panel .nv-grid{grid-template-columns:1fr}.nv-inline-card-panel .nv-field.wide{grid-column:auto}}
+
+
+.nv-memory-hero,.nv-corner-board{transition:max-height .24s ease,opacity .2s ease,transform .24s ease;max-height:900px;overflow:hidden}.nv-board-scroll-hidden{max-height:0!important;opacity:0!important;transform:translateY(-12px)!important;margin-top:0!important;margin-bottom:0!important;padding-top:0!important;padding-bottom:0!important;border-width:0!important;pointer-events:none!important}
+
