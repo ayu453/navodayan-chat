@@ -156,16 +156,25 @@ window.NV_COMMUNITY_API = {
   getSession: async () => { if (!nvSupabase) return null; const { data, error } = await nvSupabase.auth.getSession(); if (error) throw error; return data.session || null; }
 };
 updateProfileUI();
-// Restore the last signed-in account after a refresh/reopen. Prefer a valid cloud session.
+// Restore the last signed-in account after a refresh/reopen. A cloud restore failure
+// must not prevent the local saved-account fallback from running.
 (async function restoreLogin(){
-  try{
-    if(nvBackendReady()){
+  const restoreLocalAccount = () => {
+    const last=localStorage.getItem(LAST);
+    if(!last || !accounts[last]) return false;
+    current=last;
+    if(accounts[last].profile) unlockChat();
+    else { loginGate.style.display='none'; openEditor(); f('nvName').value=accounts[last].username||last; }
+    return true;
+  };
+  if(nvBackendReady()){
+    try{
       const {data,error}=await nvSupabase.auth.getSession();
-      if(error)throw error;
+      if(error) throw error;
       const session=data?.session;
       if(session?.user){
         nvAuthUserId=session.user.id;
-        const username=String(session.user.user_metadata?.username||session.user.email||'').replace(/@accounts\.navodayan\.invalid$/i,'').trim();
+        const username=String(session.user.user_metadata?.username||session.user.email||'').replace(/@accounts\\.navodayan\\.invalid$/i,'').trim();
         if(username){
           const k=key(username);
           const remoteProfile=await nvFetchRemoteProfile(username);
@@ -177,13 +186,10 @@ updateProfileUI();
           return;
         }
       }
+    }catch(err){
+      console.warn('Cloud login restore failed; trying saved local account:',err);
     }
-    const last=localStorage.getItem(LAST);
-    if(last&&accounts[last]){
-      current=last;
-      if(accounts[last].profile)unlockChat();
-      else{loginGate.style.display='none';openEditor();f('nvName').value=accounts[last].username||last;}
-    }
-  }catch(err){console.warn('Could not restore Navodayan Chat login:',err);}
+  }
+  restoreLocalAccount();
 })();
 })();
