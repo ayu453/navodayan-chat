@@ -2,7 +2,7 @@
 const panel=document.getElementById('nvMemoriesPanel'); if(!panel||panel.dataset.ready==='1')return; panel.dataset.ready='1';
 const api=window.NV_SHARED_COMMUNITY;
 const modal=panel.querySelector('.nv-memory-compose'),form=panel.querySelector('.nv-memory-form');
-const progressWrap= document.createElement('div'); progressWrap.className='hidden mt-3'; progressWrap.innerHTML='<div class="flex justify-between text-xs text-slate-400 mb-1"><span>Uploading memory…</span><span data-upload-percent>0%</span></div><div class="h-1.5 rounded-full bg-slate-800 overflow-hidden"><div data-upload-bar class="h-full rounded-full bg-cyan-400" style="width:0%"></div></div>'; 
+const progressWrap= document.createElement('div'); progressWrap.className='hidden mt-3'; progressWrap.innerHTML='<div class="flex justify-between text-xs text-slate-400 mb-1"><span data-upload-status>Uploading memory…</span><span data-upload-percent>0%</span></div><div class="h-1.5 rounded-full bg-slate-800 overflow-hidden"><div data-upload-bar class="h-full rounded-full bg-cyan-400" style="width:0%"></div></div>'; 
 if(form){const submit=form.querySelector('[type="submit"]'); if(submit)submit.parentNode.insertBefore(progressWrap,submit);}
 const showError=e=>alert(e?.message||'Could not complete this action.');
 const close=()=>{if(modal)modal.hidden=true;};
@@ -23,7 +23,7 @@ form?.addEventListener('submit',async e=>{e.preventDefault();const caption=panel
  if(!api){showError(new Error('Community API is unavailable. Reload the page and sign in.'));return}
  if(file){if(!file.type.startsWith('image/')&&!file.type.startsWith('video/')){showError(new Error('Please choose a photo or video.'));return}if(file.size>25*1024*1024){showError(new Error('File must be 25 MB or smaller.'));return}if(file.type.startsWith('video/')){const duration=await new Promise(resolve=>{const v=document.createElement('video');v.preload='metadata';v.onloadedmetadata=()=>{const d=v.duration;URL.revokeObjectURL(v.src);resolve(d)};v.onerror=()=>resolve(Infinity);v.src=URL.createObjectURL(file)});if(!Number.isFinite(duration)||duration>120){showError(new Error('Video must be 120 seconds or shorter.'));return}}}
  const submit=form.querySelector('[type="submit"]');if(submit)submit.disabled=true;progressWrap.classList.toggle('hidden',!file);
- try{const post=await api.publish({kind:'memory',caption,title:'',category:'other',body:''},file,p=>{progressWrap.querySelector('[data-upload-percent]').textContent=p+'%';progressWrap.querySelector('[data-upload-bar]').style.width=p+'%'});panel.insertBefore(render({...post,reaction_count:0,reacted:false}),panel.querySelector('.nv-memory-card')||modal);close();form.reset()}catch(err){showError(err)}finally{if(submit)submit.disabled=false;progressWrap.classList.add('hidden');progressWrap.querySelector('[data-upload-bar]').style.width='0%'}
+ try{const post=await api.publish({kind:'memory',caption,title:'',category:'other',body:''},file,p=>{progressWrap.querySelector('[data-upload-percent]').textContent=p+'%';progressWrap.querySelector('[data-upload-bar]').style.width=p+'%';if(p>=100)progressWrap.querySelector('[data-upload-status]').textContent='Saving memory…'});panel.insertBefore(render({...post,reaction_count:0,reacted:false}),panel.querySelector('.nv-memory-card')||modal);close();form.reset()}catch(err){showError(err)}finally{if(submit)submit.disabled=false;progressWrap.classList.add('hidden');progressWrap.querySelector('[data-upload-bar]').style.width='0%'}
 });
 load();window.addEventListener('focus',load);
 })();
