@@ -20,7 +20,7 @@
       const xhr = new XMLHttpRequest();
       xhr.open('POST', url);
       xhr.setRequestHeader('Authorization', 'Bearer ' + session.access_token);
-      xhr.setRequestHeader('apikey', window.NAVODAYAN_SUPABASE_ANON_KEY || '');
+      xhr.setRequestHeader('apikey', window.NAVODAYAN_SUPABASE_ANON_KEY || window.parent.NAVODAYAN_SUPABASE_ANON_KEY || '');
       xhr.setRequestHeader('Content-Type', file.type || 'application/octet-stream');
       xhr.setRequestHeader('x-upsert', 'false');
       xhr.upload.onprogress = e => { if (e.lengthComputable && onProgress) onProgress(Math.round(e.loaded / e.total * 100)); };
