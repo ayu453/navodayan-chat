@@ -15,7 +15,7 @@
     const session = await api.getSession();
     if (!session?.access_token) throw new Error('Your session expired. Please sign in again.');
     const path = userId + '/' + crypto.randomUUID() + '-' + safeName(file.name);
-    const url = (window.NAVODAYAN_SUPABASE_URL || '').replace(/\/$/, '') + '/storage/v1/object/' + bucket + '/' + path.split('/').map(encodeURIComponent).join('/');
+    const url = (window.parent.NAVODAYAN_SUPABASE_URL || window.NAVODAYAN_SUPABASE_URL || '').replace(/\/$/, '') + '/storage/v1/object/' + bucket + '/' + path.split('/').map(encodeURIComponent).join('/');
     await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open('POST', url);
