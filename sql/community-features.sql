@@ -51,3 +51,6 @@ drop policy if exists "community_media_update_own_folder" on storage.objects;
 create policy "community_media_update_own_folder" on storage.objects for update to authenticated using (bucket_id = 'navodayan-community' and (storage.foldername(name))[1] = auth.uid()::text) with check (bucket_id = 'navodayan-community' and (storage.foldername(name))[1] = auth.uid()::text);
 drop policy if exists "community_media_delete_own_folder" on storage.objects;
 create policy "community_media_delete_own_folder" on storage.objects for delete to authenticated using (bucket_id = 'navodayan-community' and (storage.foldername(name))[1] = auth.uid()::text);
+
+grant select, insert, update, delete on public.nv_community_posts to authenticated;
+grant select, insert, delete on public.nv_community_reactions to authenticated;
