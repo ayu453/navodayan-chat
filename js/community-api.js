@@ -19,13 +19,18 @@
     await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open('POST', url);
+      xhr.timeout = 30000;
       xhr.setRequestHeader('Authorization', 'Bearer ' + session.access_token);
       xhr.setRequestHeader('apikey', window.NAVODAYAN_SUPABASE_ANON_KEY || window.parent.NAVODAYAN_SUPABASE_ANON_KEY || '');
       xhr.setRequestHeader('Content-Type', file.type || 'application/octet-stream');
       xhr.setRequestHeader('x-upsert', 'false');
       xhr.upload.onprogress = e => { if (e.lengthComputable && onProgress) onProgress(Math.round(e.loaded / e.total * 100)); };
-      xhr.onload = () => xhr.status >= 200 && xhr.status < 300 ? resolve() : reject(new Error('Upload failed (' + xhr.status + '). Check Storage policies.'));
-      xhr.onerror = () => reject(new Error('Network error during upload.'));
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) resolve();
+        else { let detail=''; try { const body=JSON.parse(xhr.responseText); detail=body.message || body.error || ''; } catch (_) {} reject(new Error('Storage upload failed (' + xhr.status + ')' + (detail ? ': ' + detail : '. Check Storage policies.'))); }
+      };
+      xhr.onerror = () => reject(new Error('Network/CORS error during upload. Check the deployed site connection and Supabase Storage URL.'));
+      xhr.ontimeout = () => reject(new Error('Upload reached 100% but Supabase did not confirm completion within 30 seconds. Check Storage settings/network and retry.'));
       xhr.onabort = () => reject(new Error('Upload cancelled.'));
       xhr.send(file);
     });
