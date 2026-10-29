@@ -147,5 +147,12 @@ const userHeader=$('#userHeaderAvatar');if(userHeader){userHeader.classList.add(
 $$('div').filter(d=>d.children.length>1&&textOf(d).startsWith('your profile')&&d.getBoundingClientRect().width>0).slice(0,2).forEach(d=>{d.classList.add('nv-current-avatar');d.addEventListener('click',showProfile)});
 function updateProfileUI(){const p=profile();const name=p?.name||'Ayush';const header=$('#userHeaderAvatar');if(header){const img=$('img',header);if(p?.photo){if(img)img.src=p.photo;else header.innerHTML=`<img src="${safe(p.photo)}" alt="Your profile" class="w-full h-full rounded-full object-cover">`}else if(img)img.remove()}
 $$('span').forEach(s=>{if(s.textContent.trim()==='Ayush')s.textContent=name});$$('div').forEach(d=>{if(d.children.length===0&&d.textContent.trim()==='AY'&&d.classList.contains('rounded-full'))d.textContent=(name||'A').slice(0,2).toUpperCase()});}
+// Public bridge for shared community features; keep auth/client internals scoped above.
+window.NV_COMMUNITY_API = {
+  getClient: () => nvSupabase,
+  getUserId: () => nvAuthUserId,
+  getProfile: () => { const p = profile(); return p ? { name: p.name || '', photo: p.photo || '', username: accounts[current]?.username || '' } : null; },
+  getSession: async () => { if (!nvSupabase) return null; const { data, error } = await nvSupabase.auth.getSession(); if (error) throw error; return data.session || null; }
+};
 updateProfileUI();
 })();
