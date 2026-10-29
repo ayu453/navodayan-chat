@@ -1,7 +1,7 @@
 
 (()=>{
 'use strict';
-const DB='navodayanChatDemo_v1', ACC=DB+'_accounts', MSG=DB+'_messages';
+const DB='navodayanChatDemo_v1', ACC=DB+'_accounts', MSG=DB+'_messages', LAST=DB+'_lastUser';
 
 const NV_SUPABASE_URL = window.parent.NAVODAYAN_SUPABASE_URL || 'YOUR_SUPABASE_PROJECT_URL';
 const NV_SUPABASE_ANON_KEY = window.parent.NAVODAYAN_SUPABASE_ANON_KEY || 'YOUR_SUPABASE_ANON_KEY';
@@ -61,7 +61,7 @@ try{accounts=JSON.parse(localStorage.getItem(ACC)||'{}');messages=JSON.parse(loc
 if(!accounts || typeof accounts!=='object') accounts={}; if(!Array.isArray(messages)) messages=[];
 let currentAccount=()=>current && accounts[current] ? accounts[current] : null;
 let profile=()=>currentAccount()?.profile || null;
-const save=()=>{try{localStorage.setItem(ACC,JSON.stringify(accounts));localStorage.setItem(MSG,JSON.stringify(messages))}catch(e){showNotice('Browser storage is full. Try using a smaller profile photo.')}};
+const save=()=>{try{localStorage.setItem(ACC,JSON.stringify(accounts));localStorage.setItem(MSG,JSON.stringify(messages));if(current)localStorage.setItem(LAST,current);else localStorage.removeItem(LAST)}catch(e){showNotice('Browser storage is full. Try using a smaller profile photo.')}};
 const hash=async v=>{try{if(globalThis.crypto?.subtle){const b=new TextEncoder().encode(v),d=await crypto.subtle.digest('SHA-256',b);return Array.from(new Uint8Array(d),x=>x.toString(16).padStart(2,'0')).join('')}}catch(e){}return 'demo-only:'+v};
 const timeNow=()=>new Date().toISOString();
 const displayTime=v=>{if(!v)return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});if(/^\d{1,2}:\d{2}\s?(AM|PM)$/i.test(v))return v;const d=new Date(v);return isNaN(d)?String(v):d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})};
@@ -156,4 +156,34 @@ window.NV_COMMUNITY_API = {
   getSession: async () => { if (!nvSupabase) return null; const { data, error } = await nvSupabase.auth.getSession(); if (error) throw error; return data.session || null; }
 };
 updateProfileUI();
+// Restore the last signed-in account after a refresh/reopen. Prefer a valid cloud session.
+(async function restoreLogin(){
+  try{
+    if(nvBackendReady()){
+      const {data,error}=await nvSupabase.auth.getSession();
+      if(error)throw error;
+      const session=data?.session;
+      if(session?.user){
+        nvAuthUserId=session.user.id;
+        const username=String(session.user.user_metadata?.username||session.user.email||'').replace(/@accounts\.navodayan\.invalid$/i,'').trim();
+        if(username){
+          const k=key(username);
+          const remoteProfile=await nvFetchRemoteProfile(username);
+          current=k;
+          accounts[k]={...(accounts[k]||{}),username,passwordHash:'cloud-auth',profile:remoteProfile||accounts[k]?.profile||null,created:accounts[k]?.created||timeNow()};
+          save();
+          if(accounts[k].profile){await nvLoadRemoteMessages();unlockChat();}
+          else{loginGate.style.display='none';openEditor();f('nvName').value=username;}
+          return;
+        }
+      }
+    }
+    const last=localStorage.getItem(LAST);
+    if(last&&accounts[last]){
+      current=last;
+      if(accounts[last].profile)unlockChat();
+      else{loginGate.style.display='none';openEditor();f('nvName').value=accounts[last].username||last;}
+    }
+  }catch(err){console.warn('Could not restore Navodayan Chat login:',err);}
+})();
 })();
