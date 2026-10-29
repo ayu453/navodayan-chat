@@ -49,8 +49,11 @@
       let media_path='',media_url='';
       if(file){const uploaded=await uploadWithProgress(file,onProgress);media_path=uploaded.path;media_url=uploaded.url;}
       const row={...values,user_id:userId,author_name:profile?.name||profile?.username||'Navodayan',media_path,media_type:file?.type||''};
-      const {data,error}=await client.from('nv_community_posts').insert(row).select('*').single();
-      if(error) throw error;
+      const saveRequest=client.from('nv_community_posts').insert(row).select('*').single();
+      let saveTimer;
+      const result=await Promise.race([saveRequest,new Promise((_,reject)=>{saveTimer=setTimeout(()=>reject(new Error('The photo uploaded, but saving the memory is taking too long. Check your Supabase table/policies and try again.')),20000);})]).finally(()=>clearTimeout(saveTimer));
+      const {data,error}=result;
+      if(error) throw new Error('Photo uploaded, but memory could not be saved: '+error.message);
       return {...data,media_url};
     },
     async toggleReaction(postId, reacted) {
