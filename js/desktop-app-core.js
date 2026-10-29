@@ -95,7 +95,7 @@ editorBody.innerHTML=`<form id="nvProfileForm"><div class="nv-grid">
 <div class="nv-field wide"><label for="nvAbout">ABOUT / STATUS (OPTIONAL)</label><textarea id="nvAbout" maxlength="160" placeholder="A little about you…"></textarea></div>
 </div><div class="nv-error" id="nvProfileError" role="alert"></div><div class="nv-actions"><button type="submit" class="nv-btn primary">Save Profile</button><button type="button" class="nv-btn" id="nvSignIn">Sign In</button><button type="button" class="nv-btn ghost" id="nvViewMyProfile">View Profile</button><button type="button" class="nv-btn ghost" id="nvSignOut">Sign Out</button></div></form>`;
 const f=id=>$('#'+id);
-const loginGate=document.createElement('div');loginGate.id='nvLoginGate';loginGate.className='nv-login-gate';loginGate.innerHTML=`<section class="nv-login-card" role="dialog" aria-modal="true" aria-labelledby="nvLoginTitle"><div class="nv-login-mark">✦</div><h2 id="nvLoginTitle">Enter the Navodayan adda</h2><p>Sign in to your account or create a new one.</p><form id="nvLoginForm" novalidate><label for="nvLoginUsername">USERNAME</label><input id="nvLoginUsername" maxlength="24" autocomplete="username" placeholder="3–24 characters" required><label for="nvLoginPassword">PASSWORD</label><input id="nvLoginPassword" type="password" minlength="6" maxlength="72" autocomplete="current-password" placeholder="At least 6 characters" required><div id="nvLoginError" role="alert"></div><button class="nv-btn primary" type="submit">Continue to Chat →</button></form><small>Your account and messages are stored in this browser.</small></section>`;document.body.appendChild(loginGate);
+const loginGate=document.createElement('div');loginGate.id='nvLoginGate';loginGate.className='nv-login-gate';loginGate.innerHTML=`<section class="nv-login-card" role="dialog" aria-modal="true" aria-labelledby="nvLoginTitle"><div class="nv-login-mark">✦</div><h2 id="nvLoginTitle">Enter the Navodayan adda</h2><p>Sign in to your account or create a new one.</p><form id="nvLoginForm" novalidate><label for="nvLoginUsername">USERNAME</label><input id="nvLoginUsername" maxlength="24" autocomplete="username" placeholder="3–24 characters" required><label for="nvLoginPassword">PASSWORD</label><input id="nvLoginPassword" type="password" minlength="6" maxlength="72" autocomplete="current-password" placeholder="At least 6 characters" required><div id="nvLoginError" role="alert"></div><button class="nv-btn primary" type="submit">Continue to Chat →</button></form><small>Your account and messages are stored in this browser.</small></section>`;loginGate.style.display='none';document.body.appendChild(loginGate);
 const loginError=msg=>{const e=$('#nvLoginError');e.textContent=msg;e.style.display='block'};
 const clearLoginError=()=>{const e=$('#nvLoginError');e.textContent='';e.style.display='none'};
 const unlockChat=()=>{loginGate.style.display='none';updateProfileUI();refreshSavedMessages()};
@@ -190,6 +190,6 @@ updateProfileUI();
       console.warn('Cloud login restore failed; trying saved local account:',err);
     }
   }
-  restoreLocalAccount();
+  if(!restoreLocalAccount()) loginGate.style.display='flex';
 })();
 })();
