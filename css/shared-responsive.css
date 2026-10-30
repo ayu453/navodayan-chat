@@ -1,0 +1,7 @@
+/* Shared responsive foundation for the mobile and desktop shells.
+   Intentionally limited to sizing safeguards; visual styling remains in each
+   existing stylesheet while the two layouts are consolidated in later stages. */
+html { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: inherit; }
+img, video, canvas, svg { max-width: 100%; }
+button, input, select, textarea { max-width: 100%; }
