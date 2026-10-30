@@ -1,4 +1,10 @@
 (()=>{
+          // Shared navigation component used by both responsive shells.
+          if(!document.getElementById('nvBottomNav')){
+            const navMarkup = '<nav aria-label="Main navigation" class="fixed bottom-0 left-0 right-0 z-[99990] grid grid-cols-3 border-t border-cyan-900/60 bg-[#040e1d]/95 backdrop-blur-xl px-2 pt-2 pb-[max(8px,env(safe-area-inset-bottom))] shadow-[0_-10px_30px_rgba(0,0,0,.35)]" id="nvBottomNav"><button aria-current="page" class="nv-tab flex flex-col items-center justify-center gap-1 rounded-xl py-2 text-cyan-300" data-nv-tab="messages" type="button"><span class="text-xl leading-none">💬</span><span class="text-[11px] sm:text-xs font-semibold">Messages</span></button><button class="nv-tab flex flex-col items-center justify-center gap-1 rounded-xl py-2 text-slate-400 hover:text-amber-300" data-nv-tab="memories" type="button"><span class="text-xl leading-none">📸</span><span class="text-[11px] sm:text-xs font-semibold text-center">Navodaya Memories</span></button><button class="nv-tab flex flex-col items-center justify-center gap-1 rounded-xl py-2 text-slate-400 hover:text-cyan-300" data-nv-tab="creativity" type="button"><span class="text-xl leading-none">🎨</span><span class="text-[11px] sm:text-xs font-semibold text-center">Navodaya Creativity</span></button></nav>';
+            document.body.insertAdjacentHTML('beforeend', navMarkup);
+          }
+
           const nav=document.getElementById('nvBottomNav'); if(!nav)return;
           const main=document.querySelector('main');
           const tabView=document.getElementById('nvTabView');
