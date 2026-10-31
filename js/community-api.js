@@ -61,6 +61,23 @@
       if(error) throw new Error('Photo uploaded, but memory could not be saved: '+error.message);
       return {...data,media_url};
     },
+    async updatePost(postId, values) {
+      const client=api.getClient(),userId=api.getUserId();
+      if(!client||!userId)throw new Error('Please sign in to edit your post.');
+      const allowed={};
+      ['caption','title','body','category'].forEach(k=>{if(Object.prototype.hasOwnProperty.call(values,k))allowed[k]=values[k]});
+      const {data,error}=await client.from('nv_community_posts').update(allowed).eq('id',postId).eq('user_id',userId).select('*').single();
+      if(error)throw error;
+      return data;
+    },
+    async deletePost(postId) {
+      const client=api.getClient(),userId=api.getUserId();
+      if(!client||!userId)throw new Error('Please sign in to delete your post.');
+      const {data,error}=await client.from('nv_community_posts').delete().eq('id',postId).eq('user_id',userId).select('id');
+      if(error)throw error;
+      if(!data?.length)throw new Error('Delete returned no rows. This post may belong to another account, or Supabase RLS blocked the request.');
+      return true;
+    },
     async toggleReaction(postId, reacted) {
       const client=api.getClient(),userId=api.getUserId();
       if(!client||!userId)throw new Error('Please sign in to react.');

@@ -31,7 +31,7 @@
   
 
 
-          html,body{min-height:100%;} body{padding-bottom:78px!important;}
+          
           header{width:100%;gap:10px;box-sizing:border-box;} header>div:last-child{margin-left:auto;display:flex;align-items:center;gap:12px;}
           #userHeaderAvatar{margin-left:auto;outline-offset:3px;} #userHeaderAvatar:focus-visible{outline:2px solid #22d3ee;}
           #nvBottomNav button{min-width:0;line-height:1.15;} #nvBottomNav button[aria-current="page"]{background:rgba(8,145,178,.15);box-shadow:inset 0 0 0 1px rgba(34,211,238,.35);}
@@ -108,7 +108,10 @@ html, body, *, *::before, *::after { scrollbar-width: none !important; }
 
 
 
-.nv-memory-hero{isolation:isolate;background:#06182e;min-height:230px}.nv-memory-hero-bg{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(3,15,31,.98) 0%,rgba(4,20,39,.9) 48%,rgba(4,20,39,.12) 100%),url('https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1600&q=85') center/cover}.nv-memory-book{width:52px;height:58px;display:grid;place-items:center;border:2px solid #fbbf24;border-radius:10px;color:#fbbf24;font-size:42px;line-height:1;flex:0 0 auto}.nv-memory-card{color:#eaf4ff}.nv-memory-avatar{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;border:2px solid #38bdf8;background:linear-gradient(145deg,#164e63,#0f172a);font-size:12px;font-weight:900;color:#e0f2fe;flex:0 0 auto}.nv-avatar-green{border-color:#4ade80;background:linear-gradient(145deg,#14532d,#0f172a)}.nv-memory-photo-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:8px;height:clamp(150px,27vw,250px)}.nv-memory-photo-stack{display:grid;grid-template-rows:1fr 1fr;gap:8px;min-height:0}.nv-memory-photo-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;min-height:0}.nv-memory-photo{min-width:0;min-height:0;border-radius:9px;background-color:#102b45;background-position:center;background-size:cover;border:1px solid rgba(34,211,238,.18)}.nv-photo-corridor{background-image:url('https://images.unsplash.com/photo-1519457431-44ccd64a579b?auto=format&fit=crop&w=1000&q=80')}.nv-photo-friends{background-image:url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=80')}.nv-photo-sunset{background-image:url('https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=600&q=80')}.nv-photo-hostel{background-image:url('https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=700&q=80')}.nv-memory-house-grid{height:clamp(140px,24vw,220px);grid-template-columns:1.15fr 1fr}.nv-photo-house{background-image:url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1000&q=80')}.nv-photo-greenhouse{background-image:url('https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=900&q=80')}.nv-memory-react{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(34,211,238,.25);background:#0a2341;border-radius:999px;padding:9px 13px;color:#dbeafe;font-size:13px;font-weight:700;transition:all .16s}.nv-memory-react:hover{border-color:#fb7185;background:#18213d}.nv-memory-react[aria-pressed="true"]{border-color:#fb7185;background:#3b1025;color:#fff}.nv-react-heart{color:#fb7185;font-size:19px;line-height:1}.nv-memory-count{font-variant-numeric:tabular-nums;color:#93c5fd}.nv-memory-compose{position:fixed;inset:0;z-index:100000;background:rgba(0,4,14,.82);backdrop-filter:blur(7px);display:flex;align-items:center;justify-content:center;padding:16px}.nv-memory-compose[hidden]{display:none!important}.nv-memory-compose-card{position:relative;width:min(100%,520px);max-height:90vh;overflow:auto;background:#061427;border:1px solid rgba(34,211,238,.42);border-radius:20px;padding:22px;color:#e7f3ff;box-shadow:0 24px 80px #0009}.nv-memory-close{position:absolute;right:14px;top:12px;border:1px solid #164e63;background:#0a1e35;color:#d8f7ff;border-radius:10px;width:32px;height:32px;font-size:22px;cursor:pointer}.nv-memory-form textarea{resize:vertical}.nv-memory-form input[type=file]::file-selector-button{border:1px solid #155e75;background:#0a2840;color:#a5f3fc;border-radius:8px;padding:7px 9px;margin-right:8px}@media(max-width:520px){.nv-memory-hero-bg{background-position:60% center;opacity:.9}.nv-memory-hero-bg{background-image:linear-gradient(90deg,rgba(3,15,31,.96),rgba(4,20,39,.72)),url('https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=900&q=80')}.nv-memory-photo-grid{grid-template-columns:1fr;height:190px}.nv-memory-photo-stack{grid-template-rows:1fr 1fr}.nv-memory-house-grid{height:160px;grid-template-columns:1fr 1fr}.nv-memory-compose-card{padding:18px}}
+/* Real Jawahar Navodaya Vidyalaya campus photo (Tarbha, Odisha; CC0). */
+.nv-memory-hero{isolation:isolate;background:#06182e;min-height:230px}
+.nv-memory-hero-bg{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(3,15,31,.97) 0%,rgba(4,20,39,.84) 42%,rgba(4,20,39,.24) 100%),url('https://commons.wikimedia.org/wiki/Special:FilePath/Jawahar%20Navodaya%20Vidyalaya%2C%20Tarbha%20%28New%20Building%29.jpg?width=1600') center 48%/cover no-repeat}
+@media(max-width:767.98px){#nvMemoriesPanel .nv-memory-hero{min-height:250px!important}.nv-memory-hero-bg{background-position:center;background-image:linear-gradient(90deg,rgba(3,15,31,.92),rgba(4,20,39,.48)),url('https://commons.wikimedia.org/wiki/Special:FilePath/Jawahar%20Navodaya%20Vidyalaya%2C%20Tarbha%20%28New%20Building%29.jpg?width=1200')}}.nv-memory-book{width:52px;height:58px;display:grid;place-items:center;border:2px solid #fbbf24;border-radius:10px;color:#fbbf24;font-size:42px;line-height:1;flex:0 0 auto}.nv-memory-card{color:#eaf4ff}.nv-memory-avatar{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;border:2px solid #38bdf8;background:linear-gradient(145deg,#164e63,#0f172a);font-size:12px;font-weight:900;color:#e0f2fe;flex:0 0 auto}.nv-avatar-green{border-color:#4ade80;background:linear-gradient(145deg,#14532d,#0f172a)}.nv-memory-photo-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:8px;height:clamp(150px,27vw,250px)}.nv-memory-photo-stack{display:grid;grid-template-rows:1fr 1fr;gap:8px;min-height:0}.nv-memory-photo-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;min-height:0}.nv-memory-photo{min-width:0;min-height:0;border-radius:9px;background-color:#102b45;background-position:center;background-size:cover;border:1px solid rgba(34,211,238,.18)}.nv-photo-corridor{background-image:url('https://images.unsplash.com/photo-1519457431-44ccd64a579b?auto=format&fit=crop&w=1000&q=80')}.nv-photo-friends{background-image:url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=80')}.nv-photo-sunset{background-image:url('https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=600&q=80')}.nv-photo-hostel{background-image:url('https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=700&q=80')}.nv-memory-house-grid{height:clamp(140px,24vw,220px);grid-template-columns:1.15fr 1fr}.nv-photo-house{background-image:url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1000&q=80')}.nv-photo-greenhouse{background-image:url('https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=900&q=80')}.nv-memory-react{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(34,211,238,.25);background:#0a2341;border-radius:999px;padding:9px 13px;color:#dbeafe;font-size:13px;font-weight:700;transition:all .16s}.nv-memory-react:hover{border-color:#fb7185;background:#18213d}.nv-memory-react[aria-pressed="true"]{border-color:#fb7185;background:#3b1025;color:#fff}.nv-react-heart{color:#fb7185;font-size:19px;line-height:1}.nv-memory-count{font-variant-numeric:tabular-nums;color:#93c5fd}.nv-memory-compose{position:fixed;inset:0;z-index:100000;background:rgba(0,4,14,.82);backdrop-filter:blur(7px);display:flex;align-items:center;justify-content:center;padding:16px}.nv-memory-compose[hidden]{display:none!important}.nv-memory-compose-card{position:relative;width:min(100%,520px);max-height:90vh;overflow:auto;background:#061427;border:1px solid rgba(34,211,238,.42);border-radius:20px;padding:22px;color:#e7f3ff;box-shadow:0 24px 80px #0009}.nv-memory-close{position:absolute;right:14px;top:12px;border:1px solid #164e63;background:#0a1e35;color:#d8f7ff;border-radius:10px;width:32px;height:32px;font-size:22px;cursor:pointer}.nv-memory-form textarea{resize:vertical}.nv-memory-form input[type=file]::file-selector-button{border:1px solid #155e75;background:#0a2840;color:#a5f3fc;border-radius:8px;padding:7px 9px;margin-right:8px}@media(max-width:520px){.nv-memory-hero-bg{background-position:60% center;opacity:.9}.nv-memory-photo-grid{grid-template-columns:1fr;height:190px}.nv-memory-photo-stack{grid-template-rows:1fr 1fr}.nv-memory-house-grid{height:160px;grid-template-columns:1fr 1fr}.nv-memory-compose-card{padding:18px}}
 
 
 
@@ -321,3 +324,446 @@ section:has(#chatForm) {
 
 .nv-memory-hero,.nv-corner-board{transition:max-height .24s ease,opacity .2s ease,transform .24s ease;max-height:900px;overflow:hidden}.nv-board-scroll-hidden{max-height:0!important;opacity:0!important;transform:translateY(-12px)!important;margin-top:0!important;margin-bottom:0!important;padding-top:0!important;padding-bottom:0!important;border-width:0!important;pointer-events:none!important}
 
+
+
+/* Laptop grid correction: prevent legacy Tailwind column spans from
+   creating implicit tracks and pushing the sidebar/chat sideways. */
+@media (min-width: 768px) and (max-width: 1099.98px) {
+  body > main.flex-1[data-purpose],
+  body > main {
+    display: grid !important;
+    grid-template-columns: minmax(150px, .82fr) minmax(0, 2.2fr) minmax(160px, .9fr) !important;
+    grid-auto-flow: row !important;
+    align-items: stretch !important;
+    overflow-x: hidden !important;
+  }
+  body > main.flex-1[data-purpose] > *,
+  body > main > * {
+    grid-column: auto / span 1 !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    transform: none !important;
+  }
+  [data-purpose="left-navigation-panel"],
+  [data-purpose="main-chat-viewport"],
+  [data-purpose="right-widgets-column"] {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    translate: none !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  [data-purpose="main-chat-viewport"] {
+    width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+}
+
+
+/* Final responsive grid guard: match the actual IDs in mobile.html.
+   The sidebars are hidden below the Tailwind lg breakpoint (1024px). */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  body > main {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+    overflow-x: hidden !important;
+  }
+  body > main > #leftSidebar,
+  body > main > #rightSidebar { display: none !important; }
+  body > main > section:has(#chatForm) {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  body > main {
+    display: grid !important;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 6fr) minmax(0, 3fr) !important;
+    grid-auto-flow: row !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+    overflow-x: hidden !important;
+  }
+  body > main > #leftSidebar { grid-column: 1 !important; min-width: 0 !important; }
+  body > main > section:has(#chatForm) {
+    grid-column: 2 !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  body > main > #rightSidebar {
+    grid-column: 3 !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  body > main > * { transform: none !important; translate: none !important; }
+}
+@media (min-width: 1280px) {
+  body > main > #leftSidebar { grid-column: span 2 !important; min-width: 0 !important; }
+  body > main > section:has(#chatForm) { grid-column: span 7 !important; min-width: 0 !important; }
+  body > main > #rightSidebar { grid-column: span 3 !important; min-width: 0 !important; }
+}
+
+
+/* Navodaya campus photo on both community boards. */
+#nvCreativityPanel .nv-corner-board{position:relative;isolation:isolate;overflow:hidden;min-height:230px;padding:24px;border-radius:14px;background:#06182e!important}
+#nvCreativityPanel .nv-corner-board:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(3,15,31,.96) 0%,rgba(4,20,39,.82) 48%,rgba(4,20,39,.28) 100%),url('https://commons.wikimedia.org/wiki/Special:FilePath/Jawahar%20Navodaya%20Vidyalaya%2C%20Tarbha%20%28New%20Building%29.jpg?width=1600') center 48%/cover no-repeat}
+@media(max-width:767.98px){#nvCreativityPanel .nv-corner-board{min-height:250px;padding:18px!important}#nvCreativityPanel .nv-corner-board:before{background-image:linear-gradient(90deg,rgba(3,15,31,.93),rgba(4,20,39,.52)),url('https://commons.wikimedia.org/wiki/Special:FilePath/Jawahar%20Navodaya%20Vidyalaya%2C%20Tarbha%20%28New%20Building%29.jpg?width=1200');background-position:center}}
+
+
+/* Responsive chat-space refinement: one fluid layout, not separate device designs. */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  body > main.flex-1[data-purpose], body > main {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+    padding: 12px !important;
+  }
+  [data-purpose="left-navigation-panel"],
+  [data-purpose="right-widgets-column"] { display: none !important; }
+  [data-purpose="main-chat-viewport"] {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+@media (max-width: 767.98px) {
+  body > main.flex-1[data-purpose], body > main {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  [data-purpose="main-chat-viewport"] {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
+\n\n/* Equal-height community board headers: Memories and Creativity. */
+@media (min-width:768px) {
+  #nvMemoriesPanel > .nv-memory-hero,
+  #nvCreativityPanel > section:first-of-type {
+    height:250px!important;
+    min-height:250px!important;
+    box-sizing:border-box!important;
+    display:flex!important;
+    flex-direction:column!important;
+    justify-content:center!important;
+  }
+}
+@media (max-width:767.98px) {
+  #nvMemoriesPanel > .nv-memory-hero,
+  #nvCreativityPanel > section:first-of-type {
+    min-height:220px!important;
+    box-sizing:border-box!important;
+  }
+}
+
+
+/* 2026 board artwork: separate supplied images, matched hero heights */
+#nvMemoriesPanel .nv-memory-hero{min-height:280px!important}
+#nvMemoriesPanel .nv-memory-hero-bg{
+  background-image:linear-gradient(90deg,rgba(3,15,31,.94) 0%,rgba(4,20,39,.78) 48%,rgba(4,20,39,.18) 100%),url('../assets/memories-hero.webp')!important;
+  background-position:center 48%!important;background-size:cover!important
+}
+#nvCreativityPanel .nv-corner-board{
+  min-height:280px!important;display:flex;align-items:flex-start;padding:24px!important;
+  background:#06182e!important
+}
+#nvCreativityPanel .nv-corner-board:before{
+  background-image:linear-gradient(90deg,rgba(3,15,31,.94) 0%,rgba(4,20,39,.78) 48%,rgba(4,20,39,.16) 100%),url('../assets/creativity-hero.webp')!important;
+  background-position:center 48%!important;background-size:cover!important
+}
+@media(max-width:767.98px){
+ #nvMemoriesPanel .nv-memory-hero,#nvCreativityPanel .nv-corner-board{min-height:280px!important}
+ #nvMemoriesPanel .nv-memory-hero-bg{background-image:linear-gradient(90deg,rgba(3,15,31,.92),rgba(4,20,39,.5)),url('../assets/memories-hero.webp')!important}
+ #nvCreativityPanel .nv-memory-hero-bg,#nvCreativityPanel .nv-corner-board:before{background-position:center!important}
+ #nvCreativityPanel .nv-corner-board:before{background-image:linear-gradient(90deg,rgba(3,15,31,.92),rgba(4,20,39,.5)),url('../assets/creativity-hero.webp')!important}
+}
+
+
+/* Profile viewer refresh: structured identity, details and account actions. */
+.nv-profile-page{color:#e7f3ff;max-width:680px;margin:0 auto}
+.nv-profile-cover{position:relative;display:flex;align-items:center;gap:18px;padding:26px 24px;border:1px solid rgba(34,211,238,.28);border-radius:22px;background:radial-gradient(ellipse at 12% 0%,rgba(34,211,238,.18),transparent 52%),linear-gradient(135deg,#0b2543,#071326 72%);overflow:hidden}
+.nv-profile-avatar-wrap{position:relative;flex:0 0 auto}
+.nv-profile-avatar{width:88px;height:88px;border-radius:50%;object-fit:cover;border:3px solid rgba(103,232,249,.75);box-shadow:0 0 0 6px rgba(34,211,238,.09),0 12px 28px #0006;display:flex;align-items:center;justify-content:center}
+.nv-profile-initials{background:linear-gradient(135deg,#0e7490,#164e63);font-size:27px;font-weight:800;color:#ecfeff}
+.nv-profile-online{position:absolute;right:4px;bottom:5px;width:15px;height:15px;border-radius:50%;background:#34d399;border:3px solid #071326}
+.nv-profile-identity{min-width:0;padding-right:28px}
+.nv-profile-kicker{font-size:10px;letter-spacing:.19em;font-weight:800;color:#67e8f9}
+.nv-profile-identity h2{font-size:clamp(20px,4vw,27px);line-height:1.2;font-weight:800;color:#fff;margin:5px 0 3px;overflow-wrap:anywhere}
+.nv-profile-identity p{font-size:13px;color:#7dd3fc;margin:0 0 8px}
+.nv-profile-status{display:inline-flex;padding:5px 10px;border:1px solid rgba(52,211,153,.28);border-radius:999px;background:rgba(16,185,129,.1);color:#6ee7b7;font-size:11px;font-weight:700}
+.nv-profile-close{position:absolute;right:14px;top:12px;width:32px;height:32px;border-radius:50%;background:rgba(148,163,184,.12);color:#cbd5e1;font-size:24px;line-height:1}
+.nv-profile-section-title{margin:24px 2px 10px;color:#67e8f9;font-size:10px;letter-spacing:.18em;font-weight:800}
+.nv-profile-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.nv-profile-detail{min-width:0;padding:14px 15px;border:1px solid rgba(34,211,238,.17);border-radius:14px;background:linear-gradient(145deg,rgba(10,34,61,.94),rgba(5,18,35,.96))}
+.nv-profile-detail span{display:block;margin-bottom:6px;color:#7894ae;font-size:9px;letter-spacing:.13em;font-weight:800}
+.nv-profile-detail strong{display:block;color:#f1f8ff;font-size:13px;line-height:1.45;overflow-wrap:anywhere;font-weight:650}
+.nv-profile-about{grid-column:1/-1}
+.nv-profile-actions{display:grid;gap:12px;margin-top:20px}
+.nv-profile-edit{width:100%;min-height:46px;display:flex;align-items:center;justify-content:center;gap:9px}
+.nv-profile-page .nv-rules{margin:0;padding:14px 16px;border:1px solid rgba(251,191,36,.2);border-radius:14px;background:rgba(120,75,12,.09);color:#cbd5e1;font-size:12px;line-height:1.6}
+.nv-profile-page .nv-rules b{color:#fbbf24;font-size:10px;letter-spacing:.13em}
+.nv-profile-page .nv-rules p{margin:5px 0 0}
+.nv-profile-signout{justify-self:center;display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border:1px solid rgba(251,113,133,.28);border-radius:999px;background:rgba(159,18,57,.1);color:#fda4af;font-size:12px;font-weight:700}
+.nv-profile-signout:hover{background:rgba(159,18,57,.2);border-color:rgba(251,113,133,.55)}
+@media(max-width:520px){.nv-profile-cover{gap:13px;padding:21px 16px}.nv-profile-avatar{width:70px;height:70px}.nv-profile-details{gap:8px}.nv-profile-detail{padding:12px}.nv-profile-detail strong{font-size:12px}}
+
+
+/* Profile editor: photo-first layout and four Navodaya house flags. */
+#nvProfileEditor .nv-dialog{max-width:620px!important}
+#nvProfileEditor .nv-profile-form-head{display:none}
+#nvProfileEditor .nv-grid{display:grid;grid-template-columns:1fr 1fr;gap:17px}
+#nvProfileEditor .nv-field{min-width:0}
+#nvProfileEditor .nv-photo-editor{display:flex;align-items:center;gap:18px;padding:15px;border:1px solid rgba(34,211,238,.2);border-radius:17px;background:linear-gradient(135deg,rgba(8,47,73,.65),rgba(3,16,32,.8))}
+#nvProfileEditor .nv-photo-picker{position:relative;display:flex;align-items:center;justify-content:center;width:112px;height:112px;flex:0 0 112px;border-radius:50%;border:3px solid #22d3ee;background:#08233d;box-shadow:0 0 0 6px rgba(34,211,238,.09);overflow:visible;cursor:pointer}
+#nvProfileEditor #nvPhotoPreview{display:none;width:100%;height:100%;border-radius:50%;object-fit:cover}
+#nvProfileEditor .nv-photo-placeholder{display:flex;align-items:center;justify-content:center;width:100%;height:100%;border-radius:50%;color:#67e8f9;font-size:38px}
+#nvProfileEditor .nv-photo-pen{position:absolute;right:-2px;bottom:2px;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border:3px solid #06182b;border-radius:50%;background:#06b6d4;color:#001521;font-size:19px;font-weight:900}
+#nvProfileEditor .nv-photo-copy{display:grid;gap:8px;min-width:0}
+#nvProfileEditor .nv-photo-copy strong{color:#e7f7ff;font-size:15px}
+#nvProfileEditor .nv-photo-copy .nv-help{line-height:1.45}
+#nvProfileEditor .nv-photo-copy .nv-btn{justify-self:start;padding:8px 12px}
+#nvProfileEditor .nv-flag-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+#nvProfileEditor .nv-flag-options label{position:relative;display:flex;flex-direction:column;align-items:center;gap:7px;padding:11px 4px;border:1px solid rgba(148,163,184,.2);border-radius:13px;background:rgba(8,25,45,.8);color:#bcd1e3;cursor:pointer;font-size:12px}
+#nvProfileEditor .nv-flag-options input{position:absolute;opacity:0;pointer-events:none}
+#nvProfileEditor .nv-flag-swatch{width:26px;height:26px;border-radius:7px;box-shadow:0 2px 9px #0005}
+#nvProfileEditor .nv-flag-red{background:#ef4444}.nv-flag-blue{background:#3b82f6}.nv-flag-yellow{background:#eab308}.nv-flag-green{background:#22c55e}
+#nvProfileEditor .nv-flag-options label:has(input:checked){border-color:#22d3ee;background:rgba(8,145,178,.15);color:#fff;box-shadow:0 0 0 1px rgba(34,211,238,.3)}
+#nvProfileEditor .nv-flag-options label:has(input:checked)::after{content:'✓';position:absolute;right:7px;top:5px;color:#67e8f9;font-weight:900}
+#nvProfileEditor .nv-field input:not([type=radio]):not([type=file]),#nvProfileEditor .nv-field textarea{width:100%;box-sizing:border-box}
+.nv-name-flag{display:inline-block;width:10px;height:17px;margin:0 6px 0 4px;border-radius:2px 2px 2px 0;vertical-align:-3px;clip-path:polygon(0 0,100% 12%,72% 48%,100% 85%,0 100%);box-shadow:0 1px 4px #0007}
+.nv-profile-name-line{display:inline-flex;align-items:center;gap:5px}
+.nv-profile-name-line .nv-name-flag{margin:0}
+.nv-current-avatar{position:relative}
+.nv-current-avatar .nv-avatar-house-flag{position:absolute;right:-2px;top:-2px;width:13px;height:18px;border:2px solid #06182b;border-radius:2px;clip-path:polygon(0 0,100% 12%,72% 48%,100% 85%,0 100%)}
+@media(max-width:520px){#nvProfileEditor .nv-grid{grid-template-columns:1fr}#nvProfileEditor .nv-photo-picker{width:94px;height:94px;flex-basis:94px}#nvProfileEditor .nv-flag-options{gap:6px}}
+
+
+/* Remove the stray horizontal track/indicator above the message composer. */
+#chatMessageStream { overflow-x: hidden !important; scrollbar-width: none !important; }
+#chatMessageStream::-webkit-scrollbar,
+#chatMessageStream::-webkit-scrollbar-track,
+#chatMessageStream::-webkit-scrollbar-thumb { display: none !important; width: 0 !important; height: 0 !important; background: transparent !important; border: 0 !important; }
+#chatMessageStream + div:not(#chatForm) { display: none !important; }
+
+
+/* Profile editor: avatar-first layout and clear house colour picker. */
+#nvProfileEditor .nv-dialog{width:min(100%,560px);max-height:92dvh;padding:20px 18px}
+#nvProfileForm .nv-editor-layout{display:flex;flex-direction:column;gap:18px}
+#nvProfileForm .nv-editor-photo-block{display:flex;flex-direction:column;align-items:center;text-align:center;padding:10px 12px 16px;border:1px solid rgba(34,211,238,.2);border-radius:18px;background:radial-gradient(circle at 50% 0,rgba(34,211,238,.13),transparent 68%),rgba(3,16,31,.7)}
+.nv-editor-photo-picker{position:relative;display:block;width:116px;height:116px;border-radius:50%;cursor:pointer;border:3px solid #22d3ee;padding:4px;background:#061426;box-shadow:0 0 0 6px rgba(34,211,238,.09),0 10px 28px #0007}
+.nv-editor-photo-picker img{display:none;width:100%;height:100%;object-fit:cover;border-radius:50%}
+.nv-editor-photo-picker:has(img[style*="display: block"]) .nv-editor-photo-placeholder{display:none}
+.nv-editor-photo-placeholder{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:linear-gradient(145deg,#0e7490,#102c4c);color:#a5f3fc;font-size:38px}
+.nv-editor-photo-pen{position:absolute;right:-2px;bottom:2px;width:34px;height:34px;display:grid;place-items:center;border:3px solid #061426;border-radius:50%;background:#06b6d4;color:#04202e;font-size:13px}
+.nv-editor-photo-title{margin-top:12px;color:#e6faff;font-weight:800;font-size:15px}
+#nvPhotoHint{display:block;margin-top:3px;font-size:11px}
+#nvRemovePhoto{margin-top:8px;padding:6px 12px;font-size:11px}
+.nv-editor-flag-block{padding:14px;border:1px solid rgba(34,211,238,.2);border-radius:16px;background:rgba(5,23,42,.85)}
+.nv-editor-flag-block>div:first-child{display:flex;align-items:center;justify-content:space-between;color:#9fb8cf;font-size:11px;letter-spacing:.1em}
+.nv-editor-flag-current{width:24px;height:24px;border:2px solid rgba(255,255,255,.75);border-radius:50%;box-shadow:0 0 0 3px rgba(255,255,255,.08)}
+#nvProfileForm .nv-flag-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
+#nvProfileForm .nv-flag-options label{display:flex;align-items:center;justify-content:center;gap:6px;min-width:0;padding:9px 4px;border:1px solid #1e4058;border-radius:12px;background:#07182b;color:#cbd5e1;font-size:11px;cursor:pointer}
+#nvProfileForm .nv-flag-options input{position:absolute;opacity:0;pointer-events:none}
+#nvProfileForm .nv-flag-options label:has(input:checked){border-color:#22d3ee;background:rgba(8,145,178,.16);color:#ecfeff;box-shadow:inset 0 0 0 1px #22d3ee55}
+.nv-flag-swatch{width:15px;height:15px;flex:0 0 15px;border-radius:50%;border:1px solid #ffffff66}
+.nv-flag-red{background:#ef4444}.nv-flag-blue{background:#3b82f6}.nv-flag-yellow{background:#eab308}.nv-flag-green{background:#22c55e}
+.nv-name-flag{display:inline-block;vertical-align:middle;width:10px;height:10px;margin-left:7px;border:1px solid rgba(255,255,255,.8);border-radius:50%;box-shadow:0 0 0 2px rgba(255,255,255,.08)}
+.nv-profile-name-line{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.nv-profile-flag-corner{position:absolute;right:54px;top:18px;width:17px;height:17px;border:2px solid #dffaff;border-radius:50%;box-shadow:0 0 0 3px rgba(255,255,255,.1)}
+.nv-avatar-house-flag{position:absolute;right:-2px;top:-2px;width:13px;height:13px;border:2px solid #061426;border-radius:50%;box-shadow:0 0 0 1px #dffaff}
+.nv-current-avatar{position:relative}
+@media(max-width:520px){#nvProfileEditor .nv-dialog{padding:16px 13px}.nv-editor-photo-picker{width:108px;height:108px}#nvProfileForm .nv-flag-options label{flex-direction:column;gap:4px;padding:8px 2px}}
+
+
+/* House flag must read as a small waving pennant, not a round status dot. */
+.nv-name-flag{width:12px!important;height:17px!important;margin:0 5px 0 4px!important;border:0!important;border-radius:1px 2px 2px 0!important;clip-path:polygon(0 0,100% 10%,76% 48%,100% 88%,0 100%)!important;box-shadow:0 1px 4px #0007!important;vertical-align:-3px!important}
+.nv-avatar-house-flag{width:12px!important;height:17px!important;border:1.5px solid #06182b!important;border-radius:1px 2px 2px 0!important;clip-path:polygon(0 0,100% 10%,76% 48%,100% 88%,0 100%)!important}
+.nv-editor-flag-current{width:22px!important;height:30px!important;border:0!important;border-radius:1px 3px 3px 0!important;clip-path:polygon(0 0,100% 10%,76% 48%,100% 88%,0 100%)!important;box-shadow:0 1px 5px #0007!important}
+
+/* Refined community boards: photographic hero banners with readable overlays. */
+#nvMemoriesPanel .nv-memory-hero{position:relative;isolation:isolate;min-height:300px!important;display:flex;align-items:center;background:#08172a!important;border-color:rgba(245,190,112,.38)!important}
+#nvMemoriesPanel .nv-memory-hero-bg{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(4,12,25,.96) 0%,rgba(4,12,25,.78) 52%,rgba(4,12,25,.22) 100%),url('../assets/memories-gate.webp') center 48%/cover no-repeat!important;opacity:1!important}
+#nvMemoriesPanel .nv-memory-visual{position:absolute;right:18px;bottom:16px;width:min(31%,290px);border:1px solid rgba(255,226,190,.55);border-radius:14px;overflow:hidden;box-shadow:0 16px 45px #0009;transform:rotate(2deg)}
+#nvMemoriesPanel .nv-memory-visual img{display:block;width:100%;height:132px;object-fit:cover}
+#nvMemoriesPanel .nv-memory-visual span{display:block;padding:7px 9px;background:#09182b;color:#f8d9ad;font-size:9px;font-weight:900;letter-spacing:.14em;text-align:center}
+#nvMemoriesPanel .nv-memory-hero .relative.z-10{max-width:760px;padding-right:clamp(170px,30%,320px)!important}
+#nvCreativityPanel .nv-corner-board{position:relative;isolation:isolate;display:flex;align-items:flex-end;min-height:310px;padding:clamp(20px,4vw,38px)!important;border:1px solid rgba(245,190,112,.4);border-radius:18px;overflow:hidden;background:#101b32!important;box-shadow:0 18px 44px #0006}
+#nvCreativityPanel .nv-corner-board-image{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:center 48%}
+#nvCreativityPanel .nv-corner-board-shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(5,12,25,.9),rgba(5,12,25,.46) 56%,rgba(5,12,25,.1)),linear-gradient(0deg,rgba(5,12,25,.55),transparent 55%)}
+#nvCreativityPanel .nv-corner-board-copy{max-width:760px;text-shadow:0 2px 12px #000b}
+#nvCreativityPanel .nv-board-eyebrow{font-size:10px;font-weight:900;letter-spacing:.22em;color:#fbbf24;text-transform:uppercase}
+#nvCreativityPanel .nv-corner-board-copy h2{margin-top:8px;color:#fff;font-family:Georgia,serif;font-size:clamp(30px,5vw,54px);font-style:italic;font-weight:800;line-height:1.04}
+#nvCreativityPanel .nv-corner-board-copy p{margin-top:8px;color:#fff1d4;font-size:clamp(16px,2.4vw,25px);font-weight:700;letter-spacing:.04em}
+#nvCreativityPanel .nv-corner-board-copy span{display:inline-block;margin-top:15px;padding:7px 12px;border:1px solid #fbbf2470;border-radius:999px;background:#07172ab8;color:#fde68a;font-size:12px;font-weight:800}
+#nvMemoriesPanel > .flex.items-center.justify-between{padding:12px 4px 2px;border-bottom:1px solid rgba(34,211,238,.15)}
+#nvCreativityPanel #nvcFilters{padding:12px 2px 4px}
+#nvCreativityPanel #nvcFeed{gap:18px!important}
+#nvCreativityPanel .nvc-card{box-shadow:0 12px 30px #0003;transition:transform .18s ease,border-color .18s ease}
+#nvCreativityPanel .nvc-card:hover{transform:translateY(-2px);border-color:rgba(251,191,36,.45)}
+@media(max-width:767px){#nvMemoriesPanel .nv-memory-hero{min-height:360px!important;align-items:flex-start}#nvMemoriesPanel .nv-memory-hero .relative.z-10{padding:20px 18px 168px!important;max-width:none}#nvMemoriesPanel .nv-memory-visual{right:18px;bottom:15px;width:48%;max-width:190px}#nvMemoriesPanel .nv-memory-visual img{height:92px}#nvCreativityPanel .nv-corner-board{min-height:280px!important;padding:20px!important}#nvCreativityPanel .nv-corner-board-image{object-position:center}#nvCreativityPanel .nv-corner-board-copy h2{font-size:36px}#nvCreativityPanel .nv-corner-board-copy p{font-size:17px}#nvCreativityPanel #nvcFeed{grid-template-columns:minmax(0,1fr)!important}}
+@media(min-width:768px){#nvMemoriesPanel .nv-memory-hero{min-height:330px!important}#nvMemoriesPanel .nv-memory-visual{width:27%;right:28px;bottom:24px}#nvMemoriesPanel .nv-memory-visual img{height:165px}}
+
+
+/* Compact board sizing: preserve the original Memories and Creativity proportions. */
+#nvMemoriesPanel .nv-memory-visual{display:none!important}
+#nvMemoriesPanel .nv-memory-hero{min-height:230px!important}
+#nvMemoriesPanel .nv-memory-hero-bg{background-image:linear-gradient(90deg,rgba(4,12,25,.9),rgba(4,12,25,.58)),url('../assets/memories-gate.webp')!important;background-position:center!important;background-size:cover!important}
+#nvMemoriesPanel .nv-memory-hero .relative.z-10{max-width:48rem!important;padding-right:1.25rem!important}
+#nvCreativityPanel #nvcBoardShell{padding:0!important;margin:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+#nvCreativityPanel .nv-corner-board{min-height:310px!important;height:auto!important;align-items:flex-end!important;flex-direction:column!important;justify-content:flex-end!important;padding:clamp(20px,4vw,30px)!important;border:1px solid rgba(245,190,112,.4)!important;border-radius:18px!important;box-shadow:0 18px 44px #0006!important}
+#nvCreativityPanel .nv-corner-board-image{display:block!important;object-fit:cover!important;object-position:center 48%!important}
+#nvCreativityPanel .nv-corner-board-shade{background:linear-gradient(90deg,rgba(3,12,27,.82),rgba(3,12,27,.52) 62%,rgba(3,12,27,.28)),linear-gradient(0deg,rgba(3,12,27,.72),transparent 75%)!important}
+#nvCreativityPanel .nv-corner-board-copy{width:100%;max-width:760px!important}
+#nvCreativityPanel .nvc-board-post{display:inline-flex;align-self:flex-end;align-items:center;justify-content:center;margin-top:14px;padding:11px 20px;border:0;border-radius:999px;background:#fbbf24;color:#07111f;font-size:14px;font-weight:800;box-shadow:0 8px 24px rgba(0,0,0,.25);cursor:pointer}
+#nvCreativityPanel .nvc-board-caption{margin-top:8px;color:#cbd5e1;font-size:12px;align-self:flex-end}
+@media(max-width:767.98px){
+ #nvMemoriesPanel .nv-memory-hero{min-height:250px!important}
+ #nvMemoriesPanel .nv-memory-hero .relative.z-10{padding:1.25rem!important;max-width:100%!important}
+ #nvCreativityPanel .nv-corner-board{min-height:310px!important;padding:20px!important}
+ #nvCreativityPanel .nv-corner-board-copy h2{font-size:clamp(30px,8vw,38px)!important;line-height:1.08}
+ #nvCreativityPanel .nvc-board-post{margin-top:14px;width:auto;max-width:100%;font-size:14px}
+}
+
+
+/* House flag: a clean fabric pennant on a slim pole, shared across the app. */
+.nv-name-flag,.nv-avatar-house-flag,.nv-editor-flag-current{
+  position:relative;display:inline-block;flex:0 0 auto;
+  width:16px;height:20px;margin:0 5px 0 4px;
+  background:transparent!important;border:0!important;border-radius:0!important;
+  clip-path:none!important;box-shadow:none!important;vertical-align:-4px;
+}
+.nv-name-flag::before,.nv-avatar-house-flag::before,.nv-editor-flag-current::before{
+  content:"";position:absolute;left:1px;top:0;width:2px;height:20px;
+  border-radius:2px;background:linear-gradient(90deg,#94a3b8,#f8fafc,#64748b);
+  box-shadow:0 0 2px #0008;
+}
+.nv-name-flag::after,.nv-avatar-house-flag::after,.nv-editor-flag-current::after{
+  content:"";position:absolute;left:3px;top:1px;width:12px;height:10px;
+  background:var(--house-flag-color,#ef4444);
+  clip-path:polygon(0 0,100% 0,84% 50%,100% 100%,0 100%);
+  border-radius:0 2px 2px 0;
+  filter:drop-shadow(0 1px 2px #0008);
+}
+.nv-name-flag{--house-flag-color:inherit}
+.nv-avatar-house-flag{
+  position:absolute!important;right:-5px;top:-5px;width:17px;height:22px;
+  margin:0!important;vertical-align:initial;
+}
+.nv-avatar-house-flag::before{height:22px}
+.nv-avatar-house-flag::after{width:13px;height:11px}
+.nv-editor-flag-current{width:25px;height:31px;margin:0 0 0 9px;vertical-align:middle}
+.nv-editor-flag-current::before{height:31px;width:2px}
+.nv-editor-flag-current::after{left:4px;top:2px;width:20px;height:16px}
+.nv-profile-flag-corner{display:none!important}
+.nv-profile-name-line .nv-name-flag{margin-left:7px}
+
+
+/* Merged shared responsive foundation from Preview. */
+/* Shared responsive foundation for the mobile and desktop shells.
+   Intentionally limited to sizing safeguards; visual styling remains in each
+   existing stylesheet while the two layouts are consolidated in later stages. */
+html { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: inherit; }
+img, video, canvas, svg { max-width: 100%; }
+button, input, select, textarea { max-width: 100%; }
+
+/* Shared shell and navigation sizing used by both device layouts. */
+html, body { min-height: 100%; }
+body { padding-bottom: 78px !important; }
+
+
+/* Unified visual system — preview-only design refinement. */
+:root {
+  color-scheme: dark;
+  --nv-bg: #050b16;
+  --nv-surface: rgba(9, 20, 38, .94);
+  --nv-surface-soft: rgba(13, 29, 51, .78);
+  --nv-line: rgba(64, 150, 190, .22);
+  --nv-cyan: #38d7e8;
+  --nv-gold: #e8b85c;
+  --nv-muted: #91a5bd;
+}
+html { background: var(--nv-bg); scroll-behavior: smooth; }
+body {
+  background-color: var(--nv-bg);
+  color: #e8f0fa;
+  -webkit-font-smoothing: antialiased;
+}
+button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
+button { transition: background-color .18s ease, border-color .18s ease, color .18s ease, transform .18s ease; }
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--nv-cyan);
+  outline-offset: 3px;
+}
+main { isolation: isolate; }
+main > aside, main > section, [data-purpose="right-widgets-column"],
+[data-purpose="main-chat-viewport"] {
+  min-width: 0;
+}
+main > aside, main > section, [data-purpose="left-navigation-panel"],
+[data-purpose="right-widgets-column"] > * {
+  border-color: var(--nv-line) !important;
+}
+[data-purpose="main-chat-viewport"], main > section:has(#chatForm) {
+  border: 1px solid var(--nv-line) !important;
+  border-radius: 20px !important;
+  background: linear-gradient(160deg, rgba(11, 28, 49, .98), rgba(5, 14, 28, .98)) !important;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .22), inset 0 1px rgba(255,255,255,.025) !important;
+}
+[data-purpose="left-navigation-panel"], #leftSidebar {
+  background: linear-gradient(180deg, rgba(10, 25, 44, .96), rgba(5, 14, 27, .98)) !important;
+  border-radius: 18px !important;
+}
+[data-purpose="right-widgets-column"] {
+  min-width: 0;
+}
+#nvBottomNav {
+  background: rgba(5, 14, 27, .96) !important;
+  border-top: 1px solid var(--nv-line) !important;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 -10px 32px rgba(0,0,0,.18);
+  z-index: 60 !important;
+}
+#nvBottomNav button[aria-current="page"] {
+  color: var(--nv-cyan) !important;
+  border-radius: 12px;
+}
+#chatForm input, [data-purpose="chat-input-area"] input {
+  background: rgba(3, 11, 23, .88) !important;
+  border: 1px solid rgba(91, 157, 190, .28) !important;
+  border-radius: 14px !important;
+}
+#chatForm input:focus, [data-purpose="chat-input-area"] input:focus {
+  border-color: rgba(56, 215, 232, .72) !important;
+  box-shadow: 0 0 0 3px rgba(56, 215, 232, .1) !important;
+}
+.banner-gold-border {
+  border-radius: 14px !important;
+  background: linear-gradient(100deg, rgba(232,184,92,.09), rgba(22,116,157,.09)) !important;
+}
+.nv-inline-card-panel {
+  display: none;
+  margin-top: 8px;
+  padding: 12px;
+  border: 1px solid var(--nv-line);
+  border-radius: 14px;
+  background: var(--nv-surface);
+}
+.nv-inline-card-panel.is-open { display: block; }
+@media (max-width: 767px) {
+  main { gap: 10px !important; }
+  [data-purpose="main-chat-viewport"], main > section:has(#chatForm) {
+    border-radius: 16px !important;
+  }
+  #nvBottomNav { padding-left: 8px; padding-right: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
