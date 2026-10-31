@@ -1,6 +1,24 @@
 (()=> {
 const p=document.getElementById('nvCreativityPanel');if(!p||p.dataset.nvcReady)return;p.dataset.nvcReady='1';
 const api=window.NV_SHARED_COMMUNITY,modal=p.querySelector('#nvcModal'),form=p.querySelector('#nvcForm'),feed=p.querySelector('#nvcFeed');let active='all';
+/* Preview-style Creativity Board options menu and hide/restore control. */
+const boardShell=p.querySelector('.nv-creativity-board-shell');
+if(boardShell){
+ const board=boardShell.querySelector('.nv-corner-board');
+ const trigger=boardShell.querySelector('.nvc-board-menu-trigger');
+ const menu=boardShell.querySelector('.nvc-board-menu');
+ const restore=boardShell.querySelector('.nvc-board-restore');
+ const setBoardHidden=hidden=>{board.hidden=hidden;restore.hidden=!hidden;menu.hidden=true;trigger?.setAttribute('aria-expanded','false')};
+ trigger?.addEventListener('click',e=>{e.stopPropagation();menu.hidden=!menu.hidden;trigger.setAttribute('aria-expanded',String(!menu.hidden))});
+ menu?.querySelectorAll('[data-board-action]').forEach(action=>action.addEventListener('click',()=>{
+   if(action.dataset.boardAction==='hide')setBoardHidden(true);
+   else setBoardHidden(false);
+ }));
+ restore?.addEventListener('click',()=>setBoardHidden(false));
+ document.addEventListener('click',e=>{if(!boardShell.contains(e.target)&&menu){menu.hidden=true;trigger?.setAttribute('aria-expanded','false')}});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu){menu.hidden=true;trigger?.setAttribute('aria-expanded','false')}});
+}
+
 const filter=()=>{p.querySelectorAll('#nvcFilters [data-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filter===active)));feed.querySelectorAll('[data-category]').forEach(c=>c.hidden=active!=='all'&&c.dataset.category!==active)};
 p.querySelectorAll('#nvcFilters [data-filter]').forEach(b=>b.addEventListener('click',()=>{active=b.dataset.filter;filter()}));
 const open=()=>modal.hidden=false,close=()=>modal.hidden=true;p.querySelector('#nvcOpenForm').addEventListener('click',open);p.querySelector('#nvcCloseForm').addEventListener('click',close);modal.addEventListener('click',e=>{if(e.target===modal)close()});
