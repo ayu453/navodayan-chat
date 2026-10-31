@@ -340,3 +340,6 @@ section:has(#chatForm) {
 .nv-flag-choice small{font-size:10px;font-weight:800;color:#d6e6f5}.nv-flag-choice.selected{background:color-mix(in srgb,var(--nv-flag) 17%,#071a2e);border:2px solid var(--nv-flag);box-shadow:0 0 12px color-mix(in srgb,var(--nv-flag) 25%,transparent)}
 .nv-name-flag{display:inline-flex;align-items:center;justify-content:center;margin-left:5px;color:var(--nv-flag);font-size:.9em;line-height:1;vertical-align:1px;text-shadow:0 0 8px color-mix(in srgb,var(--nv-flag) 45%,transparent)}
 @media(max-width:520px){.nv-profile-editor-hero{padding:11px}.nv-editor-avatar-wrap{width:68px;height:68px;flex-basis:68px}.nv-flag-options{gap:6px}}
+
+/* The reply preview must fully collapse while hidden; it previously left an empty cyan bar above the composer. */
+.nv-reply-banner[hidden]{display:none!important}
