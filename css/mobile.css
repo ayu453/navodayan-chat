@@ -767,3 +767,23 @@ main > aside, main > section, [data-purpose="left-navigation-panel"],
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+
+/* Profile editor refresh: circular photo picker and four Navodaya house flags. */
+#nvProfileForm .nv-editor-layout{display:flex;flex-direction:column;gap:16px}
+#nvProfileForm .nv-editor-photo-block{display:flex;flex-direction:column;align-items:center;text-align:center;padding:14px;border:1px solid rgba(34,211,238,.2);border-radius:18px;background:rgba(3,16,31,.7)}
+.nv-editor-photo-picker{position:relative;display:grid;place-items:center;width:112px;height:112px;border:3px solid #22d3ee;border-radius:50%;padding:4px;background:#061426;cursor:pointer;box-shadow:0 0 0 5px rgba(34,211,238,.1)}
+.nv-editor-photo-picker img{display:none;width:100%;height:100%;object-fit:cover;border-radius:50%}
+.nv-editor-photo-placeholder{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:linear-gradient(145deg,#0e7490,#102c4c);color:#a5f3fc;font-size:36px}
+.nv-editor-photo-picker.has-photo .nv-editor-photo-placeholder{display:none}
+.nv-editor-photo-pen{position:absolute;right:0;bottom:2px;width:32px;height:32px;display:grid;place-items:center;border:3px solid #061426;border-radius:50%;background:#06b6d4;color:#04202e;font-weight:900}
+.nv-editor-photo-title{margin-top:10px;color:#e6faff;font-weight:800}
+.nv-editor-flag-block{padding:14px;border:1px solid rgba(34,211,238,.2);border-radius:16px;background:rgba(5,23,42,.85)}
+.nv-editor-flag-heading{display:flex;align-items:center;justify-content:space-between;color:#9fb8cf;font-size:11px;letter-spacing:.1em}
+.nv-editor-flag-current{position:relative;display:inline-block;width:22px;height:30px;background:var(--house-flag-color,#ef4444);clip-path:polygon(0 0,100% 10%,76% 48%,100% 88%,0 100%)}
+#nvProfileForm .nv-flag-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:12px}
+#nvProfileForm .nv-flag-options label{display:flex;align-items:center;justify-content:center;gap:5px;padding:9px 3px;border:1px solid #1e4058;border-radius:12px;background:#07182b;color:#cbd5e1;font-size:11px;cursor:pointer}
+#nvProfileForm .nv-flag-options input{position:absolute;opacity:0}
+#nvProfileForm .nv-flag-options label:has(input:checked){border-color:#22d3ee;background:rgba(8,145,178,.16);color:#ecfeff}
+.nv-flag-swatch{width:14px;height:14px;flex:0 0 14px;border-radius:50%}.nv-flag-red{background:#ef4444}.nv-flag-blue{background:#3b82f6}.nv-flag-yellow{background:#eab308}.nv-flag-green{background:#22c55e}
+@media(max-width:520px){#nvProfileForm .nv-flag-options label{flex-direction:column;gap:4px}}
