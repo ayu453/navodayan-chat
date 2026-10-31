@@ -107,8 +107,44 @@ f('nvProfileForm').addEventListener('submit',async e=>{e.preventDefault();clearE
 /* Sign-in is handled by the dedicated entry screen, matching the original account flow. */
 f('nvSignIn').hidden=true;
 f('nvViewMyProfile').hidden=true;f('nvSignOut').hidden=true;
-function showProfile(){const a=currentAccount(),p=a?.profile;if(!a||!p){viewerBody.innerHTML='<p class="nv-help">No profile is signed in yet. Choose Edit Profile to create an account or sign in.</p><div class="nv-actions"><button class="nv-btn primary" id="nvViewerEdit">Create / Sign In</button></div>';$('#nvViewerEdit',viewerBody).onclick=openEditor;viewer.hidden=false;return}viewerBody.innerHTML=`<div class="nv-profile-head">${p.photo?`<img class="nv-avatar" src="${safe(p.photo)}" alt="Profile photo">`:`<div class="nv-avatar">${safe((p.name||a.username).slice(0,2).toUpperCase())}</div>`}<div class="nv-profile-identity"><div class="nv-member-label">NAVODAYAN MEMBER</div><div class="nv-profile-name-line"><span>${safe(p.name||a.username)}</span><i class="nv-name-flag" style="--house-flag-color:${safe(p.flagColor||"#22d3ee")}" aria-label="House flag"></i></div><div class="nv-profile-username">@${safe(a.username)}</div><div class="nv-profile-status">${safe(statusFor(p))}</div></div></div><div class="nv-detail"><b>Entry year:</b> ${safe(p.entryYear||'Not added')}</div><div class="nv-detail"><b>School code:</b> ${safe(p.code||'Not added')}</div><div class="nv-detail"><b>JNV:</b> ${safe(p.jnv||'Not added')}</div><div class="nv-detail"><b>About:</b> ${safe(p.about||'No about/status added')}</div><div class="nv-actions"><button class="nv-btn primary" id="nvViewerEdit">Edit Profile</button></div><div class="nv-rules"><b style="color:#67e8f9">Chat Rules</b><br>Be respectful · No spam or harassment · Don’t post private information · School code is not displayed in chat.</div>`;$('#nvViewerEdit',viewerBody).onclick=openEditor;const so=document.createElement('button');so.type='button';so.className='nv-btn ghost';so.textContent='Sign Out';so.style.marginTop='14px';so.onclick=()=>{current=null;replyTarget=null;save();viewer.hidden=true;editor.hidden=true;loginGate.style.display='flex';$('#nvLoginPassword').value='';clearLoginError();};viewerBody.appendChild(so);viewer.hidden=false}
-function showPublic(username){const k=key(username),a=accounts[k],p=a?.profile;if(!a||!p){publicBody.innerHTML=`<div class="nv-profile-head"><div class="nv-avatar">${safe(String(username||'?').slice(0,2).toUpperCase())}</div><div><div style="font-size:18px;font-weight:800">${safe(username||'Member')}</div><div class="nv-help">This demo member has no saved profile details.</div></div></div><div class="nv-detail"><b>School code:</b> Not shown publicly</div>`}else{publicBody.innerHTML=`<div class="nv-profile-head">${p.photo?`<img class="nv-avatar" src="${safe(p.photo)}" alt="Profile photo">`:`<div class="nv-avatar">${safe((p.name||a.username).slice(0,2).toUpperCase())}</div>`}<div><div style="font-size:18px;font-weight:800">${safe(p.name||a.username)}</div><div style="font-size:12px;color:#67e8f9">@${safe(a.username)}</div><div style="font-size:11px;color:#34d399">${safe(statusFor(p))}</div></div></div><div class="nv-detail"><b>Entry year:</b> ${safe(p.entryYear||'Not added')}</div><div class="nv-detail"><b>JNV:</b> ${safe(p.jnv||'Not added')}</div><div class="nv-detail"><b>About:</b> ${safe(p.about||'No about/status added')}</div><div class="nv-detail"><b>School code:</b> Not shown publicly</div>`}publicViewer.hidden=false}
+function showProfile(){
+ const a=currentAccount(),p=a?.profile;
+ if(!a||!p){
+  viewerBody.innerHTML='<p class="nv-help">No profile is signed in yet. Choose Edit Profile to create an account or sign in.</p><div class="nv-actions"><button class="nv-btn primary" id="nvViewerEdit">Create / Sign In</button></div>';
+  $('#nvViewerEdit',viewerBody).onclick=openEditor;viewer.hidden=false;return;
+ }
+ viewerBody.innerHTML=`<div class="nv-profile-head">
+  ${p.photo?`<img class="nv-avatar" src="${safe(p.photo)}" alt="Profile photo">`:`<div class="nv-avatar">${safe((p.name||a.username).slice(0,2).toUpperCase())}</div>`}
+  <div class="nv-profile-identity">
+   <div class="nv-member-label">NAVODAYAN MEMBER</div>
+   <div class="nv-profile-name-line"><span>${safe(p.name||a.username)}</span><i class="nv-name-flag" style="--house-flag-color:${safe(p.flagColor||"#22d3ee")}" aria-label="House flag"></i></div>
+   <div class="nv-profile-username">@${safe(a.username)}</div>
+   <div class="nv-profile-status">${safe(statusFor(p))}</div>
+  </div>
+ </div>
+ <div class="nv-profile-details">
+  <div class="nv-detail"><b>ENTRY YEAR</b><span>${safe(p.entryYear||'Not added')}</span></div>
+  <div class="nv-detail"><b>SCHOOL CODE</b><span>${safe(p.code||'Not added')}</span></div>
+  <div class="nv-detail nv-detail-half"><b>JNV</b><span>${safe(p.jnv||'Not added')}</span></div>
+  <div class="nv-detail nv-detail-wide"><b>ABOUT / STATUS</b><span>${safe(p.about||'No about/status added')}</span></div>
+ </div>
+ <div class="nv-actions"><button class="nv-btn primary nv-profile-edit-button" id="nvViewerEdit"><span aria-hidden="true">✎</span> Edit Profile</button></div>
+ <div class="nv-profile-guidelines"><b>COMMUNITY GUIDELINES</b><p>Be respectful · No spam or harassment · Don’t post private information.</p></div>`;
+ $('#nvViewerEdit',viewerBody).onclick=openEditor;
+ const so=document.createElement('button');so.type='button';so.className='nv-btn ghost nv-profile-signout';so.textContent='⇥  Sign Out';
+ so.onclick=()=>{current=null;replyTarget=null;save();viewer.hidden=true;editor.hidden=true;loginGate.style.display='flex';$('#nvLoginPassword').value='';clearLoginError();};
+ viewerBody.appendChild(so);viewer.hidden=false;
+}
+function showPublic(username){
+ const k=key(username),a=accounts[k],p=a?.profile;
+ if(!a||!p){
+  publicBody.innerHTML=`<div class="nv-profile-head"><div class="nv-avatar">${safe(String(username||'?').slice(0,2).toUpperCase())}</div><div class="nv-profile-identity"><div class="nv-member-label">NAVODAYAN MEMBER</div><div class="nv-profile-name-line">${safe(username||'Member')}</div><div class="nv-profile-username">Member profile</div></div></div><div class="nv-detail nv-detail-wide"><b>SCHOOL CODE</b><span>Not shown publicly</span></div>`;
+ }else{
+  publicBody.innerHTML=`<div class="nv-profile-head">${p.photo?`<img class="nv-avatar" src="${safe(p.photo)}" alt="Profile photo">`:`<div class="nv-avatar">${safe((p.name||a.username).slice(0,2).toUpperCase())}</div>`}<div class="nv-profile-identity"><div class="nv-member-label">NAVODAYAN MEMBER</div><div class="nv-profile-name-line"><span>${safe(p.name||a.username)}</span><i class="nv-name-flag" style="--house-flag-color:${safe(p.flagColor||"#22d3ee")}" aria-label="House flag"></i></div><div class="nv-profile-username">@${safe(a.username)}</div><div class="nv-profile-status">${safe(statusFor(p))}</div></div></div>
+  <div class="nv-profile-details"><div class="nv-detail"><b>ENTRY YEAR</b><span>${safe(p.entryYear||'Not added')}</span></div><div class="nv-detail nv-detail-wide"><b>JNV</b><span>${safe(p.jnv||'Not added')}</span></div><div class="nv-detail nv-detail-wide"><b>ABOUT / STATUS</b><span>${safe(p.about||'No about/status added')}</span></div><div class="nv-detail nv-detail-wide"><b>SCHOOL CODE</b><span>Not shown publicly</span></div></div>`;
+ }
+ publicViewer.hidden=false;
+}
 function showRules(){rulesBody.innerHTML=`<p style="color:#cbd5e1;margin:0 0 12px">Keep Navodayan Chat friendly, safe and welcoming.</p><div class="nv-rules">✓ Be respectful to every member.</div><div class="nv-rules">✓ No spam or harassment.</div><div class="nv-rules">✓ Don’t post private information.</div><div class="nv-rules">✓ School code is not displayed in chat.</div><p style="font-weight:800;color:#67e8f9;margin:14px 0 0">Respect the family. Keep the adda welcoming.</p>`;rules.hidden=false}
 function showNotice(msg){const old=$('.nv-notice');if(old)old.remove();const n=document.createElement('div');n.className='nv-notice';n.textContent=msg;document.body.appendChild(n);setTimeout(()=>n.remove(),2800)}
 
