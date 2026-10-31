@@ -442,4 +442,647 @@ section:has(#chatForm) {
   }
 }
 
-\n\n
+\n\n/* Equal-height community board headers: Memories and Creativity. */
+@media (min-width:768px){
+  #nvMemoriesPanel > .nv-memory-hero,
+  #nvCreativityPanel > section:first-of-type {
+    height:250px!important;
+    min-height:250px!important;
+    box-sizing:border-box!important;
+    display:flex!important;
+    flex-direction:column!important;
+    justify-content:center!important;
+  }
+}
+@media (max-width:767.98px) {
+  #nvMemoriesPanel > .nv-memory-hero, #nvCreativityPanel > section:first-of-type{
+    min-height:220px!important;
+    box-sizing:border-box!important;
+  }
+}
+
+
+/* 2026 board artwork: separate supplied images, matched hero heights */
+#nvMemoriesPanel .nv-memory-hero{min-height:280px!important}
+#nvMemoriesPanel .nv-memory-hero-bg{
+  background-image:linear-gradient(90deg,rgba(3,15,31,.94) 0%,rgba(4,20,39,.78) 48%,rgba(4,20,39,.18) 100%),url('../assets/memories-hero.webp')!important;
+  background-position:center 48%!important;background-size:cover!important
+}
+
+
+@media(max-width:767.98px){
+ #nvMemoriesPanel .nv-memory-hero{min-height:280px!important}
+ #nvMemoriesPanel .nv-memory-hero-bg{background-image:linear-gradient(90deg,rgba(3,15,31,.92),rgba(4,20,39,.5)),url('../assets/memories-hero.webp')!important}
+ #nvCreativityPanel .nv-memory-hero-bg{background-position:center!important}
+ 
+}
+
+
+/* Profile viewer refresh: structured identity, details and account actions. */
+.nv-profile-page{color:#e7f3ff;max-width:680px;margin:0 auto}
+.nv-profile-cover{position:relative;display:flex;align-items:center;gap:18px;padding:26px 24px;border:1px solid rgba(34,211,238,.28);border-radius:22px;background:radial-gradient(ellipse at 12% 0%,rgba(34,211,238,.18),transparent 52%),linear-gradient(135deg,#0b2543,#071326 72%);overflow:hidden}
+.nv-profile-avatar-wrap{position:relative;flex:0 0 auto}
+.nv-profile-avatar{width:88px;height:88px;border-radius:50%;object-fit:cover;border:3px solid rgba(103,232,249,.75);box-shadow:0 0 0 6px rgba(34,211,238,.09),0 12px 28px #0006;display:flex;align-items:center;justify-content:center}
+.nv-profile-initials{background:linear-gradient(135deg,#0e7490,#164e63);font-size:27px;font-weight:800;color:#ecfeff}
+.nv-profile-online{position:absolute;right:4px;bottom:5px;width:15px;height:15px;border-radius:50%;background:#34d399;border:3px solid #071326}
+.nv-profile-identity{min-width:0;padding-right:28px}
+.nv-profile-kicker{font-size:10px;letter-spacing:.19em;font-weight:800;color:#67e8f9}
+.nv-profile-identity h2{font-size:clamp(20px,4vw,27px);line-height:1.2;font-weight:800;color:#fff;margin:5px 0 3px;overflow-wrap:anywhere}
+.nv-profile-identity p{font-size:13px;color:#7dd3fc;margin:0 0 8px}
+.nv-profile-status{display:inline-flex;padding:5px 10px;border:1px solid rgba(52,211,153,.28);border-radius:999px;background:rgba(16,185,129,.1);color:#6ee7b7;font-size:11px;font-weight:700}
+.nv-profile-close{position:absolute;right:14px;top:12px;width:32px;height:32px;border-radius:50%;background:rgba(148,163,184,.12);color:#cbd5e1;font-size:24px;line-height:1}
+.nv-profile-section-title{margin:24px 2px 10px;color:#67e8f9;font-size:10px;letter-spacing:.18em;font-weight:800}
+.nv-profile-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.nv-profile-detail{min-width:0;padding:14px 15px;border:1px solid rgba(34,211,238,.17);border-radius:14px;background:linear-gradient(145deg,rgba(10,34,61,.94),rgba(5,18,35,.96))}
+.nv-profile-detail span{display:block;margin-bottom:6px;color:#7894ae;font-size:9px;letter-spacing:.13em;font-weight:800}
+.nv-profile-detail strong{display:block;color:#f1f8ff;font-size:13px;line-height:1.45;overflow-wrap:anywhere;font-weight:650}
+.nv-profile-about{grid-column:1/-1}
+.nv-profile-actions{display:grid;gap:12px;margin-top:20px}
+.nv-profile-edit{width:100%;min-height:46px;display:flex;align-items:center;justify-content:center;gap:9px}
+.nv-profile-page .nv-rules{margin:0;padding:14px 16px;border:1px solid rgba(251,191,36,.2);border-radius:14px;background:rgba(120,75,12,.09);color:#cbd5e1;font-size:12px;line-height:1.6}
+.nv-profile-page .nv-rules b{color:#fbbf24;font-size:10px;letter-spacing:.13em}
+.nv-profile-page .nv-rules p{margin:5px 0 0}
+.nv-profile-signout{justify-self:center;display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border:1px solid rgba(251,113,133,.28);border-radius:999px;background:rgba(159,18,57,.1);color:#fda4af;font-size:12px;font-weight:700}
+.nv-profile-signout:hover{background:rgba(159,18,57,.2);border-color:rgba(251,113,133,.55)}
+@media(max-width:520px){.nv-profile-cover{gap:13px;padding:21px 16px}.nv-profile-avatar{width:70px;height:70px}.nv-profile-details{gap:8px}.nv-profile-detail{padding:12px}.nv-profile-detail strong{font-size:12px}}
+
+
+/* Profile editor: photo-first layout and four Navodaya house flags. */
+#nvProfileEditor .nv-dialog{max-width:620px!important}
+#nvProfileEditor .nv-profile-form-head{display:none}
+#nvProfileEditor .nv-grid{display:grid;grid-template-columns:1fr 1fr;gap:17px}
+#nvProfileEditor .nv-field{min-width:0}
+#nvProfileEditor .nv-photo-editor{display:flex;align-items:center;gap:18px;padding:15px;border:1px solid rgba(34,211,238,.2);border-radius:17px;background:linear-gradient(135deg,rgba(8,47,73,.65),rgba(3,16,32,.8))}
+#nvProfileEditor .nv-photo-picker{position:relative;display:flex;align-items:center;justify-content:center;width:112px;height:112px;flex:0 0 112px;border-radius:50%;border:3px solid #22d3ee;background:#08233d;box-shadow:0 0 0 6px rgba(34,211,238,.09);overflow:visible;cursor:pointer}
+#nvProfileEditor #nvPhotoPreview{display:none;width:100%;height:100%;border-radius:50%;object-fit:cover}
+#nvProfileEditor .nv-photo-placeholder{display:flex;align-items:center;justify-content:center;width:100%;height:100%;border-radius:50%;color:#67e8f9;font-size:38px}
+#nvProfileEditor .nv-photo-pen{position:absolute;right:-2px;bottom:2px;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border:3px solid #06182b;border-radius:50%;background:#06b6d4;color:#001521;font-size:19px;font-weight:900}
+#nvProfileEditor .nv-photo-copy{display:grid;gap:8px;min-width:0}
+#nvProfileEditor .nv-photo-copy strong{color:#e7f7ff;font-size:15px}
+#nvProfileEditor .nv-photo-copy .nv-help{line-height:1.45}
+#nvProfileEditor .nv-photo-copy .nv-btn{justify-self:start;padding:8px 12px}
+#nvProfileEditor .nv-flag-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+#nvProfileEditor .nv-flag-options label{position:relative;display:flex;flex-direction:column;align-items:center;gap:7px;padding:11px 4px;border:1px solid rgba(148,163,184,.2);border-radius:13px;background:rgba(8,25,45,.8);color:#bcd1e3;cursor:pointer;font-size:12px}
+#nvProfileEditor .nv-flag-options input{position:absolute;opacity:0;pointer-events:none}
+#nvProfileEditor .nv-flag-swatch{width:26px;height:26px;border-radius:7px;box-shadow:0 2px 9px #0005}
+#nvProfileEditor .nv-flag-red{background:#ef4444}.nv-flag-blue{background:#3b82f6}.nv-flag-yellow{background:#eab308}.nv-flag-green{background:#22c55e}
+#nvProfileEditor .nv-flag-options label:has(input:checked){border-color:#22d3ee;background:rgba(8,145,178,.15);color:#fff;box-shadow:0 0 0 1px rgba(34,211,238,.3)}
+#nvProfileEditor .nv-flag-options label:has(input:checked)::after{content:'✓';position:absolute;right:7px;top:5px;color:#67e8f9;font-weight:900}
+#nvProfileEditor .nv-field input:not([type=radio]):not([type=file]), #nvProfileEditor .nv-field textarea{width:100%;box-sizing:border-box}
+.nv-name-flag{display:inline-block;width:10px;height:17px;margin:0 6px 0 4px;border-radius:2px 2px 2px 0;vertical-align:-3px;clip-path:polygon(0 0,100% 12%,72% 48%,100% 85%,0 100%);box-shadow:0 1px 4px #0007}
+.nv-profile-name-line{display:inline-flex;align-items:center;gap:5px}
+.nv-profile-name-line .nv-name-flag{margin:0}
+.nv-current-avatar{position:relative}
+.nv-current-avatar .nv-avatar-house-flag{position:absolute;right:-2px;top:-2px;width:13px;height:18px;border:2px solid #06182b;border-radius:2px;clip-path:polygon(0 0,100% 12%,72% 48%,100% 85%,0 100%)}
+@media(max-width:520px){#nvProfileEditor .nv-grid{grid-template-columns:1fr}#nvProfileEditor .nv-photo-picker{width:94px;height:94px;flex-basis:94px}#nvProfileEditor .nv-flag-options{gap:6px}}
+
+
+/* Remove the stray horizontal track/indicator above the message composer. */
+#chatMessageStream{ overflow-x: hidden !important; scrollbar-width: none !important; }
+#chatMessageStream::-webkit-scrollbar, #chatMessageStream::-webkit-scrollbar-track, #chatMessageStream::-webkit-scrollbar-thumb{ display: none !important; width: 0 !important; height: 0 !important; background: transparent !important; border: 0 !important; }
+#chatMessageStream + div:not(#chatForm){ display: none !important; }
+
+
+/* Profile editor: avatar-first layout and clear house colour picker. */
+#nvProfileEditor .nv-dialog{width:min(100%,560px);max-height:92dvh;padding:20px 18px}
+#nvProfileForm .nv-editor-layout{display:flex;flex-direction:column;gap:18px}
+#nvProfileForm .nv-editor-photo-block{display:flex;flex-direction:column;align-items:center;text-align:center;padding:10px 12px 16px;border:1px solid rgba(34,211,238,.2);border-radius:18px;background:radial-gradient(circle at 50% 0,rgba(34,211,238,.13),transparent 68%),rgba(3,16,31,.7)}
+.nv-editor-photo-picker{position:relative;display:block;width:116px;height:116px;border-radius:50%;cursor:pointer;border:3px solid #22d3ee;padding:4px;background:#061426;box-shadow:0 0 0 6px rgba(34,211,238,.09),0 10px 28px #0007}
+.nv-editor-photo-picker img{display:none;width:100%;height:100%;object-fit:cover;border-radius:50%}
+.nv-editor-photo-picker:has(img[style*="display: block"]) .nv-editor-photo-placeholder{display:none}
+.nv-editor-photo-placeholder{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:linear-gradient(145deg,#0e7490,#102c4c);color:#a5f3fc;font-size:38px}
+.nv-editor-photo-pen{position:absolute;right:-2px;bottom:2px;width:34px;height:34px;display:grid;place-items:center;border:3px solid #061426;border-radius:50%;background:#06b6d4;color:#04202e;font-size:13px}
+.nv-editor-photo-title{margin-top:12px;color:#e6faff;font-weight:800;font-size:15px}
+#nvPhotoHint{display:block;margin-top:3px;font-size:11px}
+#nvRemovePhoto{margin-top:8px;padding:6px 12px;font-size:11px}
+.nv-editor-flag-block{padding:14px;border:1px solid rgba(34,211,238,.2);border-radius:16px;background:rgba(5,23,42,.85)}
+.nv-editor-flag-block>div:first-child{display:flex;align-items:center;justify-content:space-between;color:#9fb8cf;font-size:11px;letter-spacing:.1em}
+.nv-editor-flag-current{width:24px;height:24px;border:2px solid rgba(255,255,255,.75);border-radius:50%;box-shadow:0 0 0 3px rgba(255,255,255,.08)}
+#nvProfileForm .nv-flag-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
+#nvProfileForm .nv-flag-options label{display:flex;align-items:center;justify-content:center;gap:6px;min-width:0;padding:9px 4px;border:1px solid #1e4058;border-radius:12px;background:#07182b;color:#cbd5e1;font-size:11px;cursor:pointer}
+#nvProfileForm .nv-flag-options input{position:absolute;opacity:0;pointer-events:none}
+#nvProfileForm .nv-flag-options label:has(input:checked){border-color:#22d3ee;background:rgba(8,145,178,.16);color:#ecfeff;box-shadow:inset 0 0 0 1px #22d3ee55}
+.nv-flag-swatch{width:15px;height:15px;flex:0 0 15px;border-radius:50%;border:1px solid #ffffff66}
+.nv-flag-red{background:#ef4444}.nv-flag-blue{background:#3b82f6}.nv-flag-yellow{background:#eab308}.nv-flag-green{background:#22c55e}
+.nv-name-flag{display:inline-block;vertical-align:middle;width:10px;height:10px;margin-left:7px;border:1px solid rgba(255,255,255,.8);border-radius:50%;box-shadow:0 0 0 2px rgba(255,255,255,.08)}
+.nv-profile-name-line{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.nv-profile-flag-corner{position:absolute;right:54px;top:18px;width:17px;height:17px;border:2px solid #dffaff;border-radius:50%;box-shadow:0 0 0 3px rgba(255,255,255,.1)}
+.nv-avatar-house-flag{position:absolute;right:-2px;top:-2px;width:13px;height:13px;border:2px solid #061426;border-radius:50%;box-shadow:0 0 0 1px #dffaff}
+.nv-current-avatar{position:relative}
+@media(max-width:520px){#nvProfileEditor .nv-dialog{padding:16px 13px}.nv-editor-photo-picker{width:108px;height:108px}#nvProfileForm .nv-flag-options label{flex-direction:column;gap:4px;padding:8px 2px}}
+
+
+/* House flag must read as a small waving pennant, not a round status dot. */
+.nv-name-flag{width:12px!important;height:17px!important;margin:0 5px 0 4px!important;border:0!important;border-radius:1px 2px 2px 0!important;clip-path:polygon(0 0,100% 10%,76% 48%,100% 88%,0 100%)!important;box-shadow:0 1px 4px #0007!important;vertical-align:-3px!important}
+.nv-avatar-house-flag{width:12px!important;height:17px!important;border:1.5px solid #06182b!important;border-radius:1px 2px 2px 0!important;clip-path:polygon(0 0,100% 10%,76% 48%,100% 88%,0 100%)!important}
+.nv-editor-flag-current{width:22px!important;height:30px!important;border:0!important;border-radius:1px 3px 3px 0!important;clip-path:polygon(0 0,100% 10%,76% 48%,100% 88%,0 100%)!important;box-shadow:0 1px 5px #0007!important}
+
+/* Refined community boards: photographic hero banners with readable overlays. */
+#nvMemoriesPanel .nv-memory-hero{position:relative;isolation:isolate;min-height:300px!important;display:flex;align-items:center;background:#08172a!important;border-color:rgba(245,190,112,.38)!important}
+#nvMemoriesPanel .nv-memory-hero-bg{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(4,12,25,.96) 0%,rgba(4,12,25,.78) 52%,rgba(4,12,25,.22) 100%),url('../assets/memories-gate.webp') center 48%/cover no-repeat!important;opacity:1!important}
+#nvMemoriesPanel .nv-memory-visual{position:absolute;right:18px;bottom:16px;width:min(31%,290px);border:1px solid rgba(255,226,190,.55);border-radius:14px;overflow:hidden;box-shadow:0 16px 45px #0009;transform:rotate(2deg)}
+#nvMemoriesPanel .nv-memory-visual img{display:block;width:100%;height:132px;object-fit:cover}
+#nvMemoriesPanel .nv-memory-visual span{display:block;padding:7px 9px;background:#09182b;color:#f8d9ad;font-size:9px;font-weight:900;letter-spacing:.14em;text-align:center}
+#nvMemoriesPanel .nv-memory-hero .relative.z-10{max-width:760px;padding-right:clamp(170px,30%,320px)!important}
+
+
+
+
+#nvCreativityPanel .nv-board-eyebrow{font-size:10px;font-weight:900;letter-spacing:.22em;color:#fbbf24;text-transform:uppercase}
+
+
+
+#nvMemoriesPanel > .flex.items-center.justify-between{padding:12px 4px 2px;border-bottom:1px solid rgba(34,211,238,.15)}
+#nvCreativityPanel #nvcFilters{padding:12px 2px 4px}
+#nvCreativityPanel #nvcFeed{gap:18px!important}
+#nvCreativityPanel .nvc-card{box-shadow:0 12px 30px #0003;transition:transform .18s ease,border-color .18s ease}
+#nvCreativityPanel .nvc-card:hover{transform:translateY(-2px);border-color:rgba(251,191,36,.45)}
+@media(max-width:767px){#nvMemoriesPanel .nv-memory-hero{min-height:360px!important;align-items:flex-start}#nvMemoriesPanel .nv-memory-hero .relative.z-10{padding:20px 18px 168px!important;max-width:none}#nvMemoriesPanel .nv-memory-visual{right:18px;bottom:15px;width:48%;max-width:190px}#nvMemoriesPanel .nv-memory-visual img{height:92px}#nvCreativityPanel #nvcFeed{grid-template-columns:minmax(0,1fr)!important}}
+@media(min-width:768px){#nvMemoriesPanel .nv-memory-hero{min-height:330px!important}#nvMemoriesPanel .nv-memory-visual{width:27%;right:28px;bottom:24px}#nvMemoriesPanel .nv-memory-visual img{height:165px}}
+
+
+/* Compact board sizing: preserve the original Memories and Creativity proportions. */
+#nvMemoriesPanel .nv-memory-visual{display:none!important}
+#nvMemoriesPanel .nv-memory-hero{min-height:230px!important}
+#nvMemoriesPanel .nv-memory-hero-bg{background-image:linear-gradient(90deg,rgba(4,12,25,.9),rgba(4,12,25,.58)),url('../assets/memories-gate.webp')!important;background-position:center!important;background-size:cover!important}
+#nvMemoriesPanel .nv-memory-hero .relative.z-10{max-width:48rem!important;padding-right:1.25rem!important}
+
+
+
+
+
+
+
+@media(max-width:767.98px){
+ #nvMemoriesPanel .nv-memory-hero{min-height:250px!important}
+ #nvMemoriesPanel .nv-memory-hero .relative.z-10{padding:1.25rem!important;max-width:100%!important}
+ 
+ 
+ 
+}
+
+
+/* House flag: a clean fabric pennant on a slim pole, shared across the app. */
+.nv-name-flag, .nv-avatar-house-flag, .nv-editor-flag-current{
+  position:relative;display:inline-block;flex:0 0 auto;
+  width:16px;height:20px;margin:0 5px 0 4px;
+  background:transparent!important;border:0!important;border-radius:0!important;
+  clip-path:none!important;box-shadow:none!important;vertical-align:-4px;
+}
+.nv-name-flag::before, .nv-avatar-house-flag::before, .nv-editor-flag-current::before{
+  content:"";position:absolute;left:1px;top:0;width:2px;height:20px;
+  border-radius:2px;background:linear-gradient(90deg,#94a3b8,#f8fafc,#64748b);
+  box-shadow:0 0 2px #0008;
+}
+.nv-name-flag::after, .nv-avatar-house-flag::after, .nv-editor-flag-current::after{
+  content:"";position:absolute;left:3px;top:1px;width:12px;height:10px;
+  background:var(--house-flag-color,#ef4444);
+  clip-path:polygon(0 0,100% 0,84% 50%,100% 100%,0 100%);
+  border-radius:0 2px 2px 0;
+  filter:drop-shadow(0 1px 2px #0008);
+}
+.nv-name-flag{--house-flag-color:inherit}
+.nv-avatar-house-flag{
+  position:absolute!important;right:-5px;top:-5px;width:17px;height:22px;
+  margin:0!important;vertical-align:initial;
+}
+.nv-avatar-house-flag::before{height:22px}
+.nv-avatar-house-flag::after{width:13px;height:11px}
+.nv-editor-flag-current{width:25px;height:31px;margin:0 0 0 9px;vertical-align:middle}
+.nv-editor-flag-current::before{height:31px;width:2px}
+.nv-editor-flag-current::after{left:4px;top:2px;width:20px;height:16px}
+.nv-profile-flag-corner{display:none!important}
+.nv-profile-name-line .nv-name-flag{margin-left:7px}
+
+
+/* Merged shared responsive foundation from Preview. */
+/* Shared responsive foundation for the mobile and desktop shells.
+   Intentionally limited to sizing safeguards; visual styling remains in each
+   existing stylesheet while the two layouts are consolidated in later stages. */
+html{ box-sizing: border-box; }
+*, *::before, *::after{ box-sizing: inherit; }
+img, video, canvas, svg{ max-width: 100%; }
+button, input, select, textarea{ max-width: 100%; }
+
+/* Shared shell and navigation sizing used by both device layouts. */
+html, body{ min-height: 100%; }
+body{ padding-bottom: 78px !important; }
+
+
+/* Unified visual system — preview-only design refinement. */
+:root{
+  color-scheme: dark;
+  --nv-bg: #050b16;
+  --nv-surface: rgba(9, 20, 38, .94);
+  --nv-surface-soft: rgba(13, 29, 51, .78);
+  --nv-line: rgba(64, 150, 190, .22);
+  --nv-cyan: #38d7e8;
+  --nv-gold: #e8b85c;
+  --nv-muted: #91a5bd;
+}
+html{ background: var(--nv-bg); scroll-behavior: smooth; }
+body{
+  background-color: var(--nv-bg);
+  color: #e8f0fa;
+  -webkit-font-smoothing: antialiased;
+}
+button, a, input, textarea, select{ -webkit-tap-highlight-color: transparent; }
+button{ transition: background-color .18s ease, border-color .18s ease, color .18s ease, transform .18s ease; }
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible{
+  outline: 2px solid var(--nv-cyan);
+  outline-offset: 3px;
+}
+main{ isolation: isolate; }
+main > aside, main > section, [data-purpose="right-widgets-column"], [data-purpose="main-chat-viewport"]{
+  min-width: 0;
+}
+main > aside, main > section, [data-purpose="left-navigation-panel"], [data-purpose="right-widgets-column"] > *{
+  border-color: var(--nv-line) !important;
+}
+[data-purpose="main-chat-viewport"], main > section:has(#chatForm){
+  border: 1px solid var(--nv-line) !important;
+  border-radius: 20px !important;
+  background: linear-gradient(160deg, rgba(11, 28, 49, .98), rgba(5, 14, 28, .98)) !important;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .22), inset 0 1px rgba(255,255,255,.025) !important;
+}
+[data-purpose="left-navigation-panel"], #leftSidebar{
+  background: linear-gradient(180deg, rgba(10, 25, 44, .96), rgba(5, 14, 27, .98)) !important;
+  border-radius: 18px !important;
+}
+[data-purpose="right-widgets-column"]{
+  min-width: 0;
+}
+#nvBottomNav{
+  background: rgba(5, 14, 27, .96) !important;
+  border-top: 1px solid var(--nv-line) !important;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 -10px 32px rgba(0,0,0,.18);
+  z-index: 60 !important;
+}
+#nvBottomNav button[aria-current="page"]{
+  color: var(--nv-cyan) !important;
+  border-radius: 12px;
+}
+#chatForm input, [data-purpose="chat-input-area"] input{
+  background: rgba(3, 11, 23, .88) !important;
+  border: 1px solid rgba(91, 157, 190, .28) !important;
+  border-radius: 14px !important;
+}
+#chatForm input:focus, [data-purpose="chat-input-area"] input:focus{
+  border-color: rgba(56, 215, 232, .72) !important;
+  box-shadow: 0 0 0 3px rgba(56, 215, 232, .1) !important;
+}
+.banner-gold-border{
+  border-radius: 14px !important;
+  background: linear-gradient(100deg, rgba(232,184,92,.09), rgba(22,116,157,.09)) !important;
+}
+.nv-inline-card-panel{
+  display: none;
+  margin-top: 8px;
+  padding: 12px;
+  border: 1px solid var(--nv-line);
+  border-radius: 14px;
+  background: var(--nv-surface);
+}
+.nv-inline-card-panel.is-open{ display: block; }
+@media (max-width: 767px) {
+  main{ gap: 10px !important; }
+  [data-purpose="main-chat-viewport"], main > section:has(#chatForm){
+    border-radius: 16px !important;
+  }
+  #nvBottomNav{ padding-left: 8px; padding-right: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after{ scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+
+
+/* Profile editor refresh: circular photo picker and four Navodaya house flags. */
+#nvProfileForm .nv-editor-layout{display:flex;flex-direction:column;gap:16px}
+#nvProfileForm .nv-editor-photo-block{display:flex;flex-direction:column;align-items:center;text-align:center;padding:14px;border:1px solid rgba(34,211,238,.2);border-radius:18px;background:rgba(3,16,31,.7)}
+.nv-editor-photo-picker{position:relative;display:grid;place-items:center;width:112px;height:112px;border:3px solid #22d3ee;border-radius:50%;padding:4px;background:#061426;cursor:pointer;box-shadow:0 0 0 5px rgba(34,211,238,.1)}
+.nv-editor-photo-picker img{display:none;width:100%;height:100%;object-fit:cover;border-radius:50%}
+.nv-editor-photo-placeholder{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:linear-gradient(145deg,#0e7490,#102c4c);color:#a5f3fc;font-size:36px}
+.nv-editor-photo-picker.has-photo .nv-editor-photo-placeholder{display:none}
+.nv-editor-photo-pen{position:absolute;right:0;bottom:2px;width:32px;height:32px;display:grid;place-items:center;border:3px solid #061426;border-radius:50%;background:#06b6d4;color:#04202e;font-weight:900}
+.nv-editor-photo-title{margin-top:10px;color:#e6faff;font-weight:800}
+.nv-editor-flag-block{padding:14px;border:1px solid rgba(34,211,238,.2);border-radius:16px;background:rgba(5,23,42,.85)}
+.nv-editor-flag-heading{display:flex;align-items:center;justify-content:space-between;color:#9fb8cf;font-size:11px;letter-spacing:.1em}
+.nv-editor-flag-current{position:relative;display:inline-block;width:22px;height:30px;background:var(--house-flag-color,#ef4444);clip-path:polygon(0 0,100% 10%,76% 48%,100% 88%,0 100%)}
+#nvProfileForm .nv-flag-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:12px}
+#nvProfileForm .nv-flag-options label{display:flex;align-items:center;justify-content:center;gap:5px;padding:9px 3px;border:1px solid #1e4058;border-radius:12px;background:#07182b;color:#cbd5e1;font-size:11px;cursor:pointer}
+#nvProfileForm .nv-flag-options input{position:absolute;opacity:0}
+#nvProfileForm .nv-flag-options label:has(input:checked){border-color:#22d3ee;background:rgba(8,145,178,.16);color:#ecfeff}
+.nv-flag-swatch{width:14px;height:14px;flex:0 0 14px;border-radius:50%}.nv-flag-red{background:#ef4444}.nv-flag-blue{background:#3b82f6}.nv-flag-yellow{background:#eab308}.nv-flag-green{background:#22c55e}
+@media(max-width:520px){#nvProfileForm .nv-flag-options label{flex-direction:column;gap:4px}}
+
+
+
+/* Preview-aligned Your Profile presentation. Styling only; profile/auth handlers remain unchanged. */
+#nvProfileViewer .nv-dialog, #nvPublicViewer .nv-dialog{
+  width:min(100%,560px);
+  max-height:min(88dvh,820px);
+  padding:22px;
+  border-radius:22px;
+  background:linear-gradient(160deg,#071b30 0%,#04101f 72%);
+  border:1px solid rgba(0,190,230,.42);
+  box-shadow:0 28px 90px rgba(0,0,0,.58),inset 0 1px 0 rgba(103,232,249,.07);
+}
+#nvProfileViewer .nv-dialog h2, #nvPublicViewer .nv-dialog h2{
+  margin:0 42px 20px 0;
+  padding-bottom:13px;
+  border-bottom:1px solid rgba(34,211,238,.17);
+  color:#67e8f9;
+  font-size:19px;
+  letter-spacing:.02em;
+}
+#nvProfileViewer .nv-profile-head, #nvPublicViewer .nv-profile-head{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  margin:4px 0 20px;
+  padding:18px 14px 17px;
+  border:1px solid rgba(34,211,238,.22);
+  border-radius:18px;
+  text-align:center;
+  background:radial-gradient(ellipse at 50% 0,rgba(8,145,178,.2),transparent 70%),linear-gradient(135deg,rgba(8,32,56,.9),rgba(4,17,32,.9));
+}
+#nvProfileViewer .nv-avatar, #nvPublicViewer .nv-avatar{
+  width:94px;
+  height:94px;
+  flex:0 0 94px;
+  padding:3px;
+  border:2px solid #22d3ee;
+  border-radius:50%;
+  box-shadow:0 0 0 6px rgba(34,211,238,.09),0 10px 26px rgba(0,0,0,.3);
+  object-fit:cover;
+  font-size:25px;
+}
+#nvProfileViewer .nv-profile-head > div, #nvPublicViewer .nv-profile-head > div{ min-width:0; }
+#nvProfileViewer .nv-profile-head > div > div:first-child, #nvPublicViewer .nv-profile-head > div > div:first-child{
+  color:#f0fdff!important;
+  font-size:21px!important;
+  font-weight:800!important;
+  line-height:1.25;
+  overflow-wrap:anywhere;
+}
+#nvProfileViewer .nv-profile-head > div > div:nth-child(2), #nvPublicViewer .nv-profile-head > div > div:nth-child(2){
+  margin-top:4px;
+  font-size:12px!important;
+  letter-spacing:.04em;
+}
+#nvProfileViewer .nv-profile-head > div > div:nth-child(3), #nvPublicViewer .nv-profile-head > div > div:nth-child(3){
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:8px;
+  padding:4px 10px;
+  border:1px solid rgba(52,211,153,.24);
+  border-radius:999px;
+  background:rgba(16,185,129,.08);
+  font-size:11px!important;
+}
+#nvProfileViewer .nv-detail, #nvPublicViewer .nv-detail{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  min-width:0;
+  margin:0 0 9px;
+  padding:12px 14px;
+  border:1px solid rgba(34,211,238,.16);
+  border-radius:13px;
+  background:linear-gradient(135deg,rgba(8,34,59,.86),rgba(5,20,37,.94));
+  color:#e2edf8;
+  font-size:13px;
+  line-height:1.5;
+}
+#nvProfileViewer .nv-detail b, #nvPublicViewer .nv-detail b{
+  color:#67e8f9;
+  font-size:10px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+#nvProfileViewer .nv-actions, #nvPublicViewer .nv-actions{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:9px;
+  margin-top:16px;
+}
+#nvProfileViewer .nv-actions .nv-btn, #nvPublicViewer .nv-actions .nv-btn{
+  width:100%;
+  min-height:44px;
+  justify-content:center;
+}
+#nvProfileViewer .nv-rules, #nvPublicViewer .nv-rules{
+  margin-top:16px;
+  padding:14px 15px;
+  border-radius:14px;
+  border-color:rgba(245,158,11,.24);
+  background:linear-gradient(135deg,rgba(120,75,12,.12),rgba(8,28,49,.8));
+  color:#cbd5e1;
+  line-height:1.65;
+}
+#nvProfileViewer > .nv-dialog, #nvPublicViewer > .nv-dialog{ scrollbar-width:thin; scrollbar-color:#155e75 transparent; }
+@media(max-width:520px) {
+  #nvProfileViewer, #nvPublicViewer{ padding:10px!important; align-items:center!important; }
+  #nvProfileViewer .nv-dialog, #nvPublicViewer .nv-dialog{
+    width:100%;
+    max-height:calc(100dvh - 20px);
+    padding:17px 14px;
+    border-radius:19px;
+  }
+  #nvProfileViewer .nv-profile-head, #nvPublicViewer .nv-profile-head{ padding:15px 10px; }
+  #nvProfileViewer .nv-avatar, #nvPublicViewer .nv-avatar{ width:82px;height:82px;flex-basis:82px; }
+  #nvProfileViewer .nv-detail, #nvPublicViewer .nv-detail{ padding:11px 12px; }
+}
+
+
+
+/* Profile editor: photo first, then identity fields. Keep house selection inside the editor only. */
+#nvProfileEditor .nv-grid > .nv-editor-layout{ order:-2; }
+#nvProfileEditor .nv-grid > .nv-field:has(.nv-editor-flag-block){ order:-1; }
+#nvProfileEditor .nv-grid > .nv-field:has(#nvUsername), #nvProfileEditor .nv-grid > .nv-field:has(#nvName){ order:0; }
+#nvProfileViewer .nv-profile-head .nv-avatar, #nvPublicViewer .nv-profile-head .nv-avatar{ order:-1; }
+#nvProfileViewer .nv-profile-head > div, #nvPublicViewer .nv-profile-head > div{ order:1; }
+
+
+/* Restore the original Preview profile card: portrait left, identity right. */
+#nvProfileViewer .nv-profile-head, #nvPublicViewer .nv-profile-head{
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:18px!important;
+  text-align:left!important;
+  padding:22px 18px!important;
+  min-height:190px;
+}
+#nvProfileViewer .nv-profile-identity, #nvPublicViewer .nv-profile-identity{
+  display:flex;
+  flex:1 1 auto;
+  flex-direction:column;
+  align-items:flex-start;
+  min-width:0;
+  gap:5px;
+}
+#nvProfileViewer .nv-member-label, #nvPublicViewer .nv-member-label{
+  color:#67e8f9;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.2em;
+  line-height:1.4;
+}
+#nvProfileViewer .nv-profile-name-line, #nvPublicViewer .nv-profile-name-line{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  color:#f0fdff;
+  font-size:21px;
+  font-weight:800;
+  line-height:1.25;
+  overflow-wrap:anywhere;
+}
+#nvProfileViewer .nv-profile-name-line .nv-name-flag, #nvPublicViewer .nv-profile-name-line .nv-name-flag{margin-left:7px}
+#nvProfileViewer .nv-profile-username, #nvPublicViewer .nv-profile-username{margin-top:4px;color:#7dd3fc;font-size:14px}
+#nvProfileViewer .nv-profile-status, #nvPublicViewer .nv-profile-status{
+  display:inline-flex;
+  margin-top:8px;
+  padding:7px 12px;
+  border:1px solid rgba(52,211,153,.24);
+  border-radius:999px;
+  background:rgba(16,185,129,.08);
+  color:#34d399;
+  font-size:12px;
+  font-weight:700;
+}
+#nvProfileViewer .nv-content, #nvPublicViewer .nv-content{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+#nvProfileViewer .nv-content>.nv-profile-head, #nvPublicViewer .nv-content>.nv-profile-head, #nvProfileViewer .nv-content>.nv-actions, #nvPublicViewer .nv-content>.nv-actions, #nvProfileViewer .nv-content>.nv-rules, #nvPublicViewer .nv-content>.nv-rules{grid-column:1/-1}
+#nvProfileViewer .nv-content>.nv-detail:nth-of-type(4){grid-column:1}
+#nvProfileViewer .nv-content>.nv-detail:nth-of-type(5), #nvPublicViewer .nv-content>.nv-detail:nth-of-type(4){grid-column:1/-1}
+@media(max-width:520px){
+ #nvProfileViewer .nv-profile-head, #nvPublicViewer .nv-profile-head{gap:14px!important;padding:18px 14px!important;min-height:0}
+ #nvProfileViewer .nv-avatar, #nvPublicViewer .nv-avatar{width:82px;height:82px;flex-basis:82px}
+ #nvProfileViewer .nv-profile-name-line, #nvPublicViewer .nv-profile-name-line{font-size:20px}
+ #nvProfileViewer .nv-member-label, #nvPublicViewer .nv-member-label{font-size:10px;letter-spacing:.15em}
+}
+
+
+/* Exact Preview-style profile viewer: header, identity card, detail tiles and actions. */
+#nvProfileViewer, #nvPublicViewer{
+ position:fixed!important;inset:0!important;z-index:100001!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ padding:18px!important;background:rgba(0,5,15,.84)!important;backdrop-filter:blur(8px)!important;
+}
+#nvProfileViewer[hidden], #nvPublicViewer[hidden]{display:none!important}
+#nvProfileViewer .nv-dialog, #nvPublicViewer .nv-dialog{
+ position:relative!important;width:min(100%,680px)!important;max-height:90dvh!important;
+ overflow-y:auto!important;padding:24px 28px 26px!important;border:1px solid rgba(34,211,238,.42)!important;
+ border-radius:27px!important;background:#00172a!important;color:#e8f5ff!important;
+ box-shadow:0 24px 80px rgba(0,0,0,.55)!important;
+}
+#nvProfileViewer .nv-dialog h2, #nvPublicViewer .nv-dialog h2{
+ margin:0 48px 24px 0!important;padding:0!important;border:0!important;
+ color:#22d3ee!important;font-size:28px!important;font-weight:800!important;line-height:1.2!important;
+}
+#nvProfileViewer .nv-dialog>.nv-close, #nvPublicViewer .nv-dialog>.nv-close{
+ position:absolute!important;top:16px!important;right:16px!important;float:none!important;
+ display:grid!important;place-items:center!important;width:46px!important;height:46px!important;
+ margin:0!important;border:1px solid rgba(34,211,238,.25)!important;border-radius:17px!important;
+ background:#06243a!important;color:#bceeff!important;font-size:26px!important;
+}
+#nvProfileViewer .nv-content, #nvPublicViewer .nv-content{display:block!important;min-width:0!important}
+#nvProfileViewer .nv-profile-head, #nvPublicViewer .nv-profile-head{
+ display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;
+ gap:20px!important;min-height:188px!important;margin:0 0 42px!important;padding:22px 28px!important;
+ border:1px solid rgba(34,211,238,.28)!important;border-radius:36px!important;
+ background:linear-gradient(120deg,rgba(8,73,100,.55),rgba(3,25,48,.85) 60%)!important;text-align:left!important;
+}
+#nvProfileViewer .nv-avatar, #nvPublicViewer .nv-avatar{
+ display:grid!important;place-items:center!important;width:122px!important;height:122px!important;
+ flex:0 0 122px!important;padding:3px!important;border:4px solid #06b6d4!important;border-radius:50%!important;
+ background:#09243a!important;object-fit:cover!important;box-shadow:0 0 0 5px rgba(6,182,212,.12),0 8px 22px #0007!important;
+}
+#nvProfileViewer .nv-profile-identity, #nvPublicViewer .nv-profile-identity{
+ display:flex!important;flex:1 1 auto!important;flex-direction:column!important;align-items:flex-start!important;
+ gap:5px!important;min-width:0!important;
+}
+#nvProfileViewer .nv-member-label, #nvPublicViewer .nv-member-label{
+ color:#22d3ee!important;font-size:13px!important;font-weight:900!important;letter-spacing:.2em!important;
+}
+#nvProfileViewer .nv-profile-name-line, #nvPublicViewer .nv-profile-name-line{
+ display:flex!important;align-items:center!important;flex-wrap:wrap!important;gap:2px!important;
+ color:#f0fdff!important;font-size:34px!important;font-weight:800!important;line-height:1.2!important;overflow-wrap:anywhere!important;
+}
+#nvProfileViewer .nv-profile-name-line .nv-name-flag, #nvPublicViewer .nv-profile-name-line .nv-name-flag{margin-left:8px!important}
+#nvProfileViewer .nv-profile-username, #nvPublicViewer .nv-profile-username{margin-top:7px!important;color:#7dd3fc!important;font-size:20px!important}
+#nvProfileViewer .nv-profile-status, #nvPublicViewer .nv-profile-status{
+ display:inline-flex!important;margin-top:12px!important;padding:9px 16px!important;border:1px solid rgba(52,211,153,.3)!important;
+ border-radius:999px!important;background:rgba(6,78,59,.28)!important;color:#4adeb5!important;font-size:14px!important;font-weight:800!important;
+}
+#nvProfileViewer .nv-profile-details, #nvPublicViewer .nv-profile-details{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important;margin:0 0 32px!important;
+}
+#nvProfileViewer .nv-detail, #nvPublicViewer .nv-detail{
+ display:flex!important;flex-direction:column!important;gap:10px!important;min-width:0!important;min-height:106px!important;
+ margin:0!important;padding:20px 21px!important;border:1px solid rgba(34,211,238,.17)!important;
+ border-radius:25px!important;background:linear-gradient(145deg,#08233a,#04182b)!important;color:#edf7ff!important;
+}
+#nvProfileViewer .nv-detail b, #nvPublicViewer .nv-detail b{
+ color:#7899b2!important;font-size:12px!important;font-weight:900!important;letter-spacing:.14em!important;text-transform:uppercase!important;
+}
+#nvProfileViewer .nv-detail span, #nvPublicViewer .nv-detail span{
+ color:#edf7ff!important;font-size:19px!important;font-weight:700!important;line-height:1.4!important;overflow-wrap:anywhere!important;
+}
+#nvProfileViewer .nv-detail-half{grid-column:1!important}
+#nvProfileViewer .nv-detail-wide, #nvPublicViewer .nv-detail-wide{grid-column:1/-1!important}
+#nvProfileViewer .nv-actions, #nvPublicViewer .nv-actions{display:block!important;margin:0 0 20px!important}
+#nvProfileViewer .nv-profile-edit-button{
+ display:flex!important;align-items:center!important;justify-content:center!important;gap:13px!important;width:100%!important;
+ min-height:82px!important;margin:0!important;border:1px solid #32e8f5!important;border-radius:19px!important;
+ background:#08cce0!important;color:#001521!important;font-size:23px!important;font-weight:900!important;
+ box-shadow:0 8px 24px rgba(0,204,224,.12)!important;
+}
+#nvProfileViewer .nv-profile-guidelines{
+ margin:0!important;padding:26px 28px!important;border:1px solid rgba(234,179,8,.22)!important;
+ border-radius:25px!important;background:#111b29!important;
+}
+#nvProfileViewer .nv-profile-guidelines b{
+ color:#fbbf24!important;font-size:15px!important;font-weight:900!important;letter-spacing:.16em!important;
+}
+#nvProfileViewer .nv-profile-guidelines p{
+ margin:13px 0 0!important;color:#cbd5e1!important;font-size:18px!important;line-height:1.7!important;
+}
+#nvProfileViewer .nv-profile-signout{
+ display:flex!important;align-items:center!important;justify-content:center!important;width:max-content!important;min-width:180px!important;
+ margin:22px auto 0!important;padding:15px 28px!important;border:1px solid rgba(244,114,182,.3)!important;
+ border-radius:999px!important;background:rgba(131,24,67,.16)!important;color:#f9a8d4!important;font-size:17px!important;font-weight:800!important;
+}
+@media(max-width:600px){
+ #nvProfileViewer, #nvPublicViewer{padding:10px!important;align-items:center!important}
+ #nvProfileViewer .nv-dialog, #nvPublicViewer .nv-dialog{width:100%!important;max-height:92dvh!important;padding:18px 17px 20px!important;border-radius:25px!important}
+ #nvProfileViewer .nv-dialog h2, #nvPublicViewer .nv-dialog h2{font-size:23px!important;margin:0 44px 20px 0!important}
+ #nvProfileViewer .nv-dialog>.nv-close, #nvPublicViewer .nv-dialog>.nv-close{top:12px!important;right:12px!important;width:40px!important;height:40px!important;border-radius:14px!important}
+ #nvProfileViewer .nv-profile-head, #nvPublicViewer .nv-profile-head{gap:14px!important;min-height:0!important;margin-bottom:30px!important;padding:17px 15px!important;border-radius:30px!important}
+ #nvProfileViewer .nv-avatar, #nvPublicViewer .nv-avatar{width:94px!important;height:94px!important;flex-basis:94px!important}
+ #nvProfileViewer .nv-member-label, #nvPublicViewer .nv-member-label{font-size:10px!important;letter-spacing:.15em!important}
+ #nvProfileViewer .nv-profile-name-line, #nvPublicViewer .nv-profile-name-line{font-size:25px!important}
+ #nvProfileViewer .nv-profile-username, #nvPublicViewer .nv-profile-username{font-size:16px!important}
+ #nvProfileViewer .nv-profile-status, #nvPublicViewer .nv-profile-status{margin-top:7px!important;padding:7px 11px!important;font-size:11px!important}
+ #nvProfileViewer .nv-profile-details, #nvPublicViewer .nv-profile-details{gap:10px!important;margin-bottom:24px!important}
+ #nvProfileViewer .nv-detail, #nvPublicViewer .nv-detail{min-height:92px!important;padding:16px 15px!important;border-radius:21px!important;gap:8px!important}
+ #nvProfileViewer .nv-detail b, #nvPublicViewer .nv-detail b{font-size:10px!important}
+ #nvProfileViewer .nv-detail span, #nvPublicViewer .nv-detail span{font-size:16px!important}
+ #nvProfileViewer .nv-profile-edit-button{min-height:66px!important;font-size:19px!important}
+ #nvProfileViewer .nv-profile-guidelines{padding:20px 21px!important;border-radius:22px!important}
+ #nvProfileViewer .nv-profile-guidelines b{font-size:12px!important}
+ #nvProfileViewer .nv-profile-guidelines p{font-size:15px!important;line-height:1.65!important}
+ #nvProfileViewer .nv-profile-signout{min-width:160px!important;margin-top:18px!important;padding:13px 23px!important;font-size:15px!important}
+}
+@media(max-width:380px){
+ #nvProfileViewer .nv-profile-head, #nvPublicViewer .nv-profile-head{gap:11px!important;padding:14px 11px!important}
+ #nvProfileViewer .nv-avatar, #nvPublicViewer .nv-avatar{width:78px!important;height:78px!important;flex-basis:78px!important}
+ #nvProfileViewer .nv-profile-name-line, #nvPublicViewer .nv-profile-name-line{font-size:22px!important}
+ #nvProfileViewer .nv-profile-status, #nvPublicViewer .nv-profile-status{font-size:10px!important}
+ #nvProfileViewer .nv-detail, #nvPublicViewer .nv-detail{padding:13px 12px!important}
+}
