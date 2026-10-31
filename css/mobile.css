@@ -428,8 +428,7 @@ section:has(#chatForm){
 
 \n\n/* Equal-height community board headers: Memories and Creativity. */
 @media (min-width:768px){
-  #nvMemoriesPanel > .nv-memory-hero,
-  #nvCreativityPanel > section:first-of-type {
+  #nvMemoriesPanel > .nv-memory-hero {
     height:250px!important;
     min-height:250px!important;
     box-sizing:border-box!important;
@@ -1070,3 +1069,41 @@ main > aside, main > section, [data-purpose="left-navigation-panel"], [data-purp
  #nvProfileViewer .nv-profile-status, #nvPublicViewer .nv-profile-status{font-size:10px!important}
  #nvProfileViewer .nv-detail, #nvPublicViewer .nv-detail{padding:13px 12px!important}
 }
+
+
+/* Creativity board rules restored from the Preview branch. */
+#nvTabView[hidden],#nvMemoriesPanel[hidden],#nvCreativityPanel[hidden]{display:none!important;}
+#nvMemoriesPanel[style*="display: block"], #nvCreativityPanel[style*="display: block"] {
+  display:block!important; width:100%; max-width:1280px; margin:0 auto!important;
+  min-width:0; overflow:visible!important;
+}
+#nvMemoriesPanel .nv-memory-hero, #nvCreativityPanel .nv-corner-board {
+  max-width:100%; will-change:max-height,opacity,transform;
+}
+#nvCreativityPanel #nvcFeed { grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }
+#nvCreativityPanel .nvc-card { min-width:0; height:100%; }
+#nvCreativityPanel #nvcFilters { position:sticky; top:0; z-index:15; padding:10px 0; background:linear-gradient(#030813 78%,transparent); }
+#nvMemoriesPanel .nv-memory-hero, #nvCreativityPanel .nv-corner-board { transform-origin:top center; }
+@media(min-width:1200px){#nvCreativityPanel #nvcFeed { grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }}
+@media(max-width:767.98px){#nvCreativityPanel #nvcFeed { grid-template-columns:minmax(0,1fr); }
+#nvCreativityPanel #nvcFilters { top:0; overflow-x:auto; flex-wrap:nowrap; }
+#nvCreativityPanel .nvc-filter { flex:0 0 auto; }}
+@media(prefers-reduced-motion:reduce){#nvMemoriesPanel .nv-memory-hero, #nvCreativityPanel .nv-corner-board { transition:none!important; }}
+@media (min-width:768px){#nvCreativityPanel[style*="display: block"] { max-width:1440px!important; }
+#nvCreativityPanel > section:first-of-type { padding:clamp(24px,3vw,42px)!important; }
+#nvCreativityPanel #nvcFeed { grid-template-columns:repeat(2,minmax(0,1fr))!important; gap:22px!important; }
+#nvCreativityPanel .nvc-card { min-width:0; display:flex; flex-direction:column; }
+#nvCreativityPanel .nvc-card > .p-5 { flex:1; }}
+@media (min-width:1280px){#nvCreativityPanel #nvcFeed { grid-template-columns:repeat(3,minmax(0,1fr))!important; gap:24px!important; }}
+@media (max-width:767.98px){#nvCreativityPanel #nvcFeed { grid-template-columns:minmax(0,1fr)!important; gap:14px!important; }
+#nvCreativityPanel > section:first-of-type { padding:18px!important; }}
+#nvCreativityPanel .nvc-filter{border:1px solid rgba(34,211,238,.22);background:#07162a;color:#b9c9df;border-radius:999px;padding:8px 14px;font-size:12px;font-weight:700;white-space:nowrap}
+#nvCreativityPanel .nvc-filter[aria-pressed="true"]{background:#fbbf24;color:#07162a;border-color:#fbbf24}
+#nvCreativityPanel .nvc-card{background:linear-gradient(145deg,#0b2340,#07162a);border:1px solid rgba(34,211,238,.18);border-radius:18px;overflow:hidden;min-width:0}
+#nvCreativityPanel .nvc-react{border:1px solid rgba(34,211,238,.25);border-radius:999px;padding:7px 12px;color:#cbd5e1;font-size:12px;font-weight:700}
+#nvCreativityPanel .nvc-react[aria-pressed="true"]{background:rgba(251,191,36,.14);border-color:#fbbf24;color:#fbbf24}
+#nvCreativityPanel .nvc-modal[hidden]{display:none!important}
+#nvCreativityPanel .nvc-modal{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;padding:18px}
+#nvCreativityPanel .nvc-modal-card{width:min(100%,560px);max-height:90vh;overflow:auto;background:#07162a;border:1px solid rgba(34,211,238,.35);border-radius:22px;padding:22px;box-shadow:0 25px 80px #0009}
+#nvCreativityPanel .nvc-input{width:100%;background:#030d1b;border:1px solid #164e63;border-radius:12px;padding:11px 12px;color:#f8fafc;outline:none}
+#nvCreativityPanel .nvc-input:focus{border-color:#22d3ee}
