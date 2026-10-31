@@ -935,3 +935,77 @@ main > aside, main > section, [data-purpose="left-navigation-panel"],
 #nvPublicViewer .nv-profile-head .nv-avatar { order:-1; }
 #nvProfileViewer .nv-profile-head > div,
 #nvPublicViewer .nv-profile-head > div { order:1; }
+
+
+/* Restore the original Preview profile card: portrait left, identity right. */
+#nvProfileViewer .nv-profile-head,
+#nvPublicViewer .nv-profile-head{
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:18px!important;
+  text-align:left!important;
+  padding:22px 18px!important;
+  min-height:190px;
+}
+#nvProfileViewer .nv-profile-identity,
+#nvPublicViewer .nv-profile-identity{
+  display:flex;
+  flex:1 1 auto;
+  flex-direction:column;
+  align-items:flex-start;
+  min-width:0;
+  gap:5px;
+}
+#nvProfileViewer .nv-member-label,
+#nvPublicViewer .nv-member-label{
+  color:#67e8f9;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.2em;
+  line-height:1.4;
+}
+#nvProfileViewer .nv-profile-name-line,
+#nvPublicViewer .nv-profile-name-line{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  color:#f0fdff;
+  font-size:21px;
+  font-weight:800;
+  line-height:1.25;
+  overflow-wrap:anywhere;
+}
+#nvProfileViewer .nv-profile-name-line .nv-name-flag,
+#nvPublicViewer .nv-profile-name-line .nv-name-flag{margin-left:7px}
+#nvProfileViewer .nv-profile-username,
+#nvPublicViewer .nv-profile-username{margin-top:4px;color:#7dd3fc;font-size:14px}
+#nvProfileViewer .nv-profile-status,
+#nvPublicViewer .nv-profile-status{
+  display:inline-flex;
+  margin-top:8px;
+  padding:7px 12px;
+  border:1px solid rgba(52,211,153,.24);
+  border-radius:999px;
+  background:rgba(16,185,129,.08);
+  color:#34d399;
+  font-size:12px;
+  font-weight:700;
+}
+#nvProfileViewer .nv-content,
+#nvPublicViewer .nv-content{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+#nvProfileViewer .nv-content>.nv-profile-head,
+#nvPublicViewer .nv-content>.nv-profile-head,
+#nvProfileViewer .nv-content>.nv-actions,
+#nvPublicViewer .nv-content>.nv-actions,
+#nvProfileViewer .nv-content>.nv-rules,
+#nvPublicViewer .nv-content>.nv-rules{grid-column:1/-1}
+#nvProfileViewer .nv-content>.nv-detail:nth-of-type(4){grid-column:1}
+#nvProfileViewer .nv-content>.nv-detail:nth-of-type(5),
+#nvPublicViewer .nv-content>.nv-detail:nth-of-type(4){grid-column:1/-1}
+@media(max-width:520px){
+ #nvProfileViewer .nv-profile-head,#nvPublicViewer .nv-profile-head{gap:14px!important;padding:18px 14px!important;min-height:0}
+ #nvProfileViewer .nv-avatar,#nvPublicViewer .nv-avatar{width:82px;height:82px;flex-basis:82px}
+ #nvProfileViewer .nv-profile-name-line,#nvPublicViewer .nv-profile-name-line{font-size:20px}
+ #nvProfileViewer .nv-member-label,#nvPublicViewer .nv-member-label{font-size:10px;letter-spacing:.15em}
+}
