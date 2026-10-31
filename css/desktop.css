@@ -738,3 +738,15 @@ main > aside, main > section, [data-purpose="left-navigation-panel"],
   #nvProfileViewer .nv-avatar, #nvPublicViewer .nv-avatar { width:82px;height:82px;flex-basis:82px; }
   #nvProfileViewer .nv-detail, #nvPublicViewer .nv-detail { padding:11px 12px; }
 }
+
+
+
+/* Profile editor: photo first, then identity fields. Keep house selection inside the editor only. */
+#nvProfileEditor .nv-grid > .nv-editor-layout { order:-2; }
+#nvProfileEditor .nv-grid > .nv-field:has(.nv-editor-flag-block) { order:-1; }
+#nvProfileEditor .nv-grid > .nv-field:has(#nvUsername),
+#nvProfileEditor .nv-grid > .nv-field:has(#nvName) { order:0; }
+#nvProfileViewer .nv-profile-head .nv-avatar,
+#nvPublicViewer .nv-profile-head .nv-avatar { order:-1; }
+#nvProfileViewer .nv-profile-head > div,
+#nvPublicViewer .nv-profile-head > div { order:1; }
