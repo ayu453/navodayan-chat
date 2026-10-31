@@ -967,33 +967,23 @@ main > aside, main > section, [data-purpose="left-navigation-panel"], [data-purp
 }
 
 
-/* Final responsive profile-card sizing: one source of truth for both layouts. */
+/* Equal-size profile detail tiles: all four cards use the same two-column grid. */
 #nvProfileViewer .nv-profile-details, #nvPublicViewer .nv-profile-details{
-  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
-  grid-auto-rows:minmax(104px,auto)!important;align-items:stretch!important;
-  gap:12px!important;width:100%!important;min-width:0!important;margin:0 0 26px!important;
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ gap:12px!important;width:100%!important;min-width:0!important;margin:0 0 26px!important;
 }
 #nvProfileViewer .nv-profile-details > .nv-detail, #nvPublicViewer .nv-profile-details > .nv-detail{
-  box-sizing:border-box!important;display:flex!important;flex-direction:column!important;
-  justify-content:flex-start!important;width:100%!important;min-width:0!important;
-  min-height:104px!important;height:100%!important;margin:0!important;padding:16px 17px!important;
-  overflow-wrap:anywhere!important;
+ grid-column:auto!important;box-sizing:border-box!important;display:flex!important;
+ flex-direction:column!important;justify-content:flex-start!important;align-items:stretch!important;
+ width:100%!important;min-width:0!important;height:116px!important;min-height:116px!important;
+ margin:0!important;padding:16px 17px!important;overflow:auto!important;overflow-wrap:anywhere!important;
 }
-#nvProfileViewer .nv-profile-details > .nv-detail-wide, #nvPublicViewer .nv-profile-details > .nv-detail-wide,
-#nvProfileViewer .nv-profile-details > .nv-detail-half{grid-column:1/-1!important;}
-#nvProfileViewer .nv-profile-head, #nvPublicViewer .nv-profile-head,
-#nvProfileViewer .nv-profile-edit-button, #nvProfileViewer .nv-profile-guidelines,
-#nvProfileViewer .nv-profile-signout{box-sizing:border-box!important;max-width:100%!important;}
+#nvProfileViewer .nv-profile-details > .nv-detail b, #nvPublicViewer .nv-profile-details > .nv-detail b{flex:0 0 auto!important;}
+#nvProfileViewer .nv-profile-details > .nv-detail span, #nvPublicViewer .nv-profile-details > .nv-detail span{min-width:0!important;overflow-wrap:anywhere!important;}
 @media(max-width:600px){
-  #nvProfileViewer .nv-profile-details, #nvPublicViewer .nv-profile-details{
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-rows:minmax(88px,auto)!important;
-    gap:9px!important;margin-bottom:20px!important;
-  }
-  #nvProfileViewer .nv-profile-details > .nv-detail, #nvPublicViewer .nv-profile-details > .nv-detail{
-    min-height:88px!important;padding:12px 11px!important;
-  }
+ #nvProfileViewer .nv-profile-details, #nvPublicViewer .nv-profile-details{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important;margin-bottom:20px!important;}
+ #nvProfileViewer .nv-profile-details > .nv-detail, #nvPublicViewer .nv-profile-details > .nv-detail{height:100px!important;min-height:100px!important;padding:12px 11px!important;}
 }
 @media(max-width:360px){
-  #nvProfileViewer .nv-profile-details, #nvPublicViewer .nv-profile-details{grid-template-columns:1fr!important;}
-  #nvProfileViewer .nv-profile-details > .nv-detail, #nvPublicViewer .nv-profile-details > .nv-detail{grid-column:1/-1!important;}
+ #nvProfileViewer .nv-profile-details, #nvPublicViewer .nv-profile-details{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
 }
