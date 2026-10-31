@@ -1099,3 +1099,123 @@ main > aside, main > section, [data-purpose="left-navigation-panel"],
  #nvCreativityPanel .nv-corner-board-copy>p:not(.nv-board-eyebrow){font-size:17px}
  #nvCreativityPanel .nvc-board-caption{font-size:9px}
 }
+
+
+/* Exact Preview-style profile viewer: header, identity card, detail tiles and actions. */
+#nvProfileViewer,#nvPublicViewer{
+ position:fixed!important;inset:0!important;z-index:100001!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ padding:18px!important;background:rgba(0,5,15,.84)!important;backdrop-filter:blur(8px)!important;
+}
+#nvProfileViewer[hidden],#nvPublicViewer[hidden]{display:none!important}
+#nvProfileViewer .nv-dialog,#nvPublicViewer .nv-dialog{
+ position:relative!important;width:min(100%,680px)!important;max-height:90dvh!important;
+ overflow-y:auto!important;padding:24px 28px 26px!important;border:1px solid rgba(34,211,238,.42)!important;
+ border-radius:27px!important;background:#00172a!important;color:#e8f5ff!important;
+ box-shadow:0 24px 80px rgba(0,0,0,.55)!important;
+}
+#nvProfileViewer .nv-dialog h2,#nvPublicViewer .nv-dialog h2{
+ margin:0 48px 24px 0!important;padding:0!important;border:0!important;
+ color:#22d3ee!important;font-size:28px!important;font-weight:800!important;line-height:1.2!important;
+}
+#nvProfileViewer .nv-dialog>.nv-close,#nvPublicViewer .nv-dialog>.nv-close{
+ position:absolute!important;top:16px!important;right:16px!important;float:none!important;
+ display:grid!important;place-items:center!important;width:46px!important;height:46px!important;
+ margin:0!important;border:1px solid rgba(34,211,238,.25)!important;border-radius:17px!important;
+ background:#06243a!important;color:#bceeff!important;font-size:26px!important;
+}
+#nvProfileViewer .nv-content,#nvPublicViewer .nv-content{display:block!important;min-width:0!important}
+#nvProfileViewer .nv-profile-head,#nvPublicViewer .nv-profile-head{
+ display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;
+ gap:20px!important;min-height:188px!important;margin:0 0 42px!important;padding:22px 28px!important;
+ border:1px solid rgba(34,211,238,.28)!important;border-radius:36px!important;
+ background:linear-gradient(120deg,rgba(8,73,100,.55),rgba(3,25,48,.85) 60%)!important;text-align:left!important;
+}
+#nvProfileViewer .nv-avatar,#nvPublicViewer .nv-avatar{
+ display:grid!important;place-items:center!important;width:122px!important;height:122px!important;
+ flex:0 0 122px!important;padding:3px!important;border:4px solid #06b6d4!important;border-radius:50%!important;
+ background:#09243a!important;object-fit:cover!important;box-shadow:0 0 0 5px rgba(6,182,212,.12),0 8px 22px #0007!important;
+}
+#nvProfileViewer .nv-profile-identity,#nvPublicViewer .nv-profile-identity{
+ display:flex!important;flex:1 1 auto!important;flex-direction:column!important;align-items:flex-start!important;
+ gap:5px!important;min-width:0!important;
+}
+#nvProfileViewer .nv-member-label,#nvPublicViewer .nv-member-label{
+ color:#22d3ee!important;font-size:13px!important;font-weight:900!important;letter-spacing:.2em!important;
+}
+#nvProfileViewer .nv-profile-name-line,#nvPublicViewer .nv-profile-name-line{
+ display:flex!important;align-items:center!important;flex-wrap:wrap!important;gap:2px!important;
+ color:#f0fdff!important;font-size:34px!important;font-weight:800!important;line-height:1.2!important;overflow-wrap:anywhere!important;
+}
+#nvProfileViewer .nv-profile-name-line .nv-name-flag,#nvPublicViewer .nv-profile-name-line .nv-name-flag{margin-left:8px!important}
+#nvProfileViewer .nv-profile-username,#nvPublicViewer .nv-profile-username{margin-top:7px!important;color:#7dd3fc!important;font-size:20px!important}
+#nvProfileViewer .nv-profile-status,#nvPublicViewer .nv-profile-status{
+ display:inline-flex!important;margin-top:12px!important;padding:9px 16px!important;border:1px solid rgba(52,211,153,.3)!important;
+ border-radius:999px!important;background:rgba(6,78,59,.28)!important;color:#4adeb5!important;font-size:14px!important;font-weight:800!important;
+}
+#nvProfileViewer .nv-profile-details,#nvPublicViewer .nv-profile-details{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important;margin:0 0 32px!important;
+}
+#nvProfileViewer .nv-detail,#nvPublicViewer .nv-detail{
+ display:flex!important;flex-direction:column!important;gap:10px!important;min-width:0!important;min-height:106px!important;
+ margin:0!important;padding:20px 21px!important;border:1px solid rgba(34,211,238,.17)!important;
+ border-radius:25px!important;background:linear-gradient(145deg,#08233a,#04182b)!important;color:#edf7ff!important;
+}
+#nvProfileViewer .nv-detail b,#nvPublicViewer .nv-detail b{
+ color:#7899b2!important;font-size:12px!important;font-weight:900!important;letter-spacing:.14em!important;text-transform:uppercase!important;
+}
+#nvProfileViewer .nv-detail span,#nvPublicViewer .nv-detail span{
+ color:#edf7ff!important;font-size:19px!important;font-weight:700!important;line-height:1.4!important;overflow-wrap:anywhere!important;
+}
+#nvProfileViewer .nv-detail-half{grid-column:1!important}
+#nvProfileViewer .nv-detail-wide,#nvPublicViewer .nv-detail-wide{grid-column:1/-1!important}
+#nvProfileViewer .nv-actions,#nvPublicViewer .nv-actions{display:block!important;margin:0 0 20px!important}
+#nvProfileViewer .nv-profile-edit-button{
+ display:flex!important;align-items:center!important;justify-content:center!important;gap:13px!important;width:100%!important;
+ min-height:82px!important;margin:0!important;border:1px solid #32e8f5!important;border-radius:19px!important;
+ background:#08cce0!important;color:#001521!important;font-size:23px!important;font-weight:900!important;
+ box-shadow:0 8px 24px rgba(0,204,224,.12)!important;
+}
+#nvProfileViewer .nv-profile-guidelines{
+ margin:0!important;padding:26px 28px!important;border:1px solid rgba(234,179,8,.22)!important;
+ border-radius:25px!important;background:#111b29!important;
+}
+#nvProfileViewer .nv-profile-guidelines b{
+ color:#fbbf24!important;font-size:15px!important;font-weight:900!important;letter-spacing:.16em!important;
+}
+#nvProfileViewer .nv-profile-guidelines p{
+ margin:13px 0 0!important;color:#cbd5e1!important;font-size:18px!important;line-height:1.7!important;
+}
+#nvProfileViewer .nv-profile-signout{
+ display:flex!important;align-items:center!important;justify-content:center!important;width:max-content!important;min-width:180px!important;
+ margin:22px auto 0!important;padding:15px 28px!important;border:1px solid rgba(244,114,182,.3)!important;
+ border-radius:999px!important;background:rgba(131,24,67,.16)!important;color:#f9a8d4!important;font-size:17px!important;font-weight:800!important;
+}
+@media(max-width:600px){
+ #nvProfileViewer,#nvPublicViewer{padding:10px!important;align-items:center!important}
+ #nvProfileViewer .nv-dialog,#nvPublicViewer .nv-dialog{width:100%!important;max-height:92dvh!important;padding:18px 17px 20px!important;border-radius:25px!important}
+ #nvProfileViewer .nv-dialog h2,#nvPublicViewer .nv-dialog h2{font-size:23px!important;margin:0 44px 20px 0!important}
+ #nvProfileViewer .nv-dialog>.nv-close,#nvPublicViewer .nv-dialog>.nv-close{top:12px!important;right:12px!important;width:40px!important;height:40px!important;border-radius:14px!important}
+ #nvProfileViewer .nv-profile-head,#nvPublicViewer .nv-profile-head{gap:14px!important;min-height:0!important;margin-bottom:30px!important;padding:17px 15px!important;border-radius:30px!important}
+ #nvProfileViewer .nv-avatar,#nvPublicViewer .nv-avatar{width:94px!important;height:94px!important;flex-basis:94px!important}
+ #nvProfileViewer .nv-member-label,#nvPublicViewer .nv-member-label{font-size:10px!important;letter-spacing:.15em!important}
+ #nvProfileViewer .nv-profile-name-line,#nvPublicViewer .nv-profile-name-line{font-size:25px!important}
+ #nvProfileViewer .nv-profile-username,#nvPublicViewer .nv-profile-username{font-size:16px!important}
+ #nvProfileViewer .nv-profile-status,#nvPublicViewer .nv-profile-status{margin-top:7px!important;padding:7px 11px!important;font-size:11px!important}
+ #nvProfileViewer .nv-profile-details,#nvPublicViewer .nv-profile-details{gap:10px!important;margin-bottom:24px!important}
+ #nvProfileViewer .nv-detail,#nvPublicViewer .nv-detail{min-height:92px!important;padding:16px 15px!important;border-radius:21px!important;gap:8px!important}
+ #nvProfileViewer .nv-detail b,#nvPublicViewer .nv-detail b{font-size:10px!important}
+ #nvProfileViewer .nv-detail span,#nvPublicViewer .nv-detail span{font-size:16px!important}
+ #nvProfileViewer .nv-profile-edit-button{min-height:66px!important;font-size:19px!important}
+ #nvProfileViewer .nv-profile-guidelines{padding:20px 21px!important;border-radius:22px!important}
+ #nvProfileViewer .nv-profile-guidelines b{font-size:12px!important}
+ #nvProfileViewer .nv-profile-guidelines p{font-size:15px!important;line-height:1.65!important}
+ #nvProfileViewer .nv-profile-signout{min-width:160px!important;margin-top:18px!important;padding:13px 23px!important;font-size:15px!important}
+}
+@media(max-width:380px){
+ #nvProfileViewer .nv-profile-head,#nvPublicViewer .nv-profile-head{gap:11px!important;padding:14px 11px!important}
+ #nvProfileViewer .nv-avatar,#nvPublicViewer .nv-avatar{width:78px!important;height:78px!important;flex-basis:78px!important}
+ #nvProfileViewer .nv-profile-name-line,#nvPublicViewer .nv-profile-name-line{font-size:22px!important}
+ #nvProfileViewer .nv-profile-status,#nvPublicViewer .nv-profile-status{font-size:10px!important}
+ #nvProfileViewer .nv-detail,#nvPublicViewer .nv-detail{padding:13px 12px!important}
+}
