@@ -343,3 +343,11 @@ section:has(#chatForm) {
 
 /* The reply preview must fully collapse while hidden; it previously left an empty cyan bar above the composer. */
 .nv-reply-banner[hidden]{display:none!important}
+
+/* Consistent house-colour pennant beside member names. */
+.nv-name-flag{width:13px;height:14px;display:inline-flex;align-items:center;justify-content:center;margin-left:5px;vertical-align:-2px;color:var(--nv-flag)}
+.nv-name-flag i{display:block;position:relative;width:2px;height:12px;background:currentColor;border-radius:2px}
+.nv-name-flag i:before{content:"";position:absolute;left:1px;top:0;width:9px;height:7px;background:var(--nv-flag);clip-path:polygon(0 0,100% 0,72% 50%,100% 100%,0 100%);border-radius:0 2px 2px 0}
+.nv-header-flag .nv-name-flag{margin:0;width:auto;height:auto}
+.nv-header-flag .nv-name-flag i{height:12px}
+.nv-header-flag .nv-name-flag i:before{width:8px;height:6px}
