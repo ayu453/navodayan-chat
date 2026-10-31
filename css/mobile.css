@@ -1009,3 +1009,93 @@ main > aside, main > section, [data-purpose="left-navigation-panel"],
  #nvProfileViewer .nv-profile-name-line,#nvPublicViewer .nv-profile-name-line{font-size:20px}
  #nvProfileViewer .nv-member-label,#nvPublicViewer .nv-member-label{font-size:10px;letter-spacing:.15em}
 }
+
+
+/* Creativity Corner — Preview collage board treatment and top-right options. */
+#nvCreativityPanel>section:has(.nv-creativity-board-shell){
+  position:relative;
+  padding:0!important;
+  overflow:hidden;
+  border-color:rgba(245,190,112,.34)!important;
+  background:transparent!important;
+  box-shadow:0 18px 46px rgba(0,0,0,.3)!important;
+}
+#nvCreativityPanel .nv-creativity-board-shell{position:relative}
+#nvCreativityPanel .nv-corner-board{
+  position:relative!important;
+  isolation:isolate;
+  display:flex!important;
+  min-height:clamp(300px,38vw,420px)!important;
+  height:auto!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:flex-end!important;
+  padding:clamp(20px,4vw,38px)!important;
+  overflow:hidden;
+  border:0!important;
+  border-radius:0!important;
+  background:#09182b!important;
+}
+#nvCreativityPanel .nv-corner-board[hidden]{display:none!important}
+#nvCreativityPanel .nv-corner-board-image{
+  position:absolute!important;inset:0!important;z-index:-2!important;
+  display:block!important;width:100%!important;height:100%!important;
+  object-fit:cover!important;object-position:center 48%!important;
+  transform:scale(1.015);
+}
+#nvCreativityPanel .nv-corner-board-shade{
+  position:absolute!important;inset:0!important;z-index:-1!important;
+  background:linear-gradient(90deg,rgba(3,10,23,.9) 0%,rgba(3,10,23,.62) 52%,rgba(3,10,23,.16) 100%),linear-gradient(0deg,rgba(3,10,23,.82),transparent 72%)!important;
+}
+#nvCreativityPanel .nv-corner-board-topline{
+  position:absolute;top:16px;left:clamp(18px,3vw,30px);right:clamp(18px,3vw,30px);
+  z-index:3;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  color:#f8dca7;font-size:10px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;
+}
+#nvCreativityPanel .nvc-board-menu-wrap{position:relative}
+#nvCreativityPanel .nvc-board-menu-trigger{
+  display:grid;place-items:center;width:38px;height:38px;border:1px solid rgba(255,255,255,.3);
+  border-radius:12px;background:rgba(4,13,27,.58);color:#fff;font-size:24px;line-height:1;
+  backdrop-filter:blur(10px);cursor:pointer;
+}
+#nvCreativityPanel .nvc-board-menu{
+  position:absolute;top:calc(100% + 7px);right:0;z-index:10;min-width:168px;
+  padding:5px;border:1px solid rgba(245,190,112,.28);border-radius:12px;
+  background:#09182b;box-shadow:0 14px 35px #0009;
+}
+#nvCreativityPanel .nvc-board-menu[hidden]{display:none!important}
+#nvCreativityPanel .nvc-board-menu button{
+  display:block;width:100%;padding:10px 12px;border:0;border-radius:8px;
+  background:transparent;color:#e5edf7;text-align:left;font-size:13px;cursor:pointer;
+}
+#nvCreativityPanel .nvc-board-menu button:hover{background:rgba(245,190,112,.12);color:#fcdba2}
+#nvCreativityPanel .nv-corner-board-copy{position:relative;z-index:1;width:100%;max-width:760px;text-shadow:0 2px 14px #000c}
+#nvCreativityPanel .nv-board-eyebrow{color:#f8d38c!important;font-size:10px;font-weight:900;letter-spacing:.2em}
+#nvCreativityPanel .nv-corner-board-copy h2{
+  margin-top:9px!important;color:#fff!important;font-family:Georgia,serif!important;
+  font-size:clamp(34px,5.5vw,58px)!important;font-style:italic;font-weight:800;line-height:1.02;
+}
+#nvCreativityPanel .nv-corner-board-copy>p:not(.nv-board-eyebrow){
+  margin-top:10px;color:#fff1d4;font-size:clamp(17px,2.5vw,24px);font-weight:700;letter-spacing:.04em;
+}
+#nvCreativityPanel .nv-corner-board-copy>span{
+  display:inline-flex;margin-top:16px;padding:8px 13px;border:1px solid rgba(255,220,160,.42);
+  border-radius:999px;background:rgba(5,17,31,.64);color:#ffe2a8;font-size:12px;font-weight:800;
+}
+#nvCreativityPanel .nvc-board-caption{
+  position:relative;z-index:1;align-self:flex-end;margin-top:18px;color:#e2e8f0;
+  font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+}
+#nvCreativityPanel .nvc-board-restore{
+  width:100%;padding:13px 16px;border:1px solid rgba(245,190,112,.35);border-radius:13px;
+  background:#101d30;color:#f8dca7;font-size:13px;font-weight:800;text-align:left;cursor:pointer;
+}
+#nvCreativityPanel .nvc-board-restore[hidden]{display:none!important}
+@media(max-width:767.98px){
+ #nvCreativityPanel .nv-corner-board{min-height:340px!important;padding:22px 18px!important}
+ #nvCreativityPanel .nv-corner-board-topline{top:12px;left:16px;right:16px;font-size:9px;letter-spacing:.13em}
+ #nvCreativityPanel .nvc-board-menu-trigger{width:36px;height:36px}
+ #nvCreativityPanel .nv-corner-board-copy h2{font-size:clamp(34px,9vw,44px)!important}
+ #nvCreativityPanel .nv-corner-board-copy>p:not(.nv-board-eyebrow){font-size:17px}
+ #nvCreativityPanel .nvc-board-caption{font-size:9px}
+}
