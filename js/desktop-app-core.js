@@ -178,7 +178,7 @@ updateProfileUI();
       const session=data?.session;
       if(session?.user){
         nvAuthUserId=session.user.id;
-        const username=String(session.user.user_metadata?.username||session.user.email||'').replace(/@accounts\\.navodayan\\.invalid$/i,'').trim();
+        const username=String(session.user.user_metadata?.username||session.user.email||'').replace(/@accounts\.navodayan\.invalid$/i,'').trim();
         if(username){
           const k=key(username);
           const remoteProfile=await nvFetchRemoteProfile(username);
