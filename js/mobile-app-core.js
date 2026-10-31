@@ -6,7 +6,7 @@ const DB='navodayanChatDemo_v1', ACC=DB+'_accounts', MSG=DB+'_messages', LAST=DB
 const NV_SUPABASE_URL = window.parent.NAVODAYAN_SUPABASE_URL || 'YOUR_SUPABASE_PROJECT_URL';
 const NV_SUPABASE_ANON_KEY = window.parent.NAVODAYAN_SUPABASE_ANON_KEY || 'YOUR_SUPABASE_ANON_KEY';
 const nvSupabase = (window.supabase && /^https:\/\/.+/.test(NV_SUPABASE_URL) && !NV_SUPABASE_URL.includes('YOUR_') && !NV_SUPABASE_ANON_KEY.includes('YOUR_'))
-  ? window.supabase.createClient(NV_SUPABASE_URL, NV_SUPABASE_ANON_KEY, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storage: window.localStorage, storageKey: 'navodayan-chat-auth-v1' } }) : null;
+  ? window.supabase.createClient(NV_SUPABASE_URL, NV_SUPABASE_ANON_KEY, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storage: window.localStorage } }) : null;
 let nvAuthUserId = null, nvRealtimeChannel = null;
 const nvUsernameEmail = u => `${String(u||'').trim().toLowerCase()}@accounts.navodayan.invalid`;
 const nvBackendReady = () => !!nvSupabase;
