@@ -1,0 +1,195 @@
+
+(()=>{
+'use strict';
+const DB='navodayanChatDemo_v1', ACC=DB+'_accounts', MSG=DB+'_messages', LAST=DB+'_lastUser';
+
+const NV_SUPABASE_URL = window.parent.NAVODAYAN_SUPABASE_URL || 'YOUR_SUPABASE_PROJECT_URL';
+const NV_SUPABASE_ANON_KEY = window.parent.NAVODAYAN_SUPABASE_ANON_KEY || 'YOUR_SUPABASE_ANON_KEY';
+const nvSupabase = (window.supabase && /^https:\/\/.+/.test(NV_SUPABASE_URL) && !NV_SUPABASE_URL.includes('YOUR_') && !NV_SUPABASE_ANON_KEY.includes('YOUR_'))
+  ? window.supabase.createClient(NV_SUPABASE_URL, NV_SUPABASE_ANON_KEY) : null;
+let nvAuthUserId = null, nvRealtimeChannel = null;
+const nvUsernameEmail = u => `${String(u||'').trim().toLowerCase()}@accounts.navodayan.invalid`;
+const nvBackendReady = () => !!nvSupabase;
+const nvProfileFromRow = r => r ? ({name:r.name||r.username,code:r.school_code||'',entryYear:r.entry_year||'',jnv:r.jnv||'',about:r.about||'',photo:r.photo||'',flagColor:r.flag_color||'#22d3ee'}) : null;
+async function nvLoadRemoteMessages(){
+  if(!nvSupabase || !nvAuthUserId) return;
+  const {data,error}=await nvSupabase.from('nv_messages').select('*').order('created_at',{ascending:true}).limit(500);
+  if(error){showNotice('Could not load cloud messages: '+error.message);return;}
+  messages=(data||[]).map(r=>({id:r.id,username:r.username,name:r.name,photo:r.photo||'',status:r.status||'',text:r.body,time:r.created_at,reply:r.reply||null,_userId:r.user_id}));
+  refreshSavedMessages();
+  if(nvRealtimeChannel) await nvSupabase.removeChannel(nvRealtimeChannel);
+  nvRealtimeChannel=nvSupabase.channel('nv-global-chat')
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'nv_messages'},payload=>{
+      const r=payload.new;if(!r || messages.some(m=>m.id===r.id))return;
+      const m={id:r.id,username:r.username,name:r.name,photo:r.photo||'',status:r.status||'',text:r.body,time:r.created_at,reply:r.reply||null,_userId:r.user_id};
+      messages.push(m);if(messages.length>500)messages=messages.slice(-500);
+      const art=makeArticle(m);if(art)stream.appendChild(art);if(stream)stream.scrollTop=stream.scrollHeight;
+    }).on('postgres_changes',{event:'DELETE',schema:'public',table:'nv_messages'},payload=>{
+      const id=payload.old?.id;if(!id)return;messages=messages.filter(m=>m.id!==id);const el=stream?.querySelector(`[data-chat-id="${CSS.escape(id)}"]`);el?.remove();
+    }).subscribe();
+}
+async function nvSaveRemoteProfile(){
+  if(!nvSupabase || !nvAuthUserId || !current || !accounts[current]?.profile)return;
+  const p=accounts[current].profile;
+  const row={user_id:nvAuthUserId,username:accounts[current].username,name:p.name,school_code:p.code,entry_year:Number(p.entryYear),jnv:p.jnv||'',about:p.about||'',photo:p.photo||'',flag_color:p.flagColor||'#22d3ee',updated_at:new Date().toISOString()};
+  const {error}=await nvSupabase.from('nv_profiles').upsert(row,{onConflict:'user_id'});
+  if(error)throw error;
+}
+async function nvFetchRemoteProfile(username){
+  const {data,error}=await nvSupabase.from('nv_profiles').select('*').eq('user_id',nvAuthUserId).maybeSingle();
+  if(error)throw error;
+  return nvProfileFromRow(data);
+}
+async function nvSignInOrSignUp(username,password){
+  const email=nvUsernameEmail(username);
+  let result=await nvSupabase.auth.signInWithPassword({email,password});
+  if(result.error){
+    result=await nvSupabase.auth.signUp({email,password,options:{data:{username}}});
+    if(result.error) throw new Error('Login failed. Check username/password. New accounts also require Supabase email confirmation to be disabled for this username-only login flow. Details: '+result.error.message);
+    if(!result.data.session) throw new Error('Account created, but Supabase is waiting for email confirmation. In Supabase Auth settings, disable Confirm email for this username-only setup, then sign in again.');
+  }
+  nvAuthUserId=result.data.user?.id||result.data.session?.user?.id;
+  if(!nvAuthUserId)throw new Error('Authentication did not return a user ID.');
+  return await nvFetchRemoteProfile(username);
+}
+
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const key=s=>String(s||'').trim().toLowerCase();
+let accounts={}, messages=[], current=null, replyTarget=null, photoData='';
+try{accounts=JSON.parse(localStorage.getItem(ACC)||'{}');messages=JSON.parse(localStorage.getItem(MSG)||'[]')}catch(e){accounts={};messages=[]}
+if(!accounts || typeof accounts!=='object') accounts={}; if(!Array.isArray(messages)) messages=[];
+let currentAccount=()=>current && accounts[current] ? accounts[current] : null;
+let profile=()=>currentAccount()?.profile || null;
+const save=()=>{try{localStorage.setItem(ACC,JSON.stringify(accounts));localStorage.setItem(MSG,JSON.stringify(messages));if(current)localStorage.setItem(LAST,current);else localStorage.removeItem(LAST)}catch(e){showNotice('Browser storage is full. Try using a smaller profile photo.')}};
+const hash=async v=>{try{if(globalThis.crypto?.subtle){const b=new TextEncoder().encode(v),d=await crypto.subtle.digest('SHA-256',b);return Array.from(new Uint8Array(d),x=>x.toString(16).padStart(2,'0')).join('')}}catch(e){}return 'demo-only:'+v};
+const timeNow=()=>new Date().toISOString();
+const displayTime=v=>{if(!v)return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});if(/^\d{1,2}:\d{2}\s?(AM|PM)$/i.test(v))return v;const d=new Date(v);return isNaN(d)?String(v):d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})};
+const statusFor=p=>{const exit=Number(p?.entryYear)+7;return Number(new Date().getFullYear())<exit?'Navodayan (estimated)':'Ex-Navodayan (estimated)'};
+const css=document.createElement('style');css.textContent=`
+.nv-overlay{position:fixed;inset:0;z-index:99999;background:rgba(0,4,14,.82);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:16px;}
+.nv-overlay[hidden]{display:none!important}.nv-dialog{width:min(100%,520px);max-height:90vh;overflow:auto;background:#061427;border:1px solid rgba(34,211,238,.42);border-radius:20px;padding:20px;color:#e7f3ff;box-shadow:0 24px 80px #0009;font:14px/1.45 Inter,ui-sans-serif,system-ui,sans-serif}.nv-dialog h2{font-size:20px;font-weight:800;color:#67e8f9;margin:0 34px 14px 0}.nv-close{float:right;border:1px solid #164e63;background:#0a1e35;color:#d8f7ff;border-radius:10px;width:32px;height:32px;cursor:pointer}.nv-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.nv-field{display:flex;flex-direction:column;gap:5px;min-width:0}.nv-field[hidden]{display:none!important}.nv-field.wide{grid-column:1/-1}.nv-field label{font-size:11px;font-weight:800;color:#9fb8cf;letter-spacing:.03em}.nv-field input,.nv-field textarea,.nv-field select{width:100%;min-width:0;border:1px solid #164e63;background:#030d1b;color:#f3fbff;border-radius:10px;padding:10px 11px;outline:none}.nv-field input:focus,.nv-field textarea:focus,.nv-field select:focus{border-color:#22d3ee;box-shadow:0 0 0 2px #22d3ee22}.nv-field textarea{min-height:76px;resize:vertical}.nv-help{font-size:11px;color:#8ca6bd;margin-top:5px}.nv-error{display:none;background:#451a24;border:1px solid #9f3348;color:#fecdd3;padding:9px 11px;border-radius:9px;margin:12px 0}.nv-error.show{display:block}.nv-actions{display:flex;gap:9px;margin-top:15px;flex-wrap:wrap}.nv-btn{border:1px solid #155e75;background:#083344;color:#a5f3fc;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer}.nv-btn.primary{background:#22d3ee;color:#03121d;border-color:#67e8f9}.nv-btn.ghost{background:#091a2d;color:#cbd5e1;border-color:#29445b}.nv-profile-head{display:flex;align-items:center;gap:13px;margin:8px 0 16px}.nv-avatar{width:54px;height:54px;flex:0 0 54px;border-radius:50%;border:2px solid #22d3ee;object-fit:cover;background:#092244;display:flex;align-items:center;justify-content:center;color:#a5f3fc;font-weight:800}.nv-detail{padding:9px 0;border-bottom:1px solid #163149;overflow-wrap:anywhere}.nv-detail b{color:#67e8f9}.nv-rules{padding:10px 12px;border:1px solid #164e63;background:#081c31;border-radius:12px;margin:8px 0}.nv-msg-actions{display:flex;gap:12px;align-items:center;margin-top:6px;font-size:11px}.nv-msg-actions button{border:0;background:transparent;color:#67e8f9;cursor:pointer;padding:2px 0}.nv-msg-actions button.delete{color:#fda4af}.nv-reply-banner{font-size:11px;color:#a5f3fc;background:#082b3b;border:1px solid #155e75;border-radius:9px;padding:7px 10px;margin:0 0 7px;display:flex;justify-content:space-between;gap:8px}.nv-reply-banner button{border:0;background:none;color:#fda4af;cursor:pointer}.nv-click-name{cursor:pointer}.nv-click-name:hover{color:#67e8f9;text-decoration:underline}.nv-current-avatar{cursor:pointer}.nv-notice{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:100001;max-width:calc(100vw - 30px);background:#082b3b;color:#cffafe;border:1px solid #22d3ee;border-radius:12px;padding:10px 14px;box-shadow:0 8px 28px #0008;font-size:12px}
+@media(max-width:520px){.nv-dialog{padding:16px;border-radius:17px}.nv-grid{grid-template-columns:1fr}.nv-field.wide{grid-column:auto}.nv-actions .nv-btn{flex:1}}
+`;
+
+css.textContent += `
+.nv-login-gate{position:fixed;inset:0;z-index:1000000;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(2,7,18,.94);backdrop-filter:blur(14px);font:14px/1.5 Inter,ui-sans-serif,system-ui,sans-serif;color:#e7f3ff}
+.nv-login-gate[style*="display: none"]{display:none!important}.nv-login-card{width:min(100%,420px);padding:26px;border-radius:22px;border:1px solid rgba(34,211,238,.45);background:linear-gradient(145deg,#0b1b32,#050b17);box-shadow:0 28px 90px #000b}.nv-login-mark{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:#083344;color:#67e8f9;font-size:25px;margin-bottom:14px}.nv-login-card h2{margin:0 0 6px;color:#e7fbff;font-size:24px;font-weight:800}.nv-login-card p{margin:0 0 20px;color:#9fb8cf}.nv-login-card label{display:block;font-size:11px;font-weight:800;letter-spacing:.06em;color:#9fb8cf;margin:13px 0 5px}.nv-login-card input{width:100%;box-sizing:border-box;padding:12px;border-radius:11px;border:1px solid #164e63;background:#030d1b;color:#f3fbff;outline:none}.nv-login-card input:focus{border-color:#22d3ee;box-shadow:0 0 0 2px #22d3ee22}.nv-login-card .nv-btn{width:100%;margin-top:17px;padding:12px}.nv-login-card small{display:block;color:#7e9ab4;margin-top:15px}.nv-login-card #nvLoginError{display:none;color:#fecdd3;background:#451a24;border:1px solid #9f3348;border-radius:9px;padding:9px;margin-top:12px}
+`;
+document.head.appendChild(css);
+const addOverlay=(id,title)=>{let ov=document.createElement('div');ov.className='nv-overlay';ov.id=id;ov.hidden=true;ov.innerHTML=`<section class="nv-dialog" role="dialog" aria-modal="true"><button type="button" class="nv-close" aria-label="Close">✕</button><h2>${title}</h2><div class="nv-content"></div></section>`;document.body.appendChild(ov);ov.addEventListener('click',e=>{if(e.target===ov||e.target.closest('.nv-close'))ov.hidden=true});document.addEventListener('keydown',e=>{if(e.key==='Escape')ov.hidden=true});return ov};
+const editor=addOverlay('nvProfileEditor','Your Navodayan Profile');
+const viewer=addOverlay('nvProfileViewer','Your Profile');
+const publicViewer=addOverlay('nvPublicViewer','Member Profile');
+const rules=addOverlay('nvRulesViewer','Chatroom Rules');
+const editorBody=$('.nv-content',editor), viewerBody=$('.nv-content',viewer), publicBody=$('.nv-content',publicViewer), rulesBody=$('.nv-content',rules);
+editorBody.innerHTML=`<form id="nvProfileForm"><div class="nv-grid">
+<div class="nv-field"><label for="nvUsername">USERNAME</label><input id="nvUsername" maxlength="24" autocomplete="username" placeholder="3–24 characters" required pattern="[A-Za-z0-9_.-]{3,24}"></div>
+<div class="nv-field"><label for="nvPassword">PASSWORD</label><input id="nvPassword" type="password" minlength="6" maxlength="72" autocomplete="current-password" placeholder="At least 6 characters"><div class="nv-help">New account: password required. Existing profile: leave blank to keep your current password.</div></div>
+<div class="nv-field wide"><label for="nvName">PROFILE NAME / NICKNAME *</label><input id="nvName" maxlength="36" placeholder="Name shown in chat" required></div>
+<div class="nv-field wide"><label>PROFILE PHOTO (OPTIONAL)</label><input id="nvPhoto" type="file" accept="image/*"><div class="nv-actions" style="margin-top:2px"><button type="button" class="nv-btn ghost" id="nvRemovePhoto">Remove photo</button><span class="nv-help" id="nvPhotoHint">Choose an image under 2 MB.</span></div></div>
+<div class="nv-field"><label for="nvFlagColor">HOUSE TSHIRT COLOUR</label><select id="nvFlagColor"><option value="#ef4444">Red</option><option value="#3b82f6">Blue</option><option value="#eab308">Yellow</option><option value="#22c55e">Green</option></select><div class="nv-help">This color will be used for the flag icon on your profile card.</div></div>
+<div class="nv-field"><label for="nvSchoolCode">SCHOOL 4-DIGIT CODE *</label><input id="nvSchoolCode" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" placeholder="e.g. 0123" required></div>
+<div class="nv-field"><label for="nvEntryYear">ENTRY YEAR *</label><input id="nvEntryYear" type="number" min="1986" max="2026" placeholder="Class 6 admission year" required></div>
+<div class="nv-field wide"><label for="nvJnv">JNV NAME (OPTIONAL)</label><input id="nvJnv" maxlength="70" placeholder="Your Jawahar Navodaya Vidyalaya"></div>
+<div class="nv-field wide"><label for="nvAbout">ABOUT / STATUS (OPTIONAL)</label><textarea id="nvAbout" maxlength="160" placeholder="A little about you…"></textarea></div>
+</div><div class="nv-error" id="nvProfileError" role="alert"></div><div class="nv-actions"><button type="submit" class="nv-btn primary">Save Profile</button><button type="button" class="nv-btn" id="nvSignIn">Sign In</button><button type="button" class="nv-btn ghost" id="nvViewMyProfile">View Profile</button><button type="button" class="nv-btn ghost" id="nvSignOut">Sign Out</button></div></form>`;
+const f=id=>$('#'+id);
+const loginGate=document.createElement('div');loginGate.id='nvLoginGate';loginGate.className='nv-login-gate';loginGate.innerHTML=`<section class="nv-login-card" role="dialog" aria-modal="true" aria-labelledby="nvLoginTitle"><div class="nv-login-mark">✦</div><h2 id="nvLoginTitle">Enter the Navodayan adda</h2><p>Sign in to your account or create a new one.</p><form id="nvLoginForm" novalidate><label for="nvLoginUsername">USERNAME</label><input id="nvLoginUsername" maxlength="24" autocomplete="username" placeholder="3–24 characters" required><label for="nvLoginPassword">PASSWORD</label><input id="nvLoginPassword" type="password" minlength="6" maxlength="72" autocomplete="current-password" placeholder="At least 6 characters" required><div id="nvLoginError" role="alert"></div><button class="nv-btn primary" type="submit">Continue to Chat →</button></form><small>Your account and messages are stored in this browser.</small></section>`;loginGate.style.display='none';document.body.appendChild(loginGate);
+const loginError=msg=>{const e=$('#nvLoginError');e.textContent=msg;e.style.display='block'};
+const clearLoginError=()=>{const e=$('#nvLoginError');e.textContent='';e.style.display='none'};
+const unlockChat=()=>{loginGate.style.display='none';updateProfileUI();refreshSavedMessages()};
+$('#nvLoginForm').addEventListener('submit',async e=>{e.preventDefault();clearLoginError();const u=$('#nvLoginUsername').value.trim(),pass=$('#nvLoginPassword').value,k=key(u);if(!/^[A-Za-z0-9_.-]{3,24}$/.test(u))return loginError('Username: 3–24 letters, numbers, underscore, dot or hyphen.');if(pass.length<6)return loginError('Password must be at least 6 characters.');if(nvBackendReady()){try{const remoteProfile=await nvSignInOrSignUp(u,pass);current=k;accounts[k]={username:u,passwordHash:'cloud-auth',profile:remoteProfile,created:timeNow()};save();if(!remoteProfile){loginGate.style.display='none';openEditor();f('nvName').value=u;showNotice('Cloud account ready. Complete your profile.');return}await nvLoadRemoteMessages();unlockChat();showNotice('Signed in to Navodayan Chat cloud.');return}catch(err){return loginError(err.message||'Cloud sign-in failed.')}}const hashed=await hash(pass);if(accounts[k]){if(accounts[k].passwordHash!==hashed)return loginError('That username already exists, but the password does not match. Try again.');current=k;save();if(!accounts[k].profile){loginGate.style.display='none';openEditor();f('nvName').value=accounts[k].username;showNotice('Complete your profile to enter the chat.');return}unlockChat();showNotice('Signed in successfully.');return}current=k;accounts[k]={username:u,passwordHash:hashed,profile:null,created:timeNow()};save();loginGate.style.display='none';openEditor();f('nvName').value=u;showNotice('Account created. Complete your profile to enter the chat.');});
+f('nvPhoto').addEventListener('change',e=>{const file=e.target.files?.[0];if(!file)return;if(!file.type.startsWith('image/')){setError('Please choose an image file.');e.target.value='';return}if(file.size>2*1024*1024){setError('Please choose a photo under 2 MB.');e.target.value='';return}const r=new FileReader();r.onload=()=>{photoData=String(r.result||'');f('nvPhotoHint').textContent='Photo selected.'};r.readAsDataURL(file)});
+f('nvRemovePhoto').addEventListener('click',()=>{photoData='';f('nvPhoto').value='';f('nvPhotoHint').textContent='No profile photo selected.'});
+function setError(msg){const el=f('nvProfileError');el.textContent=msg;el.classList.add('show')};function clearError(){const el=f('nvProfileError');el.textContent='';el.classList.remove('show')}
+function openEditor(){clearError();if(!current||!accounts[current]){loginGate.style.display='flex';return}if(!viewer.hidden){viewer.hidden=true;document.body.appendChild(editor);editor.style.position='fixed';editor.style.inset='0';editor.style.zIndex='100002';editor.style.display='flex';}const p=profile()||{};f('nvUsername').value=currentAccount()?.username||'';f('nvUsername').readOnly=true;f('nvPassword').closest('.nv-field').hidden=true;f('nvName').value=p.name||currentAccount().username||'';f('nvSchoolCode').value=p.code||'';f('nvEntryYear').value=p.entryYear||'';f('nvJnv').value=p.jnv||'';f('nvAbout').value=p.about||'';if(f('nvFlagColor'))f('nvFlagColor').value=p.flagColor||'#22d3ee';photoData=p.photo||'';f('nvPhotoHint').textContent=photoData?'Current profile photo is saved.':'Choose an image under 2 MB.';editor.hidden=false}
+f('nvProfileForm').addEventListener('submit',async e=>{e.preventDefault();clearError();if(!current||!accounts[current])return setError('Please sign in first.');const name=f('nvName').value.trim(),code=f('nvSchoolCode').value.trim(),year=Number(f('nvEntryYear').value),jnv=f('nvJnv').value.trim(),about=f('nvAbout').value.trim();if(!name)return setError('Please enter your profile name.');if(!/^\d{4}$/.test(code))return setError('School code must contain exactly 4 digits.');if(!Number.isInteger(year)||year<1986||year>2026)return setError('Enter a valid entry year between 1986 and 2026.');const flagColor=f('nvFlagColor')?.value||'#22d3ee';accounts[current].profile={name,code,entryYear:year,jnv,about,photo:photoData||'',flagColor};if(nvBackendReady()){try{await nvSaveRemoteProfile()}catch(err){setError('Profile cloud save failed: '+err.message);return}}save();editor.hidden=true;updateProfileUI();unlockChat();if(nvBackendReady())await nvLoadRemoteMessages();showNotice(nvBackendReady()?'Profile saved to cloud.':'Profile saved successfully.')});
+/* Sign-in is handled by the dedicated entry screen, matching the original account flow. */
+f('nvSignIn').hidden=true;
+f('nvViewMyProfile').hidden=true;f('nvSignOut').hidden=true;
+function showProfile(){const a=currentAccount(),p=a?.profile;if(!a||!p){viewerBody.innerHTML='<p class="nv-help">No profile is signed in yet. Choose Edit Profile to create an account or sign in.</p><div class="nv-actions"><button class="nv-btn primary" id="nvViewerEdit">Create / Sign In</button></div>';$('#nvViewerEdit',viewerBody).onclick=openEditor;viewer.hidden=false;return}viewerBody.innerHTML=`<div class="nv-profile-head">${p.photo?`<img class="nv-avatar" src="${safe(p.photo)}" alt="Profile photo">`:`<div class="nv-avatar">${safe((p.name||a.username).slice(0,2).toUpperCase())}</div>`}<div><div style="font-size:18px;font-weight:800;color:#f0fdff">${safe(p.name||a.username)}</div><div style="font-size:12px;color:#67e8f9">@${safe(a.username)}</div><div style="font-size:11px;color:#34d399">${safe(statusFor(p))}</div></div></div><div class="nv-detail"><b>Entry year:</b> ${safe(p.entryYear||'Not added')}</div><div class="nv-detail"><b>School code:</b> ${safe(p.code||'Not added')}</div><div class="nv-detail"><b>JNV:</b> ${safe(p.jnv||'Not added')}</div><div class="nv-detail"><b>About:</b> ${safe(p.about||'No about/status added')}</div><div class="nv-actions"><button class="nv-btn primary" id="nvViewerEdit">Edit Profile</button></div><div class="nv-rules"><b style="color:#67e8f9">Chat Rules</b><br>Be respectful · No spam or harassment · Don’t post private information · School code is not displayed in chat.</div>`;$('#nvViewerEdit',viewerBody).onclick=openEditor;const so=document.createElement('button');so.type='button';so.className='nv-btn ghost';so.textContent='Sign Out';so.style.marginTop='14px';so.onclick=()=>{current=null;replyTarget=null;save();viewer.hidden=true;editor.hidden=true;loginGate.style.display='flex';$('#nvLoginPassword').value='';clearLoginError();};viewerBody.appendChild(so);const houseBtn=document.createElement('button');houseBtn.type='button';houseBtn.className='nv-btn ghost';houseBtn.style.marginTop='10px';houseBtn.innerHTML='⚑ House / Flag Options';houseBtn.onclick=()=>{viewer.hidden=true;const drawer=document.getElementById('mobileDrawer');if(drawer){drawer.classList.remove('hidden');drawer.classList.add('flex')}else{showNotice('House options are available in the side panel on this layout.')}};viewerBody.appendChild(houseBtn);viewer.hidden=false}
+function showPublic(username){const k=key(username),a=accounts[k],p=a?.profile;if(!a||!p){publicBody.innerHTML=`<div class="nv-profile-head"><div class="nv-avatar">${safe(String(username||'?').slice(0,2).toUpperCase())}</div><div><div style="font-size:18px;font-weight:800">${safe(username||'Member')}</div><div class="nv-help">This demo member has no saved profile details.</div></div></div><div class="nv-detail"><b>School code:</b> Not shown publicly</div>`}else{publicBody.innerHTML=`<div class="nv-profile-head">${p.photo?`<img class="nv-avatar" src="${safe(p.photo)}" alt="Profile photo">`:`<div class="nv-avatar">${safe((p.name||a.username).slice(0,2).toUpperCase())}</div>`}<div><div style="font-size:18px;font-weight:800">${safe(p.name||a.username)}</div><div style="font-size:12px;color:#67e8f9">@${safe(a.username)}</div><div style="font-size:11px;color:#34d399">${safe(statusFor(p))}</div></div></div><div class="nv-detail"><b>Entry year:</b> ${safe(p.entryYear||'Not added')}</div><div class="nv-detail"><b>JNV:</b> ${safe(p.jnv||'Not added')}</div><div class="nv-detail"><b>About:</b> ${safe(p.about||'No about/status added')}</div><div class="nv-detail"><b>School code:</b> Not shown publicly</div>`}publicViewer.hidden=false}
+function showRules(){rulesBody.innerHTML=`<p style="color:#cbd5e1;margin:0 0 12px">Navodayan Chat is a friendly space for students and alumni. Follow these rules to keep the community safe and welcoming.</p><div class="nv-rules">✓ Be respectful to every member, regardless of batch or school.</div><div class="nv-rules">✓ No spam, repeated promotions, harassment, bullying, or hate speech.</div><div class="nv-rules">✓ Do not share anyone’s private information, passwords, phone numbers, or personal photos without permission.</div><div class="nv-rules">✓ Keep messages relevant and avoid flooding the chat.</div><div class="nv-rules">✓ Do not impersonate another member or misrepresent your identity.</div><div class="nv-rules">✓ Report inappropriate content and respect moderator decisions.</div><div class="nv-rules">✓ School code is private and is not displayed publicly.</div><p style="font-weight:800;color:#67e8f9;margin:14px 0 0">Respect the family. Keep the adda welcoming.</p>`;rules.hidden=false;rules.style.display='block';rules.setAttribute('aria-hidden','false')}
+function showNotice(msg){const old=$('.nv-notice');if(old)old.remove();const n=document.createElement('div');n.className='nv-notice';n.textContent=msg;document.body.appendChild(n);setTimeout(()=>n.remove(),2800)}
+
+// Identify the existing UI's composer and chat stream without importing any markup from the source UI.
+let input=$('input[placeholder="Type a message..."]'), sendBtn=$('[aria-label="Send message"]')||$('button[title="Send message"]');
+let stream=$('#chatMessageStream');if(!stream){const art=$('article');stream=art?.parentElement||null;}
+if(input){input.removeAttribute('readonly');input.setAttribute('maxlength','1000');input.setAttribute('aria-label','Type a message');}
+if(sendBtn)sendBtn.id='nvSendMessage';
+let originalArticles=stream?$$('article',stream):[];
+const template=originalArticles[0]?.cloneNode(true)||null;
+function articleData(art){const nameEl=$('.font-semibold',art)||$('span',art);const p=$('p',art);const timeEl=$$('span',art).find(x=>/^\d{1,2}:\d{2}\s?(AM|PM)$/i.test(x.textContent.trim()));const img=$('img',art);const av=img?.getAttribute('src')||'';return {name:nameEl?.textContent.trim()||'Member',text:p?.textContent.trim()||'',displayTime:timeEl?.textContent.trim()||'',photo:av};}
+function addActionBar(art,id,owner=''){art.dataset.chatId=id;if(owner)art.dataset.chatOwner=owner;let bar=$('.nv-msg-actions',art);if(!bar){bar=document.createElement('div');bar.className='nv-msg-actions';const last=art.lastElementChild||art;last.appendChild(bar)}bar.innerHTML='';const reply=document.createElement('button');reply.type='button';reply.textContent='↩ Reply';reply.addEventListener('click',()=>{const d=articleData(art);replyTarget={id,name:d.name,text:d.text};showReply();if(input)input.focus()});bar.appendChild(reply);if(owner&&owner===current){const del=document.createElement('button');del.type='button';del.className='delete';del.textContent='Delete';del.addEventListener('click',async()=>{if(nvBackendReady()){const {error}=await nvSupabase.from('nv_messages').delete().eq('id',id).eq('user_id',nvAuthUserId);if(error){showNotice('Delete failed: '+error.message);return}}messages=messages.filter(m=>m.id!==id);save();art.remove();showNotice('Message deleted.')});bar.appendChild(del)}const nameEl=$('.font-semibold',art)||$('span',art);if(nameEl){nameEl.classList.add('nv-click-name');nameEl.title='View member profile';nameEl.addEventListener('click',()=>showPublic(owner||nameEl.textContent.trim()))}}
+function findComposer(){if(!input)return null;let node=input.parentElement;for(let i=0;i<5&&node;i++,node=node.parentElement){if(node.querySelector('button[aria-label="Send message"],button[title="Send message"],#nvSendMessage'))return node}return input.parentElement}
+const composer=$('#chatForm')||findComposer();let replyBanner=null;if(composer){replyBanner=document.createElement('div');replyBanner.className='nv-reply-banner';replyBanner.hidden=true;if(composer.parentElement)composer.parentElement.insertBefore(replyBanner,composer);else composer.insertBefore(replyBanner,composer.firstChild)}
+function showReply(){if(!replyBanner)return;replyBanner.hidden=!replyTarget;if(replyTarget){replyBanner.innerHTML=`<span>Replying to <b>${safe(replyTarget.name)}</b>: ${safe(replyTarget.text.slice(0,100))}</span><button type="button" aria-label="Cancel reply">Cancel ✕</button>`;$('button',replyBanner).onclick=()=>{replyTarget=null;showReply()}}else replyBanner.innerHTML=''}
+function makeArticle(m){if(!template||!stream)return null;const art=template.cloneNode(true);const nameEl=$('.font-semibold',art)||$('span',art);if(nameEl)nameEl.textContent=m.name||'Member';const p=$('p',art);if(p)p.textContent=m.text||'';const timeEl=$$('span',art).find(x=>/^\d{1,2}:\d{2}\s?(AM|PM)$/i.test(x.textContent.trim()));if(timeEl)timeEl.textContent=displayTime(m.displayTime||m.time);const img=$('img',art);const avatarDiv=$('div.rounded-full',art);if(img){if(m.photo)img.src=m.photo;else {const d=document.createElement('div');d.className=img.className+' flex items-center justify-center bg-[#092244] text-cyan-300 font-bold';d.style.width=img.style.width||'';d.textContent=(m.name||'M').slice(0,2).toUpperCase();img.replaceWith(d)}}else if(avatarDiv)avatarDiv.textContent=(m.name||'M').slice(0,2).toUpperCase();$$('.reaction-pill,button').filter(b=>b.classList.contains('reaction-pill')||b.textContent.includes('12')||b.textContent.includes('15')).forEach(b=>{if(b.closest('article')===art)b.remove()});if(m.reply){const pEl=$('p',art);if(pEl){const q=document.createElement('div');q.className='nv-rules';q.style.margin='0 0 7px';q.style.padding='6px 8px';q.style.fontSize='11px';q.textContent='↳ Replying to '+m.reply.name+': '+String(m.reply.text||'').slice(0,100);pEl.parentElement.insertBefore(q,pEl)}}const own=m.username===current;art.classList.add(own?'nv-own-message':'nv-incoming-message');addActionBar(art,m.id,m.username||'');if(typeof bindMessageGestures==='function')bindMessageGestures(art);return art}
+function appendSavedMessages(){if(!stream||!template)return;messages.forEach(m=>{if(!m.id||$(`[data-chat-id="${CSS.escape(m.id)}"]`,stream))return;const art=makeArticle(m);if(art)stream.appendChild(art)});stream.scrollTop=stream.scrollHeight}
+function refreshSavedMessages(){if(!stream)return;$$('[data-chat-id]',stream).filter(a=>!String(a.dataset.chatId||'').startsWith('sample-')).forEach(a=>a.remove());appendSavedMessages()}
+// Existing demo messages are retained exactly as part of the new UI; add only interaction controls.
+originalArticles.forEach((art,i)=>{const d=articleData(art);addActionBar(art,'sample-'+i,'');$$('button',art).filter(b=>b.classList.contains('reaction-pill')).forEach(b=>b.addEventListener('click',()=>{const count=$('.count',b);if(!count)return;const reacted=b.dataset.reacted==='true';count.textContent=String(Math.max(0,Number(count.textContent||0)+(reacted?-1:1)));b.dataset.reacted=reacted?'false':'true'}))});
+// WhatsApp-like interactions: double-click/right-click (or long press) reveals actions; swipe right to reply.
+function bindMessageGestures(art){if(!art||art.dataset.nvGestures==='1')return;art.dataset.nvGestures='1';let startX=0,startY=0,downAt=0,longPress=null,swiped=false;const openActions=()=>art.classList.toggle('nv-actions-open');art.addEventListener('dblclick',e=>{if(e.target.closest('button,a'))return;openActions()});art.addEventListener('contextmenu',e=>{if(art.dataset.chatOwner===current&&current){e.preventDefault();art.classList.add('nv-actions-open')}});art.addEventListener('pointerdown',e=>{if(e.target.closest('button,input,textarea'))return;startX=e.clientX;startY=e.clientY;downAt=Date.now();swiped=false;clearTimeout(longPress);if(e.pointerType!=='mouse')longPress=setTimeout(()=>{if(art.dataset.chatOwner===current&&current)art.classList.add('nv-actions-open')},550)});art.addEventListener('pointermove',e=>{if(!downAt)return;const dx=e.clientX-startX,dy=e.clientY-startY;if(Math.abs(dx)>12||Math.abs(dy)>12)clearTimeout(longPress);if(dx>18&&Math.abs(dx)>Math.abs(dy)*1.25){swiped=true;art.classList.add('nv-swipe-active');art.style.transform=`translateX(${Math.min(48,dx*.25)}px)`}});const end=()=>{clearTimeout(longPress);if(swiped){const d=articleData(art);replyTarget={id:art.dataset.chatId||'',name:d.name,text:d.text};showReply();if(input)input.focus();showNotice('Replying to '+d.name);art.style.transform='';art.classList.remove('nv-swipe-active')}downAt=0};art.addEventListener('pointerup',end);art.addEventListener('pointercancel',end);if(!art.querySelector('.nv-swipe-hint')){const hint=document.createElement('span');hint.className='nv-swipe-hint';hint.textContent='↩';art.appendChild(hint)}}
+
+originalArticles.forEach(bindMessageGestures);
+if(!nvBackendReady()&&!messages.length){messages.push({id:'welcome-message',username:'navodayan_chat',name:'NAVODAYAN CHAT',photo:'',status:'Welcome',text:'Welcome to the adda! Say hello and share a Navodaya memory. ✦',time:timeNow(),reply:null});save()}
+appendSavedMessages();
+async function send(){const text=input?.value.trim();if(!text)return;if(!profile()){showNotice('Please create or sign in to a profile before sending messages.');openEditor();return}const p=profile(),exit=Number(p.entryYear)+7;const m={id:Date.now().toString(36)+Math.random().toString(36).slice(2,8),username:current,name:p.name||currentAccount().username,photo:p.photo||'',status:new Date().getFullYear()<exit?'Navodayan':'Ex-Navodayan',text,time:timeNow(),reply:replyTarget?{...replyTarget}:null};if(nvBackendReady()){try{const row={id:m.id,user_id:nvAuthUserId,username:m.username,name:m.name,photo:m.photo,status:m.status,body:m.text,reply:m.reply,created_at:m.time};const {error}=await nvSupabase.from('nv_messages').insert(row);if(error)throw error}catch(err){showNotice('Message was not sent: '+err.message);return}}messages.push(m);if(messages.length>500)messages=messages.slice(-500);save();const art=makeArticle(m);if(art&&!stream.querySelector(`[data-chat-id="${CSS.escape(m.id)}"]`))stream.appendChild(art);if(input)input.value='';replyTarget=null;showReply();if(stream)stream.scrollTop=stream.scrollHeight}
+if(sendBtn)sendBtn.addEventListener('click',send);if(input)input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}});
+
+// Connect the existing profile, rules and mobile drawer controls; their original visual design remains untouched.
+const textOf=el=>(el?.textContent||'').replace(/\s+/g,' ').trim().toLowerCase();
+$$('button').forEach(b=>{const t=textOf(b);if(t==='edit profile')b.addEventListener('click',openEditor);if(t==='chatroom rules')b.addEventListener('click',showRules);if(t==='back to chat')b.addEventListener('click',()=>{const drawer=$('#mobileDrawer');if(drawer){drawer.classList.add('hidden');drawer.classList.remove('flex')}})});
+const drawer=$('#mobileDrawer');const nav=$('#mobileNavToggle'),right=$('#mobileRightPanelToggle'),close=$('#closeDrawerBtn');if(nav&&drawer)nav.addEventListener('click',()=>{drawer.classList.remove('hidden');drawer.classList.add('flex')});if(right&&drawer)right.addEventListener('click',()=>{drawer.classList.remove('hidden');drawer.classList.add('flex')});if(close&&drawer)close.addEventListener('click',()=>{drawer.classList.add('hidden');drawer.classList.remove('flex')});if(drawer)drawer.addEventListener('click',e=>{if(e.target===drawer){drawer.classList.add('hidden');drawer.classList.remove('flex')}});
+// Avatar/profile cards are clickable entry points to the saved profile.
+const userHeader=$('#userHeaderAvatar');if(userHeader){userHeader.classList.add('nv-current-avatar');userHeader.addEventListener('click',showProfile)}
+$$('div').filter(d=>d.children.length>1&&textOf(d).startsWith('your profile')&&d.getBoundingClientRect().width>0).slice(0,2).forEach(d=>{d.classList.add('nv-current-avatar');d.addEventListener('click',showProfile)});
+function updateProfileUI(){const p=profile();const name=p?.name||'Ayush';const flagColor=p?.flagColor||'#22d3ee';const profileFlagCard=document.querySelector('[data-purpose="profile-banner"]');if(profileFlagCard){const flagSvg=profileFlagCard.querySelector('svg.w-5.h-5');if(flagSvg){flagSvg.style.color=flagColor;flagSvg.style.fill=flagColor;flagSvg.querySelector('path')?.setAttribute('fill',flagColor);}}else{const profileSection=document.getElementById('nvProfileCardMenu')?.closest('section');const flagSvg=profileSection?.querySelector('svg.w-5.h-5');if(flagSvg){flagSvg.style.color=flagColor;flagSvg.style.fill=flagColor;flagSvg.querySelector('path')?.setAttribute('fill',flagColor);}}const header=$('#userHeaderAvatar');if(header){const img=$('img',header);if(p?.photo){if(img)img.src=p.photo;else header.innerHTML=`<img src="${safe(p.photo)}" alt="Your profile" class="w-full h-full rounded-full object-cover">`}else if(img)img.remove()}
+$$('span').forEach(s=>{if(s.textContent.trim()==='Ayush')s.textContent=name});$$('div').forEach(d=>{if(d.children.length===0&&d.textContent.trim()==='AY'&&d.classList.contains('rounded-full'))d.textContent=(name||'A').slice(0,2).toUpperCase()});}
+// Public bridge for shared community features; keep auth/client internals scoped above.
+window.NV_COMMUNITY_API = {
+  getClient: () => nvSupabase,
+  getUserId: () => nvAuthUserId,
+  getProfile: () => { const p = profile(); return p ? { name: p.name || '', photo: p.photo || '', username: accounts[current]?.username || '' } : null; },
+  getSession: async () => { if (!nvSupabase) return null; const { data, error } = await nvSupabase.auth.getSession(); if (error) throw error; return data.session || null; }
+};
+updateProfileUI();
+// Restore the last signed-in account after a refresh/reopen. A cloud restore failure
+// must not prevent the local saved-account fallback from running.
+(async function restoreLogin(){
+  const restoreLocalAccount = () => {
+    const last=localStorage.getItem(LAST);
+    if(!last || !accounts[last]) return false;
+    current=last;
+    if(accounts[last].profile) unlockChat();
+    else { loginGate.style.display='none'; openEditor(); f('nvName').value=accounts[last].username||last; }
+    return true;
+  };
+  if(nvBackendReady()){
+    try{
+      const {data,error}=await nvSupabase.auth.getSession();
+      if(error) throw error;
+      const session=data?.session;
+      if(session?.user){
+        nvAuthUserId=session.user.id;
+        const username=String(session.user.user_metadata?.username||session.user.email||'').replace(/@accounts\\.navodayan\\.invalid$/i,'').trim();
+        if(username){
+          const k=key(username);
+          const remoteProfile=await nvFetchRemoteProfile(username);
+          current=k;
+          accounts[k]={...(accounts[k]||{}),username,passwordHash:'cloud-auth',profile:remoteProfile||accounts[k]?.profile||null,created:accounts[k]?.created||timeNow()};
+          save();
+          if(accounts[k].profile){await nvLoadRemoteMessages();unlockChat();}
+          else{loginGate.style.display='none';openEditor();f('nvName').value=username;}
+          return;
+        }
+      }
+    }catch(err){
+      console.warn('Cloud login restore failed; trying saved local account:',err);
+    }
+  }
+  if(!restoreLocalAccount()) loginGate.style.display='flex';
+})();
+})();
