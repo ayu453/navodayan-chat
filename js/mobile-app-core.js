@@ -44,6 +44,9 @@ async function nvSignInOrSignUp(username,password){
   const email=nvUsernameEmail(username);
   let result=await nvSupabase.auth.signInWithPassword({email,password});
   if(result.error){
+    // Only an invalid-credentials response may enter the new-account path.
+    // Network/configuration/rate-limit errors must never trigger signup.
+    if(result.error.code!=='invalid_credentials') throw result.error;
     result=await nvSupabase.auth.signUp({email,password,options:{data:{username}}});
     if(result.error) throw new Error('Login failed. Check username/password. New accounts also require Supabase email confirmation to be disabled for this username-only login flow. Details: '+result.error.message);
     if(!result.data.session) throw new Error('Account created, but Supabase is waiting for email confirmation. In Supabase Auth settings, disable Confirm email for this username-only setup, then sign in again.');
