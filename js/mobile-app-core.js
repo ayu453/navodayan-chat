@@ -6,7 +6,7 @@ const DB='navodayanChatDemo_v1', ACC=DB+'_accounts', MSG=DB+'_messages', LAST=DB
 const NV_SUPABASE_URL = window.parent.NAVODAYAN_SUPABASE_URL || 'YOUR_SUPABASE_PROJECT_URL';
 const NV_SUPABASE_ANON_KEY = window.parent.NAVODAYAN_SUPABASE_ANON_KEY || 'YOUR_SUPABASE_ANON_KEY';
 const nvSupabase = (window.supabase && /^https:\/\/.+/.test(NV_SUPABASE_URL) && !NV_SUPABASE_URL.includes('YOUR_') && !NV_SUPABASE_ANON_KEY.includes('YOUR_'))
-  ? window.supabase.createClient(NV_SUPABASE_URL, NV_SUPABASE_ANON_KEY) : null;
+  ? window.supabase.createClient(NV_SUPABASE_URL, NV_SUPABASE_ANON_KEY, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storage: window.localStorage, storageKey: 'navodayan-chat-auth-v1' } }) : null;
 let nvAuthUserId = null, nvRealtimeChannel = null;
 const nvUsernameEmail = u => `${String(u||'').trim().toLowerCase()}@accounts.navodayan.invalid`;
 const nvBackendReady = () => !!nvSupabase;
@@ -61,7 +61,31 @@ try{accounts=JSON.parse(localStorage.getItem(ACC)||'{}');messages=JSON.parse(loc
 if(!accounts || typeof accounts!=='object') accounts={}; if(!Array.isArray(messages)) messages=[];
 let currentAccount=()=>current && accounts[current] ? accounts[current] : null;
 let profile=()=>currentAccount()?.profile || null;
-const save=()=>{try{localStorage.setItem(ACC,JSON.stringify(accounts));localStorage.setItem(MSG,JSON.stringify(messages));if(current)localStorage.setItem(LAST,current);else localStorage.removeItem(LAST)}catch(e){showNotice('Browser storage is full. Try using a smaller profile photo.')}};
+const save=()=>{
+  try{
+    // Save the active account pointer first so a large photo or message cache
+    // can never prevent the browser from remembering who was signed in.
+    if(current)localStorage.setItem(LAST,current);else localStorage.removeItem(LAST);
+    localStorage.setItem(ACC,JSON.stringify(accounts));
+    localStorage.setItem(MSG,JSON.stringify(messages));
+  }catch(e){
+    try{
+      // Quota-safe fallback: retain credentials/profile fields, drop only
+      // cached photo data and old message cache. Cloud photo remains in Supabase.
+      const compact={};
+      Object.keys(accounts).forEach(k=>{
+        const a=accounts[k]||{},p=a.profile;
+        compact[k]={...a,profile:p?{...p,photo:''}:null};
+      });
+      localStorage.setItem(ACC,JSON.stringify(compact));
+      localStorage.setItem(MSG,JSON.stringify(messages.slice(-100)));
+      if(current)localStorage.setItem(LAST,current);
+      showNotice('Saved your login. Some older cached chat items or the local photo preview were cleared to make storage space.');
+    }catch(retryError){
+      showNotice('Browser storage is full. Your cloud login may still restore automatically; clear some browser site storage only if this keeps happening.');
+    }
+  }
+};
 const hash=async v=>{try{if(globalThis.crypto?.subtle){const b=new TextEncoder().encode(v),d=await crypto.subtle.digest('SHA-256',b);return Array.from(new Uint8Array(d),x=>x.toString(16).padStart(2,'0')).join('')}}catch(e){}return 'demo-only:'+v};
 const timeNow=()=>new Date().toISOString();
 const displayTime=v=>{if(!v)return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});if(/^\d{1,2}:\d{2}\s?(AM|PM)$/i.test(v))return v;const d=new Date(v);return isNaN(d)?String(v):d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})};
@@ -166,7 +190,8 @@ updateProfileUI();
 // must not prevent the local saved-account fallback from running.
 (async function restoreLogin(){
   const restoreLocalAccount = () => {
-    const last=localStorage.getItem(LAST);
+    let last='';
+    try{last=localStorage.getItem(LAST)||'';}catch(e){}
     if(!last || !accounts[last]) return false;
     current=last;
     if(accounts[last].profile) unlockChat();
